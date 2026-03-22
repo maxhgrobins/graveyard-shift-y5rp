@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cnvdjeggwrlm2"]
+
+[ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="1_fgojs"]
+[ext_resource type="Script" uid="uid://cdhetkjv525ax" path="res://prefabs/arrow_proj.gd" id="1_pkkcr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkkcr"]
+size = Vector3(0.015625, 0.0234375, 0.28246498)
+
+[node name="arrow_proj" type="Area3D" unique_id=1022336510]
+collision_mask = 0
+script = ExtResource("1_pkkcr")
+
+[node name="Arrow" parent="." unique_id=459127550 instance=ExtResource("1_fgojs")]
+transform = Transform3D(-1, 6.9084194e-08, -3.019766e-15, 0, -1.9999007e-08, -0.45752394, -1.509958e-07, -0.45752394, 1.9999007e-08, 0.043744266, 0, 0.30411077)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1108328379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.14141734)
+shape = SubResource("BoxShape3D_pkkcr")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=965156692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.06078361)
+target_position = Vector3(0, 0, -1)
+debug_shape_thickness = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
