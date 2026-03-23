@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="2_hqtel"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="2_sweqy"]
 [ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="3_2hs0m"]
-[ext_resource type="PackedScene" uid="uid://c78tjrtiyqna8" path="res://addons/godot-xr-tools/functions/movement_grapple.tscn" id="4_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_sweqy"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="4_sweqy"]
 
 [node name="XROrigin3D" type="XROrigin3D" unique_id=1709107786]
@@ -22,6 +22,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, -0.05, 0.1)
 
 [node name="LeftHand" parent="left hand controller" unique_id=1335597349 instance=ExtResource("2_sweqy")]
 
+[node name="MovementDirect" parent="left hand controller" unique_id=694986838 instance=ExtResource("3_sweqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
+strafe = true
+
 [node name="right hand controller" type="XRController3D" parent="." unique_id=1507010973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
@@ -31,12 +35,6 @@ pose = &"aim"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
 
 [node name="RightHand" parent="right hand controller" unique_id=179675335 instance=ExtResource("3_2hs0m")]
-
-[node name="MovementGrapple" parent="right hand controller" unique_id=571367692 instance=ExtResource("4_2hs0m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
-visible = false
-grapple_length = 150.0
-grapple_enable_mask = 17
 
 [node name="PlayerBody" parent="." unique_id=354562524 instance=ExtResource("4_sweqy")]
 player_calibrate_height = false

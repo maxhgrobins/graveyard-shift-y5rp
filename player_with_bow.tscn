@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://ba0qf4h8r4hq7"]
+
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="1_hkces"]
+[ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="2_8p1s3"]
+[ext_resource type="PackedScene" uid="uid://bl6my8omwh5t6" path="res://Models/Bows/Long Bow.fbx" id="2_wl08o"]
+[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_cceie"]
+[ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="4_prgow"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_h06vi"]
+[ext_resource type="PackedScene" uid="uid://c24ay6pa3cdkd" path="res://dyanmic_bow.tscn" id="5_prgow"]
+[ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="6_cceie"]
+[ext_resource type="PackedScene" uid="uid://ctrc00vjmqg8e" path="res://prefabs/arrow.tscn" id="9_h06vi"]
+[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="10_c2te6"]
+
+[node name="XROrigin3D" type="XROrigin3D" unique_id=1709107786]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=4591853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="left hand controller" type="XRController3D" parent="." unique_id=1213029828]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
+tracker = &"left_hand"
+pose = &"aim"
+
+[node name="FunctionPickup" parent="left hand controller" unique_id=1458383960 instance=ExtResource("1_hkces")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, -0.05, 0.1)
+visible = false
+
+[node name="LeftHand" parent="left hand controller" unique_id=1335597349 instance=ExtResource("2_8p1s3")]
+visible = false
+
+[node name="MovementDirect" parent="left hand controller" unique_id=694986838 instance=ExtResource("3_cceie")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
+strafe = true
+
+[node name="bowpoint" type="Node3D" parent="left hand controller" unique_id=1251525673]
+transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
+
+[node name="Long Bow" parent="left hand controller/bowpoint" unique_id=236999903 instance=ExtResource("2_wl08o")]
+transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, -0.77009577, 0.02404502)
+visible = false
+
+[node name="dyanmic_bow" parent="left hand controller/bowpoint" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
+TEST_HAND = NodePath("../../../Arrow2")
+
+[node name="right hand controller" type="XRController3D" parent="." unique_id=1507010973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
+tracker = &"right_hand"
+pose = &"aim"
+
+[node name="FunctionPickup" parent="right hand controller" unique_id=1226187196 instance=ExtResource("1_hkces")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
+
+[node name="RightHand" parent="right hand controller" unique_id=179675335 instance=ExtResource("4_prgow")]
+
+[node name="Arrow" parent="right hand controller" unique_id=1001727064 instance=ExtResource("6_cceie")]
+transform = Transform3D(0.58, 0, 0, 0, -0.019229975, 0.5796811, 0, -0.5796811, -0.019229975, 0, -0.017483473, 0.102868766)
+
+[node name="PlayerBody" parent="." unique_id=354562524 instance=ExtResource("5_h06vi")]
+player_calibrate_height = false
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1537604645]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2578638, 1.1859875, -0.08533274)
+current = true
+
+[node name="Arrow2" parent="." unique_id=876499146 node_paths=PackedStringArray("bow") instance=ExtResource("9_h06vi")]
+transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, -0.491, 0.93, -0.412)
+script = ExtResource("10_c2te6")
+bow = NodePath("../left hand controller/bowpoint/dyanmic_bow")

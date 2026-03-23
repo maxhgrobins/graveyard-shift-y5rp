@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://c24ay6pa3cdkd"]
+
+[ext_resource type="Script" uid="uid://c1c0pu64weohs" path="res://dyanmic_bow.gd" id="1_2evm6"]
+[ext_resource type="Script" uid="uid://bvdeoxq8ga7if" path="res://bow_string_renderer.gd" id="2_wjvit"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjvit"]
+size = Vector3(0.015, 0.275, 0.015)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7dxm"]
+size = Vector3(0.035, 0.035, 0.035)
+
+[node name="dyanmic_bow" type="Node3D" unique_id=1492525915]
+script = ExtResource("1_2evm6")
+
+[node name="shaft" type="MeshInstance3D" parent="." unique_id=1046866500]
+mesh = SubResource("BoxMesh_wjvit")
+
+[node name="toptip" type="MeshInstance3D" parent="." unique_id=1900846504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0.05)
+mesh = SubResource("BoxMesh_e7dxm")
+
+[node name="TopLineHelper" type="Node3D" parent="toptip" unique_id=162224429]
+
+[node name="TopLine" type="CSGCylinder3D" parent="toptip/TopLineHelper" unique_id=918002794]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+radius = 0.001
+height = 0.3
+sides = 4
+
+[node name="bottomtip" type="MeshInstance3D" parent="." unique_id=652005938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0.05)
+mesh = SubResource("BoxMesh_e7dxm")
+
+[node name="BottomLineHelper" type="Node3D" parent="bottomtip" unique_id=1978850329]
+
+[node name="BottomLine" type="CSGCylinder3D" parent="bottomtip/BottomLineHelper" unique_id=1533419074]
+transform = Transform3D(0.000120558914, -0.0013990231, 0.99999905, 0.99998057, -0.00623156, -0.00012926718, 0.006231734, 0.9999796, 0.0013982455, 0, 0, 0)
+radius = 0.001
+height = 0.3
+sides = 4
+
+[node name="pullpoint" type="MeshInstance3D" parent="." unique_id=807114007]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+mesh = SubResource("BoxMesh_e7dxm")
+
+[node name="bowstring" type="Node" parent="." unique_id=1654685248]
+script = ExtResource("2_wjvit")
