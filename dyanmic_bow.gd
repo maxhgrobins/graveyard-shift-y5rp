@@ -14,6 +14,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#stick to hand
+	global_position = get_parent().global_position
 	
 	# waggle the bow
 	if pullpoint and toptip and bottomtip:
@@ -27,5 +29,5 @@ func _process(delta: float) -> void:
 		bottomtip.position.y = -0.3 + ((pullpoint.position.z - start_offset) / 20)
 
 	# test rotation
-	pullpoint.global_transform = TEST_HAND.global_transform
-	look_at(pullpoint.global_position, Vector3.UP, true)
+	look_at(TEST_HAND.global_position, get_parent().global_basis.y, true)
+	#pullpoint.global_transform = TEST_HAND.global_transform 

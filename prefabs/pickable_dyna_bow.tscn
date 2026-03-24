@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://crc4k4kukk680"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_ja1l5"]
+[ext_resource type="PackedScene" uid="uid://c24ay6pa3cdkd" path="res://dyanmic_bow.tscn" id="2_kdrrl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l334s"]
+margin = 0.01
+size = Vector3(0.1, 0.27486572, 0.013830567)
+
+[node name="pickable_dyna_bow" unique_id=1548699667 instance=ExtResource("1_ja1l5")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00036011264, -0.00020141713)
+shape = SubResource("BoxShape3D_l334s")
+
+[node name="dyanmic_bow" parent="." index="1" unique_id=1492525915 instance=ExtResource("2_kdrrl")]

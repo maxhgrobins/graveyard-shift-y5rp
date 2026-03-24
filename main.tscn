@@ -50,6 +50,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_272bh")
 
 [node name="Bow" parent="." unique_id=621028002 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(0.041945383, -0.9991199, 0, 0.9991199, 0.041945383, 0, 0, 0, 1, 0.726935, 0.7903235, 0.87201595)
+visible = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1608970108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8470385, 0.58051014, -1.0403358)
@@ -69,5 +70,5 @@ use_collision = true
 size = Vector3(0.33792877, 0.7327881, 0.39697266)
 material = SubResource("StandardMaterial3D_5vw27")
 
-[node name="Node3D" parent="." unique_id=288981158 instance=ExtResource("6_7mycd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2806873, 0)
+[node name="XROrigin3D" parent="." unique_id=1709107786 instance=ExtResource("6_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.25, 0.6871306)

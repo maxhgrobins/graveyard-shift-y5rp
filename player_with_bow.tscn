@@ -15,6 +15,7 @@
 
 [node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=4591853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+current = true
 
 [node name="left hand controller" type="XRController3D" parent="." unique_id=1213029828]
 physics_interpolation_mode = 1
@@ -40,8 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.76183
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, -0.77009577, 0.02404502)
 visible = false
 
-[node name="dyanmic_bow" parent="left hand controller/bowpoint" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
-TEST_HAND = NodePath("../../../Arrow2")
+[node name="dyanmic_bow" parent="left hand controller" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
+transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
+TEST_HAND = NodePath("../../right hand controller")
 
 [node name="right hand controller" type="XRController3D" parent="." unique_id=1507010973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
@@ -55,15 +57,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
 
 [node name="Arrow" parent="right hand controller" unique_id=1001727064 instance=ExtResource("6_cceie")]
 transform = Transform3D(0.58, 0, 0, 0, -0.019229975, 0.5796811, 0, -0.5796811, -0.019229975, 0, -0.017483473, 0.102868766)
+visible = false
+
+[node name="Arrow2" parent="right hand controller" unique_id=876499146 node_paths=PackedStringArray("bow") instance=ExtResource("9_h06vi")]
+transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0)
+script = ExtResource("10_c2te6")
+bow = NodePath("../../left hand controller/dyanmic_bow")
 
 [node name="PlayerBody" parent="." unique_id=354562524 instance=ExtResource("5_h06vi")]
 player_calibrate_height = false
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1537604645]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.2578638, 1.1859875, -0.08533274)
-current = true
-
-[node name="Arrow2" parent="." unique_id=876499146 node_paths=PackedStringArray("bow") instance=ExtResource("9_h06vi")]
-transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, -0.491, 0.93, -0.412)
-script = ExtResource("10_c2te6")
-bow = NodePath("../left hand controller/bowpoint/dyanmic_bow")
