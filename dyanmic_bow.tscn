@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bvdeoxq8ga7if" path="res://bow_string_renderer.gd" id="2_wjvit"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wjvit"]
-size = Vector3(0.015, 0.275, 0.015)
+size = Vector3(0.015, 0.275, 0.005)
 
 [sub_resource type="BoxMesh" id="BoxMesh_e7dxm"]
-size = Vector3(0.035, 0.035, 0.035)
+size = Vector3(0.035, 0.035, 0.015)
 
 [node name="dyanmic_bow" type="Node3D" unique_id=1492525915]
 script = ExtResource("1_2evm6")
@@ -16,7 +16,7 @@ script = ExtResource("1_2evm6")
 mesh = SubResource("BoxMesh_wjvit")
 
 [node name="toptip" type="MeshInstance3D" parent="." unique_id=1900846504]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0.05)
+transform = Transform3D(1, 0, 0, 0, 0.90630776, -0.42261827, 0, 0.42261827, 0.90630776, 0, 0.3, 0.05)
 mesh = SubResource("BoxMesh_e7dxm")
 
 [node name="TopLineHelper" type="Node3D" parent="toptip" unique_id=162224429]
@@ -28,7 +28,7 @@ height = 0.3
 sides = 4
 
 [node name="bottomtip" type="MeshInstance3D" parent="." unique_id=652005938]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0.05)
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, -0.3, 0.05)
 mesh = SubResource("BoxMesh_e7dxm")
 
 [node name="BottomLineHelper" type="Node3D" parent="bottomtip" unique_id=1978850329]
