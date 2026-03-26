@@ -1,0 +1,4 @@
+[gd_resource type="OpenXRHapticVibration" format=3 uid="uid://bngb2kfe5osy2"]
+
+[resource]
+resource_name = "test"

@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://ctrc00vjmqg8e"]
 
 [ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="1_eah3a"]
+[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="2_6ga5o"]
 
 [node name="Arrow" unique_id=1001727064 instance=ExtResource("1_eah3a")]
+transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0)
+script = ExtResource("2_6ga5o")
 
-[node name="Arrow" parent="." index="0" unique_id=529077965]
+[node name="Arrow" parent="." index="0" unique_id=894804147]
 transform = Transform3D(100.000015, 0, 0, 0, -100.00001, 8.742278e-06, 0, -8.742278e-06, -100.00001, 0.0001513958, -0.00036928058, -0.291238)

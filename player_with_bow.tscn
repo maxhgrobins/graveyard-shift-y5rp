@@ -9,13 +9,30 @@
 [ext_resource type="PackedScene" uid="uid://c24ay6pa3cdkd" path="res://dyanmic_bow.tscn" id="5_prgow"]
 [ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="6_cceie"]
 [ext_resource type="PackedScene" uid="uid://ctrc00vjmqg8e" path="res://prefabs/arrow.tscn" id="9_h06vi"]
-[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="10_c2te6"]
+[ext_resource type="Script" uid="uid://dk4o0ih7fnxwd" path="res://arrow_grab.gd" id="11_pjw0h"]
+[ext_resource type="OpenXRHapticVibration" uid="uid://bngb2kfe5osy2" path="res://test_haptic.tres" id="12_5ihqb"]
+[ext_resource type="Script" uid="uid://diakat3pl7d03" path="res://haptic_manager.gd" id="13_4u0xe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ihqb"]
+size = Vector3(0.20709229, 0.17091675, 0.22)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wbtds"]
+size = Vector3(0.08703613, 0.12298584, 0.18756104)
 
 [node name="XROrigin3D" type="XROrigin3D" unique_id=1709107786]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=4591853]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
+
+[node name="QuiverArea" type="Area3D" parent="XRCamera3D" unique_id=1213667879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10468149, 0.22399536)
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRCamera3D/QuiverArea" unique_id=1619070342]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17178345, -0.03125918, 0)
+shape = SubResource("BoxShape3D_5ihqb")
+debug_color = Color(0.94509804, 0, 0.6117647, 1)
 
 [node name="left hand controller" type="XRController3D" parent="." unique_id=1213029828]
 physics_interpolation_mode = 1
@@ -36,6 +53,7 @@ strafe = true
 
 [node name="bowpoint" type="Node3D" parent="left hand controller" unique_id=1251525673]
 transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
+visible = false
 
 [node name="Long Bow" parent="left hand controller/bowpoint" unique_id=236999903 instance=ExtResource("2_wl08o")]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, -0.77009577, 0.02404502)
@@ -59,10 +77,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
 transform = Transform3D(0.58, 0, 0, 0, -0.019229975, 0.5796811, 0, -0.5796811, -0.019229975, 0, -0.017483473, 0.102868766)
 visible = false
 
-[node name="Arrow2" parent="right hand controller" unique_id=876499146 node_paths=PackedStringArray("bow") instance=ExtResource("9_h06vi")]
-transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0)
-script = ExtResource("10_c2te6")
-bow = NodePath("../../left hand controller/dyanmic_bow")
+[node name="Arrow2" parent="right hand controller" unique_id=876499146 instance=ExtResource("9_h06vi")]
+visible = false
+
+[node name="HandArea" type="Area3D" parent="right hand controller" unique_id=442000693]
+collision_mask = 16
+script = ExtResource("11_pjw0h")
+arrow_scene = ExtResource("9_h06vi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right hand controller/HandArea" unique_id=1558289753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020080566, -0.032318115, 0.071380615)
+shape = SubResource("BoxShape3D_wbtds")
+debug_color = Color(0.97230154, 0, 0.44529122, 0.41960785)
 
 [node name="PlayerBody" parent="." unique_id=354562524 instance=ExtResource("5_h06vi")]
 player_calibrate_height = false
+
+[node name="HapticManager" type="Node" parent="." unique_id=598343912]
+script = ExtResource("13_4u0xe")
+test = ExtResource("12_5ihqb")
+
+[connection signal="area_entered" from="XRCamera3D/QuiverArea" to="right hand controller/HandArea" method="_on_quiver_area_area_entered"]
+[connection signal="area_exited" from="XRCamera3D/QuiverArea" to="right hand controller/HandArea" method="_on_quiver_area_area_exited"]
+[connection signal="button_pressed" from="right hand controller" to="right hand controller/HandArea" method="_on_right_hand_controller_button_pressed"]

@@ -28,6 +28,10 @@ XRToolsRumbleManager="*uid://by853dk86g1qw"
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
+[layer_names]
+
+3d_physics/layer_5="Quiver"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
@@ -37,5 +41,6 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 openxr/enabled=true
 openxr/target_api_version="1.1.53"
+openxr/default_action_map="uid://bx2v8rp7yyq45"
 openxr/extensions/render_model=true
 shaders/enabled=true
