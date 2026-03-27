@@ -1,41 +1,46 @@
 extends Area3D
 
-var arrow_held : bool = false
 var in_quiver : bool = false
 
-var arrow_node : Node3D = null
+var held_arrow : Node3D = null
 @export var arrow_scene : PackedScene
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+signal arrow_spawned(arrow_node: Node3D, hand_area: Node3D)
+signal arrow_despawned(arrow_node: Node3D, hand_area: Node3D)
 
 func _on_quiver_area_area_entered(area):
-	print("wgvagbrdehr")
+	print("quiver entered")
 	in_quiver = true
-	if not arrow_held:
-		$"../../HapticManager".play_global_haptic()
+	if held_arrow == null:
+		# TODO ambidextrous
+		HapticManager.play(HapticManager.Vibration.QUIVER_HOVER, "right_hand")
+
 
 func _on_quiver_area_area_exited(area):
 	in_quiver = false
-	if not arrow_held:
-		$"../../HapticManager".play_global_haptic()
 		
 
 func _on_right_hand_controller_button_pressed(name):
-	print(name)
 	if name == "grip_click":
-		if in_quiver and not arrow_held:
+		if in_quiver and held_arrow == null:
 			spawn_arrow()
 			
+
+func _on_right_hand_controller_button_released(name: String) -> void:
+	if name == "grip_click" and held_arrow:
+		# if nocked, bow script handles firing
+		# TODO check if nocked in some smarter way
+		if not held_arrow.get_parent().name == "pullpoint":
+			arrow_despawned.emit(held_arrow, self)
+			held_arrow.queue_free()
+			held_arrow = null
+			# TODO make physics object and drop
+			
+		
+		
 func spawn_arrow() -> void:
-	arrow_node = arrow_scene.instantiate()
-	add_child(arrow_node)
-	# Trigger a stronger "click" when the arrow actually appears
-	$"../../HapticManager".play_global_haptic()
+	held_arrow = arrow_scene.instantiate()
+	add_child(held_arrow)
+	# TODO ambidextrous
+	HapticManager.play(HapticManager.Vibration.ARROW_GRAB, "right_hand")
+	arrow_spawned.emit(held_arrow, self)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cnvdjeggwrlm2"]
 
 [ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="1_fgojs"]
-[ext_resource type="Script" uid="uid://cdhetkjv525ax" path="res://prefabs/arrow_proj.gd" id="1_pkkcr"]
+[ext_resource type="Script" uid="uid://cdhetkjv525ax" path="res://prefabs/OLD/arrow_proj.gd" id="1_pkkcr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkkcr"]
 size = Vector3(0.015625, 0.0234375, 0.28246498)

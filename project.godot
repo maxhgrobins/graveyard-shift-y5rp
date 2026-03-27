@@ -23,10 +23,15 @@ config/icon="res://icon.svg"
 
 XRToolsUserSettings="*uid://bqgb8i74tm0t"
 XRToolsRumbleManager="*uid://by853dk86g1qw"
+HapticManager="*uid://diakat3pl7d03"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+
+[global_group]
+
+arrows=""
 
 [layer_names]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://bnj8d7hsfwpa2" path="res://kenny prototype/PNG/Dark/texture_07.png" id="3_lquwl"]
-[ext_resource type="PackedScene" uid="uid://brgeudm6hc3ft" path="res://prefabs/bow.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://brgeudm6hc3ft" path="res://prefabs/OLD/bow.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://blh7j0x8cb0m1" path="res://kenny prototype/PNG/Red/texture_01.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ba0qf4h8r4hq7" path="res://player_with_bow.tscn" id="6_7mycd"]
 

@@ -6,8 +6,8 @@
 [ext_resource type="Animation" uid="uid://m5x2m8x3tcel" path="res://addons/godot-xr-tools/hands/animations/left/Pinch Tight.res" id="4_norer"]
 [ext_resource type="Script" uid="uid://dvobm6vcfnqe8" path="res://addons/godot-xr-tools/hands/poses/hand_pose_settings.gd" id="5_aj530"]
 [ext_resource type="Animation" uid="uid://ca21ej1p3g2yt" path="res://addons/godot-xr-tools/hands/animations/right/Pinch Tight.res" id="6_aa1md"]
-[ext_resource type="PackedScene" uid="uid://cnvdjeggwrlm2" path="res://prefabs/arrow_proj.tscn" id="7_xesyh"]
-[ext_resource type="Script" uid="uid://bnunaxwy1lmav" path="res://prefabs/shoot_script.gd" id="8_ugqty"]
+[ext_resource type="PackedScene" uid="uid://cnvdjeggwrlm2" path="res://prefabs/OLD/arrow_proj.tscn" id="7_xesyh"]
+[ext_resource type="Script" uid="uid://bnunaxwy1lmav" path="res://prefabs/OLD/shoot_script.gd" id="8_ugqty"]
 [ext_resource type="PackedScene" uid="uid://cbwxq8oe43bqo" path="res://Models/Bows/Arrow.fbx" id="9_aj530"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x44sh"]
