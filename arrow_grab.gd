@@ -30,11 +30,12 @@ func _on_right_hand_controller_button_released(name: String) -> void:
 	if name == "grip_click" and held_arrow:
 		# if nocked, bow script handles firing
 		# TODO check if nocked in some smarter way
-		if not held_arrow.get_parent().name == "pullpoint":
+		if !held_arrow.is_flying:
+			print("DROPPING ARROW")
 			arrow_despawned.emit(held_arrow, self)
 			held_arrow.queue_free()
 			held_arrow = null
-			# TODO make physics object and drop
+			## TODO make physics object and drop
 			
 		
 		

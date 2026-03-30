@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="2_6ga5o"]
 
 [node name="Arrow" unique_id=1001727064 instance=ExtResource("1_eah3a")]
-transform = Transform3D(0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0, 0.58000004, 0, 0, 0)
 script = ExtResource("2_6ga5o")
 
-[node name="Arrow" parent="." index="0" unique_id=894804147]
-transform = Transform3D(100.000015, 0, 0, 0, -100.00001, 8.742278e-06, 0, -8.742278e-06, -100.00001, 0.0001513958, -0.00036928058, -0.291238)
+[node name="Arrow" parent="." index="0" unique_id=529077965]
+transform = Transform3D(58.00001, 0, 0, 0, -58.000008, 5.0705216e-06, 0, -5.0705216e-06, -58.000008, 8.780957e-05, -0.00021418276, -0.16891806)

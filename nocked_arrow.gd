@@ -1,12 +1,50 @@
 extends Node3D
 
-var bow : Node3D = null
+var is_flying: bool = false
+var velocity: Vector3 = Vector3.ZERO
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+const RAY_LENGTH = 0.5
+
+func _physics_process(delta: float) -> void:
+	if is_flying:
+		# 1. Prediction: How far are we going this frame?
+		var displacement = velocity * delta
+		
+		# 2. Raycast check: Update length to match displacement
+		# We use -displacement.length() because the RayCast usually points forward (-Z)
+		# create ray
+		var space_state = get_world_3d().direct_space_state
+		var query = PhysicsRayQueryParameters3D.create(global_position, Vector3(0, 0, -displacement.length()))
+		var result = space_state.intersect_ray(query)
+
+		if result :
+			is_flying = false
+			set_process(false) # stop moving
+			
+			# snap to contact point
+			global_position = result.position
+			
+			_stick_to_target(result.collider)
+		else:
+			# gravity
+			velocity.y -= 9.8 * delta
+			
+			global_position += velocity * delta
+			
+			# arrow arc
+			if velocity.length() > 0.1:
+				look_at(global_position + velocity, Vector3.UP)
+			
+			
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-	#look_at(bow.global_position, Vector3.UP)
+func launch(force: float):
+	is_flying = true
+	velocity = -global_transform.basis.z * force
+
+func _stick_to_target(body: Object):
+	print("Hit: ", body.name)
+	# call body.take_damage() here
+	
+	# reparenting to move with whatever it hit
+	reparent(body, true)

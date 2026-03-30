@@ -4,12 +4,13 @@ extends Node3D
 @onready var toptip : Node3D = self.find_child("toptip")
 @onready var bottomtip : Node3D = self.find_child("bottomtip")
 
-@export var nock_distance: float = 0.15
+@export var nock_distance: float = 0.05
+@export var nock_range: float = 0.98
 @export var nock_lerp_speed: float = 0.15
 
 @export var TEST_HAND : Node3D	#TODO replace with robust ambidextrous solution
  
-@export var force_multiplier : float 
+@export var force_multiplier : float = 10.0
 
 var held_arrow : Node3D = null
 var arrow_hand : Node3D = null
@@ -39,35 +40,35 @@ func _process(delta: float) -> void:
 			# nocking magnetism
 			_nocking()
 			
-		BowState.LERPING:
-			if arrow_hand.global_position.distance_to(pullpoint.global_position) > nock_distance * 1.5:
-				# ABORT: The player moved their hand too far away
-				held_arrow.reparent(arrow_hand)
-				held_arrow.transform = Transform3D.IDENTITY
-				current_state = BowState.IDLE
-				HapticManager.play(HapticManager.Vibration.UI_CLICK, "right_hand")
-				return
-				
-			# Interpolate both Position and Rotation to match the string (pullpoint)
-			held_arrow.global_transform = held_arrow.global_transform.interpolate_with(
-				pullpoint.global_transform, 
-				nock_lerp_speed * delta
-			)
-			
-			# If close enough, finish nocking
-			if held_arrow.global_position.distance_to(pullpoint.global_position) < 0.01:
-				# Officially child it to the string
-				held_arrow.reparent(pullpoint)
-				held_arrow.transform = Transform3D.IDENTITY
-				current_state = BowState.NOCKED
-				HapticManager.play(HapticManager.Vibration.NOCK_SNAP)
+		#BowState.LERPING:
+			#if arrow_hand.global_position.distance_to(pullpoint.global_position) > nock_distance * 1.5:
+				## ABORT: The player moved their hand too far away
+				#held_arrow.reparent(arrow_hand)
+				#held_arrow.transform = Transform3D.IDENTITY
+				#current_state = BowState.IDLE
+				#HapticManager.play(HapticManager.Vibration.UI_CLICK, "right_hand")
+				#return
+				#
+			## Interpolate both Position and Rotation to match the string (pullpoint)
+			#held_arrow.global_transform = held_arrow.global_transform.interpolate_with(
+				#pullpoint.global_transform, 
+				#nock_lerp_speed * delta
+			#)
+			#
+			## If close enough, finish nocking
+			#if held_arrow.global_position.distance_to(pullpoint.global_position) < 0.01:
+				## Officially child it to the string
+				#held_arrow.reparent(pullpoint)
+				#held_arrow.transform = Transform3D.IDENTITY
+				#current_state = BowState.NOCKED
+				#HapticManager.play(HapticManager.Vibration.NOCK_SNAP)
 			
 		BowState.NOCKED:
 			_bend_bow()
 			# face back hand
 			look_at(TEST_HAND.global_position, get_parent().global_basis.y, true)
 			# pull string
-			pullpoint.global_transform = TEST_HAND.global_transform 
+			pullpoint.global_position = TEST_HAND.global_position 
 			
 			var current_pull = pullpoint.position.z
 			# if pulled back an extra 2cm, trigger a pulse
@@ -79,20 +80,30 @@ func _nocking():
 	if held_arrow != null:
 		var dist = pullpoint.global_position.distance_to(held_arrow.global_position)
 		
+		var arrow_forward = -held_arrow.global_basis.z.normalized()
+		var pp_forward = -pullpoint.global_basis.z.normalized()
+
+		#print("Result: ", arrow_forward.dot(pp_forward))
+		#DebugDraw3D.draw_arrow_ray(held_arrow.global_position, arrow_forward, 0.5, Color.RED, 0.01)
+		#DebugDraw3D.draw_arrow_ray(held_arrow.global_position, dir_to_bow, 0.5, Color.BLUE, 0.01)
+		#DebugDraw3D.draw_arrow_ray(pullpoint.global_position, pp_forward, 0.5, Color.GREEN, 0.01)
+		#DebugDraw3D.draw_box(pullpoint.global_position, pullpoint.global_transform.basis.get_rotation_quaternion(), Vector3.ONE * (nock_distance * 2.0), Color.RED, true)
+		
 		if dist < nock_distance:
-			var arrow_forward = held_arrow.global_transform.basis.z
-			var dir_to_bow = (pullpoint.global_position - held_arrow.global_position).normalized()
-			print("Arrow Fwd: ", arrow_forward)
-			print("Target Dir: ", dir_to_bow)
-			print("Result: ", arrow_forward.dot(dir_to_bow))
-			# Only nock if the arrow is pointing roughly at the bow handle
-			# TODO NOT HAPPY WITH THIS! WHY IS THE DOT SO LOW :(
-			# TODO MAYBE GET RID OF LERP??? JUST SNAP FOR NOW AND LERP LATER BRO...
-			if arrow_forward.dot(dir_to_bow) > 0.4: 
-				print("lined up for nocking")
-				# Move arrow to root so it can lerp independently of hand movement
-				held_arrow.reparent(get_tree().root)
-				current_state = BowState.LERPING
+
+			# Only nock if the arrow is aligned with pullpoint
+			if arrow_forward.dot(pp_forward) > nock_range:
+				print("nocking")
+				## Move arrow to root so it can lerp independently of hand movement
+				#held_arrow.reparent(get_tree().root)
+				#current_state = BowState.LERPING
+				#HapticManager.play(	HapticManager.Vibration.NOCK_SNAP, "right_hand")
+			
+				# hard snap
+				held_arrow.reparent(pullpoint)
+				held_arrow.transform = Transform3D.IDENTITY # This clears all rotation/offset
+				
+				current_state = BowState.NOCKED
 				HapticManager.play(HapticManager.Vibration.NOCK_SNAP, "right_hand")
 			
 										
@@ -107,9 +118,10 @@ func _bend_bow():
 
 func fire_arrow(arrow: Node3D):
 	var force = abs(pullpoint.position.z - start_offset) * force_multiplier
-	held_arrow.reparent(get_tree().root)
+	held_arrow.reparent(get_tree().root, true)
 	# TODO implement launch
-	#held_arrow.launch(force) 
+	print("LAUNCHING ARROW")
+	held_arrow.launch(force) 
 	
 	current_state = BowState.IDLE
 	held_arrow = null
