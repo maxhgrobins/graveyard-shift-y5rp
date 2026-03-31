@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="1_hkces"]
 [ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="2_8p1s3"]
-[ext_resource type="PackedScene" uid="uid://bl6my8omwh5t6" path="res://Models/Bows/Long Bow.fbx" id="2_wl08o"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_cceie"]
 [ext_resource type="PackedScene" uid="uid://d1tl07geqm5xq" path="res://addons/godot-xr-tools/hands/scenes/highpoly/right_fullglove_hand.tscn" id="4_prgow"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_h06vi"]
@@ -48,14 +47,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
 strafe = true
 
-[node name="bowpoint" type="Node3D" parent="left hand controller" unique_id=1251525673]
-transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
-visible = false
-
-[node name="Long Bow" parent="left hand controller/bowpoint" unique_id=236999903 instance=ExtResource("2_wl08o")]
-transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, -0.77009577, 0.02404502)
-visible = false
-
 [node name="dyanmic_bow" parent="left hand controller" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
 transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
 nock_lerp_speed = 25.0
@@ -70,9 +61,6 @@ pose = &"aim"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.05, 0.1)
 
 [node name="RightHand" parent="right hand controller" unique_id=179675335 instance=ExtResource("4_prgow")]
-
-[node name="TEST_ARROW" parent="right hand controller" unique_id=876499146 groups=["arrows"] instance=ExtResource("9_h06vi")]
-visible = false
 
 [node name="HandArea" type="Area3D" parent="right hand controller" unique_id=442000693]
 collision_mask = 16

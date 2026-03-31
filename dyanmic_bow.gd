@@ -10,7 +10,7 @@ extends Node3D
 
 @export var TEST_HAND : Node3D	#TODO replace with robust ambidextrous solution
  
-@export var force_multiplier : float = 10.0
+@export var force_multiplier : float = 50.0
 
 var held_arrow : Node3D = null
 var arrow_hand : Node3D = null
@@ -19,22 +19,35 @@ enum BowState { IDLE, LERPING, NOCKED }
 var current_state = BowState.IDLE
 
 var start_offset: float
+var bow_idle_rotation: Vector3
 var last_pull_dist: float = 0.0
+
+const BOW_RESET_SPEED = 20.0
+var bow_rot_t = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	start_offset = pullpoint.position.z
+	bow_idle_rotation = rotation
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#stick to hand
 	global_position = get_parent().global_position
+	_bend_bow()
 	
 	match current_state:
 		BowState.IDLE:
-			# reset bow
-			pullpoint.position.z = start_offset
+			## reset bow
+			#var weight = 1 - ease_out_elastic(-BOW_RESET_SPEED * delta)
+			#pullpoint.position.z = lerp(pullpoint.position.z, start_offset, weight)
+			#
+			## lerp rotation
+			#weight = 1 - ease_out_expo(-BOW_RESET_SPEED * delta)
+			#rotation = rotation.slerp(bow_idle_rotation, weight)
+			
+			## POSITIONING NOW HANDLED BY TWEENS IN LAUNCH CODE
 			last_pull_dist = 0.0
 			
 			# nocking magnetism
@@ -64,7 +77,6 @@ func _process(delta: float) -> void:
 				#HapticManager.play(HapticManager.Vibration.NOCK_SNAP)
 			
 		BowState.NOCKED:
-			_bend_bow()
 			# face back hand
 			look_at(TEST_HAND.global_position, get_parent().global_basis.y, true)
 			# pull string
@@ -119,17 +131,28 @@ func _bend_bow():
 func fire_arrow(arrow: Node3D):
 	var force = abs(pullpoint.position.z - start_offset) * force_multiplier
 	held_arrow.reparent(get_tree().root, true)
-	# TODO implement launch
+	
 	print("LAUNCHING ARROW")
 	held_arrow.launch(force) 
 	
 	current_state = BowState.IDLE
 	held_arrow = null
+	
+	var tween = create_tween().set_parallel(true)
+
+	# string bounce
+	tween.tween_property(pullpoint, "position:z", start_offset, 0.5)\
+	.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
+
+	# bow rotation
+	tween.tween_property(self, "rotation", bow_idle_rotation, 0.3)\
+	.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 
 func _on_right_hand_controller_button_released(name: String) -> void:
-	if held_arrow and current_state == BowState.NOCKED:
-		fire_arrow(held_arrow)
+	if name == "grip_click":
+		if held_arrow and current_state == BowState.NOCKED:
+			fire_arrow(held_arrow)
 
 
 func _on_hand_area_arrow_spawned(arrow_node: Node3D, hand_area: Node3D) -> void:

@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://bnj8d7hsfwpa2" path="res://kenny prototype/PNG/Dark/texture_07.png" id="3_lquwl"]
-[ext_resource type="PackedScene" uid="uid://brgeudm6hc3ft" path="res://prefabs/OLD/bow.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://blh7j0x8cb0m1" path="res://kenny prototype/PNG/Red/texture_01.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://ba0qf4h8r4hq7" path="res://player_with_bow.tscn" id="6_7mycd"]
 
@@ -48,10 +47,6 @@ shape = SubResource("BoxShape3D_lquwl")
 mesh = SubResource("BoxMesh_7mycd")
 surface_material_override/0 = SubResource("StandardMaterial3D_272bh")
 
-[node name="Bow" parent="." unique_id=621028002 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(0.041945383, -0.9991199, 0, 0.9991199, 0.041945383, 0, 0, 0, 1, 0.726935, 0.7903235, -1.337666)
-visible = false
-
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1608970108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8470385, 0.58051014, -1.0403358)
 use_collision = true
@@ -70,5 +65,5 @@ use_collision = true
 size = Vector3(0.33792877, 0.7327881, 0.39697266)
 material = SubResource("StandardMaterial3D_5vw27")
 
-[node name="XROrigin3D" parent="." unique_id=1709107786 instance=ExtResource("6_7mycd")]
+[node name="Player" parent="." unique_id=1709107786 instance=ExtResource("6_7mycd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.902578, 0.6871306)

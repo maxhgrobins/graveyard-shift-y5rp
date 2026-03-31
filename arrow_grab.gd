@@ -36,6 +36,9 @@ func _on_right_hand_controller_button_released(name: String) -> void:
 			held_arrow.queue_free()
 			held_arrow = null
 			## TODO make physics object and drop
+		else:
+			print("ARROW RELEASED")
+			held_arrow = null
 			
 		
 		
