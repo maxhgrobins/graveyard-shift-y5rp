@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://dk4o0ih7fnxwd" path="res://arrow_grab.gd" id="11_pjw0h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ihqb"]
-size = Vector3(0.20709229, 0.17091675, 0.22)
+size = Vector3(0.30862427, 0.595224, 0.26234376)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wbtds"]
 size = Vector3(0.08703613, 0.12298584, 0.18756104)
@@ -26,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10468149, 0.22399536)
 collision_layer = 16
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XRCamera3D/QuiverArea" unique_id=1619070342]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.17178345, -0.03125918, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121017456, -0.24341285, -0.021171883)
 shape = SubResource("BoxShape3D_5ihqb")
 debug_color = Color(0.94509804, 0, 0.6117647, 1)
 
@@ -48,7 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
 strafe = true
 
 [node name="dyanmic_bow" parent="left hand controller" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
-transform = Transform3D(1, 0, 0, 0, 0.7618324, 0.6477743, 0, -0.6477743, 0.7618324, 0, -0.013282657, 0.029664159)
+transform = Transform3D(1, 0, 0, 0, 0.6639262, 0.7477981, 0, -0.7477981, 0.6639262, 0, -0.013282657, 0.029664159)
 nock_lerp_speed = 25.0
 TEST_HAND = NodePath("../../right hand controller")
 

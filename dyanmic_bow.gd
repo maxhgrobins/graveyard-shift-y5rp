@@ -10,7 +10,7 @@ extends Node3D
 
 @export var TEST_HAND : Node3D	#TODO replace with robust ambidextrous solution
  
-@export var force_multiplier : float = 50.0
+@export var force_multiplier : float = 25.0
 
 var held_arrow : Node3D = null
 var arrow_hand : Node3D = null
@@ -129,7 +129,16 @@ func _bend_bow():
 
 
 func fire_arrow(arrow: Node3D):
-	var force = abs(pullpoint.position.z - start_offset) * force_multiplier
+	var force = (pullpoint.position.z - start_offset) * force_multiplier
+	
+	if force > 0:
+		held_arrow.reparent(TEST_HAND)
+		held_arrow.transform = Transform3D.IDENTITY # This clears all rotation/offset
+		
+		current_state = BowState.IDLE
+		HapticManager.play(HapticManager.Vibration.NOCK_SNAP, "right_hand")
+		return
+		
 	held_arrow.reparent(get_tree().root, true)
 	
 	print("LAUNCHING ARROW")
