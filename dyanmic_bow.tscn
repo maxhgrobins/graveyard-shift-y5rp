@@ -11,6 +11,10 @@ size = Vector3(0.035, 0.035, 0.015)
 
 [node name="dyanmic_bow" type="Node3D" unique_id=1492525915]
 script = ExtResource("1_2evm6")
+nock_distance = null
+nock_range = null
+nock_lerp_speed = null
+force_multiplier = null
 
 [node name="shaft" type="MeshInstance3D" parent="." unique_id=1046866500]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04188724)

@@ -129,19 +129,17 @@ func _bend_bow():
 
 
 func fire_arrow(arrow: Node3D):
-	var force = (pullpoint.position.z - start_offset) * force_multiplier
+	var pull_dist = pullpoint.position.z - start_offset
+	var force = (pull_dist) * force_multiplier
+	force = force if force > 0 else 0
 	
-	if force > 0:
-		held_arrow.reparent(TEST_HAND)
-		held_arrow.transform = Transform3D.IDENTITY # This clears all rotation/offset
-		
-		current_state = BowState.IDLE
-		HapticManager.play(HapticManager.Vibration.NOCK_SNAP, "right_hand")
-		return
-		
-	held_arrow.reparent(get_tree().root, true)
-	
+	held_arrow.reparent(get_tree().root, true)	
 	print("LAUNCHING ARROW")
+	
+	var v_data = [clampf(pull_dist, 0.0, 1.0),
+				clampf(pull_dist, 0.0, 1.0),
+				clampf(pull_dist * 0.15, 0.0, 0.15)]
+	HapticManager.vibrate(v_data, "left_hand")
 	held_arrow.launch(force) 
 	
 	current_state = BowState.IDLE
