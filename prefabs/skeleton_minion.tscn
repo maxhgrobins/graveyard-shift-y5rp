@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dbcpyhtuh70s1"]
+
+[ext_resource type="PackedScene" uid="uid://hwcx1b2n1bmo" path="res://Models/KayKit/Skeletons/gltf/Skeleton_Minion.glb" id="1_4uitk"]
+[ext_resource type="Script" uid="uid://4blow0m5yu28" path="res://prefabs/skeleton_minion.gd" id="2_maqlk"]
+[ext_resource type="AnimationLibrary" uid="uid://db1y4q2ba4lgk" path="res://Models/KayKit/animations/Rig_Medium/Rig_Medium_Special.glb" id="2_syh4q"]
+
+[node name="Skeleton_Minion" unique_id=1801266977 instance=ExtResource("1_4uitk")]
+script = ExtResource("2_maqlk")
+
+[node name="Rig_Medium" parent="." index="0" unique_id=1601690643]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Rig_Medium" index="0" unique_id=700586963]
+bones/2/rotation = Quaternion(0.9998491, 7.426558e-08, -3.1726263e-08, 0.017373193)
+bones/3/rotation = Quaternion(0.10622513, -6.865223e-08, 7.3769655e-08, 0.99434215)
+bones/4/rotation = Quaternion(-0.45523903, 1.6598169e-07, 2.2507105e-09, 0.8903693)
+bones/5/rotation = Quaternion(2.1219837e-08, 0.92035496, -0.3910841, 6.450607e-08)
+bones/6/rotation = Quaternion(0.9998491, -7.13275e-08, -1.20427455e-08, 0.017373193)
+bones/7/rotation = Quaternion(0.10622513, 6.8652206e-08, -7.376966e-08, 0.99434215)
+bones/8/rotation = Quaternion(-0.45523903, 1.619773e-08, -3.4356738e-08, 0.8903693)
+bones/9/rotation = Quaternion(4.7759812e-08, 0.92035496, -0.3910841, 5.8015768e-08)
+bones/13/rotation = Quaternion(-0.5141216, -0.48546767, -0.48546773, 0.5141217)
+bones/14/rotation = Quaternion(1.4942605e-09, -6.228117e-08, -0.055285532, 0.99847066)
+bones/14/scale = Vector3(1.0000001, 0.9999998, 0.99999994)
+bones/15/rotation = Quaternion(5.1184355e-11, -3.077425e-10, 0.026658095, 0.99964464)
+bones/16/rotation = Quaternion(1.2001637e-09, 1.3589292e-07, -5.4551956e-06, 1)
+bones/17/rotation = Quaternion(1.6806122e-09, 1.680612e-09, -0.7071068, 0.7071067)
+bones/18/rotation = Quaternion(-0.51412165, 0.48546773, 0.48546776, 0.5141218)
+bones/18/scale = Vector3(0.99999934, 0.99999934, 0.99999976)
+bones/19/rotation = Quaternion(1.49426e-09, 6.228117e-08, 0.055285532, 0.99847066)
+bones/19/scale = Vector3(1.0000001, 0.9999998, 0.99999994)
+bones/20/rotation = Quaternion(5.1184217e-11, 3.0773717e-10, -0.026658095, 0.99964464)
+bones/21/rotation = Quaternion(1.1999162e-09, -9.210969e-08, 5.4551956e-06, 1)
+bones/22/rotation = Quaternion(1.6805921e-09, -1.6805919e-09, 0.7071068, 0.7071067)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rig_Medium/Skeleton3D/Skeleton_Minion_Body" parent_id_path=PackedInt32Array(1510511513) index="0" unique_id=1532050349]
+
+[node name="Area3D" type="Area3D" parent="Rig_Medium/Skeleton3D" index="9" unique_id=2103365642]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=144891826]
+libraries/Rig_Medium_Special = ExtResource("2_syh4q")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

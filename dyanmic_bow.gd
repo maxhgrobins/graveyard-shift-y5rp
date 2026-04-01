@@ -88,6 +88,7 @@ func _process(delta: float) -> void:
 				HapticManager.play(HapticManager.Vibration.BOW_TENSION, "right_hand")
 				last_pull_dist = current_pull
 
+
 func _nocking():
 	if held_arrow != null:
 		var dist = pullpoint.global_position.distance_to(held_arrow.global_position)
@@ -118,7 +119,7 @@ func _nocking():
 				current_state = BowState.NOCKED
 				HapticManager.play(HapticManager.Vibration.NOCK_SNAP, "right_hand")
 			
-										
+
 func _bend_bow():
 	# bend the bow
 	var pull_delta = pullpoint.position.z - start_offset
