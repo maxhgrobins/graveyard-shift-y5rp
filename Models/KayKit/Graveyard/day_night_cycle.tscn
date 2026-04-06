@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dpbxglj54vg1v"]
+
+[sub_resource type="Gradient" id="Gradient_ythet"]
+colors = PackedColorArray(0.0061195213, 0.0061284825, 0.13578996, 1, 0.029506557, 0.029506557, 0.029506557, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_utjvw"]
+gradient = SubResource("Gradient_ythet")
+fill_from = Vector2(1, 0.53418803)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_b2f20"]
+mie_eccentricity = 0.87
+ground_color = Color(0.7299427, 0.7529856, 0.65975076, 1)
+energy_multiplier = 2.5
+night_sky = SubResource("GradientTexture2D_utjvw")
+
+[sub_resource type="Sky" id="Sky_gkcmk"]
+sky_material = SubResource("PhysicalSkyMaterial_b2f20")
+
+[sub_resource type="Environment" id="Environment_biqrw"]
+background_mode = 2
+sky = SubResource("Sky_gkcmk")
+
+[node name="DayNightCycle" type="Node3D" unique_id=220650421]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=351965958]
+environment = SubResource("Environment_biqrw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1622619680]
+transform = Transform3D(1, 0, 0, 0, -0.5267335, -0.85003054, 0, 0.85003054, -0.5267334, 0, 0, 0)
+sky_mode = 2

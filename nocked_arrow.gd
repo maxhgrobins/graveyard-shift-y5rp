@@ -14,6 +14,8 @@ func _physics_process(delta: float) -> void:
 		# create ray
 		var space_state = get_world_3d().direct_space_state
 		var query = PhysicsRayQueryParameters3D.create(stick_point.global_position, next_position)
+		query.collide_with_areas = true
+		
 		var result = space_state.intersect_ray(query)
 
 		if result :
@@ -40,9 +42,32 @@ func launch(force: float):
 	velocity = -global_transform.basis.z * force
 
 
-func _stick_to_target(body: Object):
-	print("Hit: ", body.name)
-	# call body.take_damage() here
+func _stick_to_target(hit_collider: Object):
+	print("Hit: ", hit_collider.name)
 	
 	# reparenting to move with whatever it hit
-	reparent(body, true)
+	reparent(hit_collider, true)
+	
+	if hit_collider is Hurtbox:
+		var health = hit_collider.health_component
+		
+		# defaults
+		var damage = 1
+		var zone = hit_collider.zone
+			
+		# TODO this might still be hella jank. maybe just send damage to the
+		# 	hurtbox and let it decide? ack
+		match hit_collider.zone:
+			HitData.Zone.BODY:
+				damage = 0
+				#zone = "weakPoint"
+			#elif hit_collider.is_in_group("Hurtbox_Armour"):
+				#damage = 1
+				#zone = "armour"
+			#elif hit_collider.is_in_group("Hurtbox_Knockdown"):
+				#damage = 0
+				#zone = "body"
+		## TODO REVISIT IF YOU NEED TO CHANGE DAMAGE/ZONE FROM ARROW ^^
+		
+			
+		health.take_damage(damage, zone, velocity)

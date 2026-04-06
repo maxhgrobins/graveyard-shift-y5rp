@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://bwnnn8rudet3v"]
+
+[ext_resource type="PackedScene" uid="uid://clc5dre31iskm" path="res://addons/godot-xr-tools/xr/start_xr.tscn" id="1_wpdwk"]
+[ext_resource type="Texture2D" uid="uid://bnj8d7hsfwpa2" path="res://kenny prototype/PNG/Dark/texture_07.png" id="2_wqptd"]
+[ext_resource type="Texture2D" uid="uid://blh7j0x8cb0m1" path="res://kenny prototype/PNG/Red/texture_01.png" id="3_t18qu"]
+[ext_resource type="PackedScene" uid="uid://ba0qf4h8r4hq7" path="res://player_with_bow.tscn" id="4_du3nd"]
+[ext_resource type="PackedScene" uid="uid://dbcpyhtuh70s1" path="res://prefabs/skeleton_minion.tscn" id="5_jg1yd"]
+[ext_resource type="Script" uid="uid://bxrvhowpkwixv" path="res://TestMove.gd" id="6_cqpx3"]
+
+[sub_resource type="Environment" id="Environment_1bvp3"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wpdwk"]
+size = Vector2(30, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_texture = ExtResource("2_wqptd")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wqptd"]
+data = PackedVector3Array(15, 0, 15, -15, 0, 15, 15, 0, -15, -15, 0, 15, -15, 0, -15, 15, 0, -15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vw27"]
+albedo_texture = ExtResource("3_t18qu")
+uv1_offset = Vector3(0.2, -0.35, 0.2)
+uv1_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[node name="TestScene" type="Node3D" unique_id=1472623244]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=645603420]
+environment = SubResource("Environment_1bvp3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1377732537]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StartXR" parent="." unique_id=1634228038 instance=ExtResource("1_wpdwk")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=528132186]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=786821892]
+mesh = SubResource("PlaneMesh_wpdwk")
+surface_material_override/0 = SubResource("StandardMaterial3D_272bh")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1761596875]
+shape = SubResource("ConcavePolygonShape3D_wqptd")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1608970108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8470385, 0.35, -1)
+use_collision = true
+size = Vector3(0.4, 0.7, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2059248575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26815772, 0.6541047, -1)
+use_collision = true
+size = Vector3(0.4, 2.7268066, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1447063640]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4677726, 0.35, -1)
+use_collision = true
+size = Vector3(0.4, 0.7, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+
+[node name="Player" parent="." unique_id=1709107786 instance=ExtResource("4_du3nd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.902578, 0.6871306)
+
+[node name="Skeleton_Minion6" parent="." unique_id=616224305 instance=ExtResource("5_jg1yd")]
+transform = Transform3D(-0.4582617, 0, -0.8888173, 0, 1, 0, 0.8888173, 0, -0.4582617, -11.193387, -2.3841858e-07, -1.9298933)
+
+[node name="Skeleton_Minion11" parent="." unique_id=1850002419 instance=ExtResource("5_jg1yd")]
+transform = Transform3D(-0.13538685, 0, -0.9907929, 0, 1, 0, 0.9907929, 0, -0.13538685, -11.448941, 3.5762787e-07, -0.022606254)
+
+[node name="Skeleton_Minion12" parent="." unique_id=99742001 instance=ExtResource("5_jg1yd")]
+transform = Transform3D(0.5473296, 0, -0.8369171, 0, 1, 0, 0.8369171, 0, 0.5473296, -11.604531, 3.5762787e-07, 1.7223811)
+
+[node name="TARGETS" type="Node" parent="." unique_id=71926498]
+
+[node name="Marker3D" type="Marker3D" parent="TARGETS" unique_id=982877662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9195724, 0.49734104, -3.5339768)
+
+[node name="CSGSphere3D6" type="CSGSphere3D" parent="TARGETS/Marker3D" unique_id=2055194799]
+radius = 0.05
+
+[node name="Marker3D2" type="Marker3D" parent="TARGETS" unique_id=1659932852]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2331839, 0.49734104, -3.4360573)
+
+[node name="CSGSphere3D5" type="CSGSphere3D" parent="TARGETS/Marker3D2" unique_id=340594707]
+radius = 0.05
+
+[node name="TEST TARGET" type="CSGBox3D" parent="TARGETS" unique_id=995852800 node_paths=PackedStringArray("start", "end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9195724, 0.49734104, -3.5339768)
+use_collision = true
+size = Vector3(0.4, 0.7, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+script = ExtResource("6_cqpx3")
+speed = 1.5
+start = NodePath("../Marker3D")
+end = NodePath("../Marker3D2")
+
+[node name="Marker3D5" type="Marker3D" parent="TARGETS" unique_id=67216877]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9195724, 1.9529678, -3.5339768)
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="TARGETS/Marker3D5" unique_id=262624065]
+radius = 0.05
+
+[node name="Marker3D4" type="Marker3D" parent="TARGETS" unique_id=1364883819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9195724, 5.1872454, -3.5339768)
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="TARGETS/Marker3D4" unique_id=357805743]
+radius = 0.05
+
+[node name="TEST TARGET2" type="CSGBox3D" parent="TARGETS" unique_id=217999596 node_paths=PackedStringArray("start", "end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9195724, 1.9529678, -3.5339768)
+use_collision = true
+size = Vector3(0.4, 0.7, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+script = ExtResource("6_cqpx3")
+speed = 0.5
+start = NodePath("../Marker3D4")
+end = NodePath("../Marker3D5")
+
+[node name="Marker3D3" type="Marker3D" parent="TARGETS" unique_id=1572566517]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.200184, 1.9529678, -3.5339768)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="TARGETS/Marker3D3" unique_id=1004026255]
+radius = 0.05
+
+[node name="Marker3D6" type="Marker3D" parent="TARGETS" unique_id=1776413414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.15352, 3.692236, -3.5339768)
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="TARGETS/Marker3D6" unique_id=1696791142]
+radius = 0.05
+
+[node name="TEST TARGET3" type="CSGBox3D" parent="TARGETS" unique_id=811132505 node_paths=PackedStringArray("start", "end")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.200184, 1.9529678, -3.5339768)
+use_collision = true
+size = Vector3(0.4, 0.7, 0.4)
+material = SubResource("StandardMaterial3D_5vw27")
+script = ExtResource("6_cqpx3")
+start = NodePath("../Marker3D3")
+end = NodePath("../Marker3D6")

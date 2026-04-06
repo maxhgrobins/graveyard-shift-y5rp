@@ -1,28 +1,40 @@
-extends Node
+extends Node3D
 
-var current_day: int = 1
-var current_wave: int = 1
+@export var enemy_scene : PackedScene
+@export var spawn_radius_min : float = 15.0
+@export var spawn_radius_max : float = 25.0
+@export var min_wait_time : float = 1.0
+@export var max_wait_time : float = 5.0
 
-@export var skeleton_scene: PackedScene
+@onready var player : Node3D = $"../Player/XRCamera3D"
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	spawn_loop()
 
+func spawn_loop() -> void:
+	while true:
+		var wait_time = randf_range(min_wait_time, max_wait_time)
+		await get_tree().create_timer(wait_time).timeout
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-	
-func start_wave():
-	# Formula: Base count + (Day * Multiplier) + (Wave * Multiplier)
-	var enemy_count = 5 + (current_day * 3) + (current_wave * 2)
-	for i in enemy_count:
-		spawn_enemy_from_random_grave()
-		await get_tree().create_timer(randf_range(0.5, 2.0)).timeout
+		spawn_enemy()
 		
-# maybe pass in details about enemy type?
-func spawn_enemy_from_random_grave():
-	var spawned_enemy = skeleton_scene.instantiate()
+		# speed up
+		min_wait_time = max(0.5, min_wait_time * 0.99)
+		max_wait_time = max(1.0, max_wait_time * 0.99)
+
+func spawn_enemy() -> void:
+	if not enemy_scene:
+		print("No enemy scene assigned to spawner!")
+		return
+		
+	var angle = randf() * TAU
+	var distance = randf_range(spawn_radius_min, spawn_radius_max)
 	
+	var spawn_pos = Vector3(cos(angle) * distance, 0, sin(angle) * distance)
+
+	spawn_pos += global_position 
+
+	var enemy = enemy_scene.instantiate()
+	get_parent().add_child(enemy)
+	enemy.global_position = spawn_pos
+	enemy.target_player = player
