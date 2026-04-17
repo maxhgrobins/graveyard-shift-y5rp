@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bi6w3wcycokij"]
+
+[ext_resource type="PackedScene" uid="uid://74fnkgttd81f" path="res://Models/KayKit/Graveyard/post_lantern.gltf" id="1_fpo7m"]
+
+[node name="post_lantern2" unique_id=478221113 instance=ExtResource("1_fpo7m")]
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="1" unique_id=629255790]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009847149, 1.3919241, 0.82733464)
+light_color = Color(0.7607843, 0.5686275, 0.4392157, 1)
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 0.2
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." index="2" unique_id=873934110]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1345623, 1.3919241, 0.71950626)
+light_color = Color(0.7607843, 0.5686275, 0.4392157, 1)
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 0.2
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="." index="3" unique_id=1857919341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13907231, 1.3919241, 0.71950626)
+light_color = Color(0.7607843, 0.5686275, 0.4392157, 1)
+light_specular = 0.0
+light_bake_mode = 1
+omni_range = 0.2
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="." index="4" unique_id=1416744289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0109613985, 1.2082274, 0.7116871)
+light_color = Color(0.7607843, 0.5686275, 0.4392157, 1)
+light_specular = 0.0
+light_bake_mode = 1
+shadow_enabled = true

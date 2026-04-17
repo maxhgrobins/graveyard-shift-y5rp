@@ -33,7 +33,7 @@ settings/3d/volumetric_defaults/thickness=0.0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addons/gridmap-converter-main/plugin.cfg")
 
 [global_group]
 
