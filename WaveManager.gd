@@ -1,40 +1,70 @@
 extends Node3D
 
-@export var enemy_scene : PackedScene
-@export var spawn_radius_min : float = 15.0
-@export var spawn_radius_max : float = 25.0
-@export var min_wait_time : float = 1.0
-@export var max_wait_time : float = 5.0
+@export var nights: Array[NightData]
+@export var path_map: Dictionary[String, NodePath] = {
+	"N": "",
+	"E": "",
+	"S": "",
+	"S2": "",
+	"W": "",
+	"W2": ""
+}
 
+@export var night_duration = 300
 @onready var player : Node3D = $"../Player/XRCamera3D"
 
-func _ready() -> void:
-	spawn_loop()
+var night_timer: Timer
+var current_night_index: int = 0
+var is_night_active: bool = false
 
-func spawn_loop() -> void:
-	while true:
-		var wait_time = randf_range(min_wait_time, max_wait_time)
-		await get_tree().create_timer(wait_time).timeout
+func _ready():
+	night_timer = $"../NightTimer"
+	start_night(0)
 
-		spawn_enemy()
-		
-		# speed up
-		min_wait_time = max(0.5, min_wait_time * 0.99)
-		max_wait_time = max(1.0, max_wait_time * 0.99)
-
-func spawn_enemy() -> void:
-	if not enemy_scene:
-		print("No enemy scene assigned to spawner!")
-		return
-		
-	var angle = randf() * TAU
-	var distance = randf_range(spawn_radius_min, spawn_radius_max)
+func start_night(index: int):
+	if index >= nights.size(): return
+	var night = nights[index]
 	
-	var spawn_pos = Vector3(cos(angle) * distance, 0, sin(angle) * distance)
+	night_timer.wait_time = night_duration
+	night_timer.one_shot = true
+	night_timer.start()
+	
+	is_night_active = true
+	print("Starting Night ", index + 1)
+	
+	while not night_timer.is_stopped():
+		var random_wave = night.wave_pool.pick_random()
+		await spawn_wave(random_wave)
+		if night_timer.is_stopped(): break
+		await get_tree().create_timer(night.secs_between_waves).timeout
+		if night_timer.is_stopped(): break
+	
+	print("end of night")
 
-	spawn_pos += global_position 
+func spawn_wave(wave: WaveData):
+	for enemy in wave.spawn_list:
+		if night_timer.is_stopped(): break
+		
+		if not is_night_active: break
+		
+		await get_tree().create_timer(enemy.sapwn_delay).timeout
+		
+		if path_map.has(enemy.path_name):
+			var path_node_path = path_map[enemy.path_name]
+			var path_node = get_node(path_node_path) as Path3D
+			
+			if path_node:
+				create_enemy_on_path(path_node, enemy.enemy_type)
+		else:
+			print("Error: Path name '", enemy.path_name, "' not found!")
 
-	var enemy = enemy_scene.instantiate()
-	get_parent().add_child(enemy)
-	enemy.global_position = spawn_pos
+func create_enemy_on_path(path: Path3D, enemy_type: PackedScene):
+	var follower = PathFollow3D.new()
+	follower.loop = false
+	follower.rotation_mode = PathFollow3D.ROTATION_ORIENTED
+	
+	path.add_child(follower)
+	
+	var enemy = enemy_type.instantiate()
 	enemy.target_player = player
+	follower.add_child(enemy)

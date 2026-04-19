@@ -10,24 +10,27 @@ signal arrow_despawned(arrow_node: Node3D, hand_area: Node3D)
 
 func _on_quiver_area_area_entered(area):
 	print("quiver entered")
-	in_quiver = true
-	if held_arrow == null:
-		# TODO ambidextrous
-		HapticManager.play(HapticManager.Vibration.QUIVER_HOVER, "right_hand")
+	var controller = area.get_parent()
+	if controller is XRController3D:
+		in_quiver = true
+		var hand_side = "left_hand" if "left" in controller.name.to_lower() else "right_hand"
+		
+		if held_arrow == null:
+			HapticManager.play(HapticManager.Vibration.QUIVER_HOVER, hand_side)
 
 
-func _on_quiver_area_area_exited(area):
+func _on_quiver_area_area_exited(area) -> void:
 	in_quiver = false
 		
 
-func _on_right_hand_controller_button_pressed(name):
-	if name == "grip_click":
+func _on_right_hand_controller_button_pressed(button_name: String) -> void:
+	if button_name == "grip_click":
 		if in_quiver and held_arrow == null:
 			spawn_arrow()
 			
 
-func _on_right_hand_controller_button_released(name: String) -> void:
-	if name == "grip_click" and held_arrow:
+func _on_right_hand_controller_button_released(button_name: String) -> void:
+	if button_name == "grip_click" and held_arrow:
 		# if nocked, bow script handles firing
 		# TODO check if nocked in some smarter way
 		if !held_arrow.is_flying:

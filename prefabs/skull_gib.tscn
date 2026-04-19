@@ -237,3 +237,6 @@ debug_color = Color(0.9604005, 0, 0.5189599, 0.41960785)
 transform = Transform3D(5.284853e-08, -0.70000005, -9.94771e-15, 0.7, 5.2848534e-08, -1.4823041e-21, 2.233336e-21, -9.947717e-15, 0.7, -0.037538912, -0.25201, 0.105954185)
 shape = SubResource("BoxShape3D_iwfdc")
 debug_color = Color(0.9604005, 0, 0.5189599, 0.41960785)
+
+[node name="ArrowPivot" type="Marker3D" parent="." unique_id=669698616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.145, 0)

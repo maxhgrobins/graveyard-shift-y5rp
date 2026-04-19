@@ -50,6 +50,6 @@ script = ExtResource("2_6ga5o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.37986115)
 
 [node name="arrow_bow" type="MeshInstance3D" parent="." unique_id=348209716]
-transform = Transform3D(0.665, 0, 0, 0, -0.665, 1.00412215e-07, 0, -1.00412215e-07, -0.665, 0, 0, -0.2009815)
+transform = Transform3D(0.665, 0, 0, 0, -0.555, 1.00412215e-07, 0, -8.3802675e-08, -0.665, 0, 0, -0.2009815)
 mesh = SubResource("ArrayMesh_10i4j")
 skeleton = NodePath("")

@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#stick to hand
 	global_position = get_parent().global_position
 	_bend_bow()
@@ -132,7 +132,7 @@ func _bend_bow():
 func fire_arrow(arrow: Node3D):
 	var pull_dist = pullpoint.position.z - start_offset
 	var force = (pull_dist) * force_multiplier
-	force = force if force > 0 else 0
+	force = force if force > 0.0 else 0.0
 	
 	held_arrow.reparent(get_tree().root, true)	
 	print("LAUNCHING ARROW")
@@ -157,8 +157,8 @@ func fire_arrow(arrow: Node3D):
 	.set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 
-func _on_right_hand_controller_button_released(name: String) -> void:
-	if name == "grip_click":
+func _on_right_hand_controller_button_released(button_name: String) -> void:
+	if button_name == "grip_click":
 		if held_arrow and current_state == BowState.NOCKED:
 			fire_arrow(held_arrow)
 

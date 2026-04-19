@@ -6,9 +6,6 @@ extends Node3D
 @export var move_speed : float = 2.0
 
 var target_player : Node3D = null
-
-var spawned : bool = false
-
 var is_dead = false
 var is_downed = false
 
@@ -20,17 +17,19 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_dead or is_downed or not target_player: return
+	if is_dead or is_downed: return
+	
+	var parent = get_parent()
+	if parent is PathFollow3D:
+		parent.progress += move_speed * delta
 		
-	# 1. Get direction to the player
-	var direction = global_position.direction_to(target_player.global_position)
-	direction.y = 0 # Keep them grounded
+	elif target_player:
+		var direction = global_position.direction_to(target_player.global_position)
+		direction.y = 0
 
-	# 2. Move towards the player
-	global_position += direction * move_speed * delta
+		global_position += direction * move_speed * delta
 
-	# 3. Always face the player
-	look_at(Vector3(target_player.global_position.x, global_position.y, target_player.global_position.z), Vector3.UP)
+		look_at(Vector3(target_player.global_position.x, global_position.y, target_player.global_position.z), Vector3.UP)
 			
 	if anim.current_animation != "Rig_Medium_Special/Skeletons_Walking" and anim.current_animation != "Rig_Medium_Special/Skeletons_Death_Resurrect":
 		anim.play("Rig_Medium_Special/Skeletons_Walking")
@@ -84,21 +83,26 @@ func _die(_a, _b, impact_vector : Vector3):
 func detach_and_fly(mesh_node, impact: Vector3):
 	$Rig_Medium/Skeleton3D/Skeleton_Minion_Head.visible = false
 	
-	# 2. Instance the dedicated physics head
-	var head = skull_gib.instantiate()
-	get_tree().root.add_child(head)
+	var head_gib = mesh_node.instantiate()
+	get_tree().root.add_child(head_gib)
 	
-	# 3. Place it exactly where the skeleton's head is VISUALLY
-	head.global_transform = $Rig_Medium/Skeleton3D/HeadAttach.global_transform
-	head.position += Vector3(0,0.8,0)
+	head_gib.global_transform = $Rig_Medium/Skeleton3D/HeadAttach.global_transform
+	head_gib.position += Vector3(0,0.8,0)
 	
-	# 4. Apply the physics
-	# Because the SkullProp scene is centered, this spins perfectly!
-	head.linear_velocity = impact * 0.1 + Vector3.UP * 5.0
-	head.angular_velocity = impact.normalized().cross(Vector3.UP) * 10.0
+	var head_hurtbox = $Rig_Medium/Skeleton3D/HeadAttach/HeadArea
+	for child in head_hurtbox.get_children():
+		if "is_flying" in child:
+			child.queue_free()
+	
+	head_gib.linear_velocity = impact * 0.1 + Vector3.UP * 5.0
+	head_gib.angular_velocity = impact.normalized().cross(Vector3.UP) * 10.0
 	
 func sink_and_vanish():
 	var tween = create_tween()
-	# move down by 2 meters over 3 seconds
+
 	tween.tween_property(self, "global_position:y", global_position.y - 2.0, 3.0)
-	tween.finished.connect(queue_free)
+	tween.finished.connect(func():
+		var parent = get_parent()
+		if parent is PathFollow3D:
+			parent.queue_free()
+		queue_free())

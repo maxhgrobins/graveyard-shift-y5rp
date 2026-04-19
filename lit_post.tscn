@@ -2,7 +2,44 @@
 
 [ext_resource type="PackedScene" uid="uid://74fnkgttd81f" path="res://Models/KayKit/Graveyard/post_lantern.gltf" id="1_fpo7m"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fpo7m"]
+points = PackedVector3Array(0.15193552, -0.6485742, -0.14676157, -0.1539, -0.9106932, -0.1539, -0.1539, -0.9106932, 0.14412221, -0.153047, -0.6426195, -0.153047, 0.15192766, -0.6485809, 0.15192766, 0.150314, -0.91599995, 0.150314, -0.14676255, -0.6485732, 0.1519366, 0.14412221, -0.9106932, -0.1539, 0.15944444, -0.8455453, -0.16922222, -0.16922222, -0.8455453, 0.15944444, -0.16922222, -0.8455453, -0.16922222)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oo26p"]
+points = PackedVector3Array(0.057981428, -0.34797552, 0.057981428, -0.21329342, -0.51439875, -0.21329342, -0.21329342, -0.51439875, 0.20473133, 0.1541411, -0.6367924, 0.1541411, 0.23769838, -0.45433834, -0.23182538, 0.23769838, -0.45433834, 0.23769838, -0.15548633, -0.6296278, -0.15548633, -0.21615314, -0.43868294, -0.21615314, 0.14698607, -0.6296374, -0.15549688, -0.23182538, -0.45433834, 0.23769838, -0.1554956, -0.6296362, 0.1469849, -0.053406548, -0.34462675, -0.053406548, -0.052068017, -0.34797552, 0.057981428, 0.057981428, -0.34797552, -0.052068017, 0.20473133, -0.51439875, -0.21329342)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5igm6"]
+size = Vector3(0.21459961, 2.2901611, 0.15673828)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tgo7h"]
+size = Vector3(0.21289063, 0.17578125, 1.0793457)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1rfhk"]
+size = Vector3(0.21289063, 0.1541748, 0.75006104)
+
 [node name="post_lantern2" unique_id=478221113 instance=ExtResource("1_fpo7m")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="post_lantern/post_lantern_lantern" parent_id_path=PackedInt32Array(1831996698) index="0" unique_id=1258558268]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="post_lantern/post_lantern_lantern/StaticBody3D" index="0" unique_id=2035181353]
+shape = SubResource("ConvexPolygonShape3D_fpo7m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="post_lantern/post_lantern_lantern/StaticBody3D" index="1" unique_id=1224150273]
+shape = SubResource("ConvexPolygonShape3D_oo26p")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="post_lantern" parent_id_path=PackedInt32Array(340778133) index="1" unique_id=1842626850]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="post_lantern/StaticBody3D" index="0" unique_id=258210659]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1484985, -0.02758789)
+shape = SubResource("BoxShape3D_5igm6")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="post_lantern/StaticBody3D" index="1" unique_id=1228889748]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2119532, 0.39562988)
+shape = SubResource("BoxShape3D_tgo7h")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="post_lantern/StaticBody3D" index="2" unique_id=1072788063]
+transform = Transform3D(1, 0, 0, 0, 0.7425723, 0.6697659, 0, -0.6697659, 0.7425723, 0, 1.9456146, 0.265002)
+shape = SubResource("BoxShape3D_1rfhk")
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." index="1" unique_id=629255790]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.009847149, 1.3919241, 0.82733464)

@@ -34,7 +34,9 @@ func _physics_process(delta: float) -> void:
 			
 			# arrow arc
 			if velocity.length() > 0.1:
-				look_at(global_position + velocity, Vector3.UP)
+				# prevent colinearity warning from clogging debugger
+				if not velocity.normalized().is_equal_approx(Vector3.UP) and not velocity.normalized().is_equal_approx(Vector3.DOWN):
+					look_at(global_position + velocity, Vector3.UP)
 				
 
 func launch(force: float):
@@ -47,6 +49,7 @@ func _stick_to_target(hit_collider: Object):
 	
 	# reparenting to move with whatever it hit
 	reparent(hit_collider, true)
+	set_physics_process(false)
 	
 	if hit_collider is Hurtbox:
 		var health = hit_collider.health_component

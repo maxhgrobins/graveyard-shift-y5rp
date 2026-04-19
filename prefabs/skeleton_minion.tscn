@@ -511,7 +511,7 @@ mesh = SubResource("ArrayMesh_1q04u")
 skin = SubResource("Skin_gn4kc")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" unique_id=904153075]
-transform = Transform3D(1, 0, 1.4210854e-14, 0, 0.99999994, 0, -1.4210854e-14, 0, 1, 0, 1.2414254, 0)
+transform = Transform3D(1, 0, 7.1054274e-15, 0, 0.99999994, 0, -7.1054274e-15, 0, 1, 0, 1.2414254, 0)
 bone_name = "head"
 bone_idx = 12
 

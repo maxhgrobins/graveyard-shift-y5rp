@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var _tt_pos := _tt.global_position
 	var _bt_pos := _bt.global_position
 	var _pp_pos := _pp.global_position
