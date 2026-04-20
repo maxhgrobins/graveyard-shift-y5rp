@@ -9,6 +9,7 @@ const RAY_LENGTH = 0.5
 
 func _physics_process(delta: float) -> void:
 	if is_flying:
+		$Sprite3D.visible = true
 		var next_position = stick_point.global_position + (velocity * delta)
 		
 		# create ray
@@ -37,7 +38,8 @@ func _physics_process(delta: float) -> void:
 				# prevent colinearity warning from clogging debugger
 				if not velocity.normalized().is_equal_approx(Vector3.UP) and not velocity.normalized().is_equal_approx(Vector3.DOWN):
 					look_at(global_position + velocity, Vector3.UP)
-				
+	else:
+		$Sprite3D.visible = false
 
 func launch(force: float):
 	is_flying = true
@@ -46,6 +48,8 @@ func launch(force: float):
 
 func _stick_to_target(hit_collider: Object):
 	print("Hit: ", hit_collider.name)
+	
+	$Sprite3D.visible = false
 	
 	# reparenting to move with whatever it hit
 	reparent(hit_collider, true)

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="2_6ga5o"]
 [ext_resource type="Texture2D" uid="uid://b1nknljtq4460" path="res://Models/KayKit/Adventurers/Assets/ranger_texture.png" id="2_54s7l"]
+[ext_resource type="Texture2D" uid="uid://kvppl2kadlge" path="res://sparkle.png" id="3_54s7l"]
+[ext_resource type="Script" uid="uid://d1k5bxr48cvs5" path="res://prefabs/glint_effect.gd" id="4_10i4j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4u27"]
 resource_name = "ranger"
@@ -53,3 +55,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.37986115)
 transform = Transform3D(0.665, 0, 0, 0, -0.555, 1.00412215e-07, 0, -8.3802675e-08, -0.665, 0, 0, -0.2009815)
 mesh = SubResource("ArrayMesh_10i4j")
 skeleton = NodePath("")
+
+[node name="Sprite3D" type="Node3D" parent="." unique_id=87041391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+
+[node name="Sprite3D2" type="Sprite3D" parent="Sprite3D" unique_id=1689185038]
+modulate = Color(1, 0.99607843, 0.6745098, 0.13333334)
+pixel_size = 0.0005905
+double_sided = false
+texture = ExtResource("3_54s7l")
+script = ExtResource("4_10i4j")
+scale_factor = 0.1
+pulse_speed = 5.0

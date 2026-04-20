@@ -24,13 +24,16 @@ func _on_quiver_area_area_exited(area) -> void:
 		
 
 func _on_right_hand_controller_button_pressed(button_name: String) -> void:
-	if button_name == "grip_click":
+	if button_name == "trigger_click":
 		if in_quiver and held_arrow == null:
 			spawn_arrow()
+			#TODO both hands support
+			$"../RightHand2".visible = false
 			
 
 func _on_right_hand_controller_button_released(button_name: String) -> void:
-	if button_name == "grip_click" and held_arrow:
+	if button_name == "trigger_click" and held_arrow:
+		$"../RightHand2".visible = true
 		# if nocked, bow script handles firing
 		# TODO check if nocked in some smarter way
 		if !held_arrow.is_flying:
