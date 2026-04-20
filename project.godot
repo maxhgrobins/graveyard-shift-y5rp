@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Research Project - It's a Livin' (WT)"
-run/main_scene="uid://bwnnn8rudet3v"
+run/main_scene="uid://crtgtdavn5aig"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -39,6 +39,10 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 arrows=""
 
+[godot_xr_tools]
+
+player/standard_height=1.8
+
 [layer_names]
 
 3d_physics/layer_1="Static World"
@@ -55,11 +59,16 @@ arrows=""
 3d_physics/layer_22="Hand Pose Areas"
 3d_physics/layer_23="UI Objects"
 
+[physics]
+
+common/physics_interpolation=true
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality.mobile=1
 
 [xr]
 

@@ -4,16 +4,23 @@ extends Node3D
 @onready var health : HealthComponent = $HealthComponent
 @export var skull_gib : PackedScene
 @export var move_speed : float = 2.0
+@export var down_time : float = 3.0
 
 var target_player : Node3D = null
 var is_dead = false
-var is_downed = false
+var is_downed = true
+
+const ANIM_WALK = "Rig_Medium_Special/Skeletons_Walking"
+const ANIM_SPAWN = "Rig_Medium_Special/Skeletons_Spawn_Ground"
+const ANIM_RESURRECT = "Rig_Medium_Special/Skeletons_Death_Resurrect"
+const ANIM_DEATH = "Rig_Medium_Special/Skeletons_Death"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	anim.play("Rig_Medium_Special/Skeletons_Spawn_Ground")
+	anim.play(ANIM_SPAWN)
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
+	anim.animation_finished.connect(_on_animation_finished)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -31,8 +38,8 @@ func _process(delta: float) -> void:
 
 		look_at(Vector3(target_player.global_position.x, global_position.y, target_player.global_position.z), Vector3.UP)
 			
-	if anim.current_animation != "Rig_Medium_Special/Skeletons_Walking" and anim.current_animation != "Rig_Medium_Special/Skeletons_Death_Resurrect":
-		anim.play("Rig_Medium_Special/Skeletons_Walking")
+	if anim.current_animation != ANIM_WALK and anim.current_animation != ANIM_RESURRECT:
+		anim.play(ANIM_WALK)
 
 func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 	if is_dead: return
@@ -51,26 +58,28 @@ func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 	#if anim_name == "Rig_Medium_Special/Skeletons_Death_Resurrect":
 		#is_downed = false
 
+func _on_animation_finished(anim_name: StringName) -> void:
+	if anim_name == ANIM_SPAWN or anim_name == ANIM_RESURRECT:
+		is_downed = false
+			
 
 func _knockdown():
 	if is_downed:
 		return
 		
 	is_downed = true
-	anim.play("Rig_Medium_Special/Skeletons_Death")
+	anim.play(ANIM_DEATH)
 	
-	# Wait for 3 seconds, then resurrect
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(down_time).timeout
 	
 	if not is_dead: # Check if they were headshot while down
-		anim.play("Rig_Medium_Special/Skeletons_Death_Resurrect")
-		is_downed = false
+		anim.play(ANIM_RESURRECT)
 		
 func _die(_a, _b, impact_vector : Vector3):
 	is_dead = true
 	
 	if not is_downed:
-		anim.play("Rig_Medium_Special/Skeletons_Death")
+		anim.play(ANIM_DEATH)
 	
 	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes:
 		$Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes.queue_free()
