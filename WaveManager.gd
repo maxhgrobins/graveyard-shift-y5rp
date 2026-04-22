@@ -23,7 +23,9 @@ func _ready():
 	night_timer = $"../NightTimer"
 
 func start_night(index: int):
-	if index >= nights.size(): return
+	if index >= nights.size():
+		push_warning("Night out of range! Trying to run night ",index," but it is not assigned in the inspector.")
+		return
 	var night = nights[index]
 	
 	night_timer.wait_time = night_duration

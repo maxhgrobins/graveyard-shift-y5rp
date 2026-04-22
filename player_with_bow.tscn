@@ -1,16 +1,27 @@
 [gd_scene format=3 uid="uid://ba0qf4h8r4hq7"]
 
-[ext_resource type="PackedScene" uid="uid://bpdj5njb8nhot" path="res://addons/godot-xr-tools/hands/scenes/highpoly/left_fullglove_hand.tscn" id="2_8p1s3"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="1_h06vi"]
+[ext_resource type="Texture2D" uid="uid://d4gbpgjwjuovb" path="res://addons/godot-xr-tools/hands/textures/labglove_baseColor.png" id="2_c2te6"]
 [ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="3_cceie"]
+[ext_resource type="Texture2D" uid="uid://dt6k4nuvpo38o" path="res://addons/godot-xr-tools/hands/textures/glove_normal.png" id="3_wbtds"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="5_c2te6"]
 [ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="5_h06vi"]
 [ext_resource type="PackedScene" uid="uid://c24ay6pa3cdkd" path="res://dyanmic_bow.tscn" id="5_prgow"]
-[ext_resource type="Material" uid="uid://ds2dpvbpht0ea" path="res://addons/godot-xr-tools/hands/materials/labglove.tres" id="6_h06vi"]
 [ext_resource type="PackedScene" uid="uid://ctrc00vjmqg8e" path="res://prefabs/arrow.tscn" id="9_h06vi"]
 [ext_resource type="Script" uid="uid://dk4o0ih7fnxwd" path="res://arrow_grab.gd" id="11_pjw0h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ihqb"]
 size = Vector3(0.30862427, 0.595224, 0.26234376)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_5ihqb"]
+albedo_texture = ExtResource("2_c2te6")
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = ExtResource("3_wbtds")
+ao_light_affect = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h06vi"]
+size = Vector3(0.08703613, 0.12298584, 0.18756104)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wbtds"]
 size = Vector3(0.08703613, 0.12298584, 0.18756104)
@@ -36,8 +47,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
 tracker = &"left_hand"
 pose = &"aim"
 
-[node name="LeftHand" parent="left hand controller" unique_id=1335597349 instance=ExtResource("2_8p1s3")]
-visible = false
+[node name="LeftHand" parent="left hand controller" unique_id=1677605874 instance=ExtResource("1_h06vi")]
+hand_material_override = SubResource("ORMMaterial3D_5ihqb")
 
 [node name="MovementDirect" parent="left hand controller" unique_id=694986838 instance=ExtResource("3_cceie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
@@ -45,24 +56,33 @@ strafe = true
 
 [node name="dyanmic_bow" parent="left hand controller" unique_id=1492525915 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("5_prgow")]
 transform = Transform3D(1, 0, 0, 0, 0.6639262, 0.7477981, 0, -0.7477981, 0.6639262, 0, -0.013282657, 0.029664159)
+visible = false
 nock_lerp_speed = 25.0
 TEST_HAND = NodePath("../../right hand controller")
 force_multiplier = 50.0
+
+[node name="LeftHandArea" type="Area3D" parent="left hand controller" unique_id=584047538]
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="left hand controller/LeftHandArea" unique_id=1074535983]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, -0.032, 0.071)
+shape = SubResource("BoxShape3D_h06vi")
+debug_color = Color(0.97230154, 0, 0.44529122, 0.41960785)
 
 [node name="right hand controller" type="XRController3D" parent="." unique_id=1507010973]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
 tracker = &"right_hand"
 pose = &"aim"
 
-[node name="RightHand2" parent="right hand controller" unique_id=823422716 instance=ExtResource("5_c2te6")]
-hand_material_override = ExtResource("6_h06vi")
+[node name="RightHand" parent="right hand controller" unique_id=823422716 instance=ExtResource("5_c2te6")]
+hand_material_override = SubResource("ORMMaterial3D_5ihqb")
 
-[node name="HandArea" type="Area3D" parent="right hand controller" unique_id=442000693]
+[node name="RightHandArea" type="Area3D" parent="right hand controller" unique_id=442000693]
 collision_mask = 16
 script = ExtResource("11_pjw0h")
 arrow_scene = ExtResource("9_h06vi")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="right hand controller/HandArea" unique_id=1558289753]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right hand controller/RightHandArea" unique_id=1558289753]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020080566, -0.032318115, 0.071380615)
 shape = SubResource("BoxShape3D_wbtds")
 debug_color = Color(0.97230154, 0, 0.44529122, 0.41960785)
@@ -72,10 +92,10 @@ player_calibrate_height = false
 push_rigid_bodies = false
 
 [connection signal="area_entered" from="XRCamera3D/QuiverArea" to="left hand controller/dyanmic_bow" method="_on_quiver_area_area_entered"]
-[connection signal="area_entered" from="XRCamera3D/QuiverArea" to="right hand controller/HandArea" method="_on_quiver_area_area_entered"]
-[connection signal="area_exited" from="XRCamera3D/QuiverArea" to="right hand controller/HandArea" method="_on_quiver_area_area_exited"]
-[connection signal="button_pressed" from="right hand controller" to="right hand controller/HandArea" method="_on_right_hand_controller_button_pressed"]
+[connection signal="area_entered" from="XRCamera3D/QuiverArea" to="right hand controller/RightHandArea" method="_on_quiver_area_area_entered"]
+[connection signal="area_exited" from="XRCamera3D/QuiverArea" to="right hand controller/RightHandArea" method="_on_quiver_area_area_exited"]
+[connection signal="button_pressed" from="right hand controller" to="right hand controller/RightHandArea" method="_on_right_hand_controller_button_pressed"]
 [connection signal="button_released" from="right hand controller" to="left hand controller/dyanmic_bow" method="_on_right_hand_controller_button_released"]
-[connection signal="button_released" from="right hand controller" to="right hand controller/HandArea" method="_on_right_hand_controller_button_released"]
-[connection signal="arrow_despawned" from="right hand controller/HandArea" to="left hand controller/dyanmic_bow" method="_on_hand_area_arrow_despawned"]
-[connection signal="arrow_spawned" from="right hand controller/HandArea" to="left hand controller/dyanmic_bow" method="_on_hand_area_arrow_spawned"]
+[connection signal="button_released" from="right hand controller" to="right hand controller/RightHandArea" method="_on_right_hand_controller_button_released"]
+[connection signal="arrow_despawned" from="right hand controller/RightHandArea" to="left hand controller/dyanmic_bow" method="_on_hand_area_arrow_despawned"]
+[connection signal="arrow_spawned" from="right hand controller/RightHandArea" to="left hand controller/dyanmic_bow" method="_on_hand_area_arrow_spawned"]

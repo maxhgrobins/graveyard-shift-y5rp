@@ -18,14 +18,18 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if night == 1:
-		$"..".reset_scene()
+	if night == 5:
+		get_tree().reload_current_scene()
 
 
 func _on_button_pressed(button_name : String) -> void:
 	match button_name:
 		"start_game":
 			lift.raise_lift()
+			# TODO Ambidextrous
+			$"../Platform/Player/left hand controller/LeftHand".hide()
+			$"../Platform/Player/left hand controller/dyanmic_bow".show()
+			$"../Platform/Player/left hand controller/LeftHandArea".monitoring = false
 		#"upgrade":
 			#lift.raise_lift()
 			#shop_manager.purchase_complete

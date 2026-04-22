@@ -1,3 +1,4 @@
+@tool
 extends Area3D
 class_name FloatingButton
 
@@ -7,9 +8,9 @@ signal button_pressed(button_name: String)
 @export_group("Settings")
 @export var interact_button : String = "grip_click"
 @export_group("Visuals")
-@export var float_amplitude : float = 0.1
-@export var float_speed : float = 2.0
-@export var spin_speed : float = 0.0
+@export var float_amplitude : float = 0.02
+@export var float_speed : float = 1.0
+@export var spin_speed : float = 0.2
 @export var shrink_and_grow : bool = true
 
 @onready var start_y : float = position.y
