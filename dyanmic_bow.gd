@@ -158,7 +158,7 @@ func fire_arrow(arrow: Node3D):
 
 
 func _on_right_hand_controller_button_released(button_name: String) -> void:
-	if button_name == "grip_click":
+	if button_name == "trigger_click":
 		if held_arrow and current_state == BowState.NOCKED:
 			fire_arrow(held_arrow)
 

@@ -11,15 +11,16 @@ extends Node3D
 }
 
 @export var night_duration = 300
-@onready var player : Node3D = $"../Player/XRCamera3D"
+@onready var player : Node3D = $"../Platform/Player/XRCamera3D"
 
 var night_timer: Timer
 var current_night_index: int = 0
 var is_night_active: bool = false
 
+signal wave_complete()
+
 func _ready():
 	night_timer = $"../NightTimer"
-	start_night(0)
 
 func start_night(index: int):
 	if index >= nights.size(): return
@@ -40,6 +41,7 @@ func start_night(index: int):
 		if night_timer.is_stopped(): break
 	
 	print("end of night")
+	wave_complete.emit()
 
 func spawn_wave(wave: WaveData):
 	for enemy in wave.spawn_list:
