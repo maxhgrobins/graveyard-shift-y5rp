@@ -4,6 +4,15 @@ extends Node
 @export var wave_manager : Node
 @export var shop_manager : Node
 
+@export var music_player : AudioStreamPlayer
+@export var ambience_player : AudioStreamPlayer
+
+@export var streak_cooldown : float = 10.0
+
+@onready var music : AudioStreamPlaybackInteractive = music_player.get_stream_playback()
+@onready var ambience : AudioStreamPlaybackInteractive = ambience_player.get_stream_playback()
+@onready var streak_timer : Timer = $"../StreakTimer"
+
 var night : int = 0
 
 
@@ -15,8 +24,12 @@ func _ready() -> void:
 			
 	shop_manager.upgrade_selected.connect(_apply_upgrade)
 	wave_manager.wave_complete.connect(_on_wave_complete)
-
-
+	
+	streak_timer.wait_time = streak_cooldown
+	streak_timer.timeout.connect(_on_streak_lost)
+	
+	SignalBus.skeleton_killed.connect(_on_skeleton_killed)
+	
 func _process(delta: float) -> void:
 	if night == 5:
 		get_tree().reload_current_scene()
@@ -25,14 +38,19 @@ func _process(delta: float) -> void:
 func _on_button_pressed(button_name : String) -> void:
 	match button_name:
 		"start_game":
-			lift.raise_lift()
-			# TODO Ambidextrous
-			$"../Platform/Player/left hand controller/LeftHand".hide()
-			$"../Platform/Player/left hand controller/dyanmic_bow".show()
-			$"../Platform/Player/left hand controller/LeftHandArea".monitoring = false
+			_start_game()
 		#"upgrade":
 			#lift.raise_lift()
 			#shop_manager.purchase_complete
+
+
+func _start_game():
+	music.switch_to_clip_by_name("Music")
+	lift.raise_lift()
+	# TODO Ambidextrous
+	$"../Platform/Player/left hand controller/LeftHand".hide()
+	$"../Platform/Player/left hand controller/dyanmic_bow".show()
+	$"../Platform/Player/left hand controller/LeftHandArea".process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func _apply_upgrade(type: String):
@@ -47,6 +65,7 @@ func _apply_upgrade(type: String):
 	
 	await get_tree().create_timer(2.0).timeout
 	lift.raise_lift()
+	ambience.switch_to_clip_by_name("Woods")
 
 
 func _on_platform_lift_arrived(location: String) -> void:
@@ -57,5 +76,19 @@ func _on_platform_lift_arrived(location: String) -> void:
 
 
 func _on_wave_complete() -> void:
+	ambience.switch_to_clip_by_name("Cave")
+	# currently night as as long as song and it auto advances
+	#music.switch_to_clip_by_name("Outro")
 	lift.lower_lift()
 	night += 1
+	
+## TODO do streak stuff?
+func _on_skeleton_killed():
+	#if streak_timer.is_stopped():
+		#music.switch_to_clip_by_name("On Fire")
+	streak_timer.start()
+
+
+func _on_streak_lost():
+	pass
+	#music.switch_to_clip_by_name("Normal")

@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dj5e3wbkkih45"]
 
 [ext_resource type="Texture2D" uid="uid://bayam1ymcvfd5" path="res://Models/KayKit/Skeletons/gltf/Skeleton_Minion_skeleton_texture.png" id="1_it8o6"]
+[ext_resource type="Script" uid="uid://1bnrg84r5vcj" path="res://prefabs/skull_gib.gd" id="1_r51ly"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjf5f"]
 resource_name = "skeleton"
@@ -209,6 +210,7 @@ size = Vector3(0.1474762, 0.31401062, 0.27671814)
 [node name="RigidBody3D" type="RigidBody3D" unique_id=1655538318]
 mass = 5.0
 center_of_mass_mode = 1
+script = ExtResource("1_r51ly")
 
 [node name="MeshContainer" type="Node3D" parent="." unique_id=608766251]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -1.1452216, 0)

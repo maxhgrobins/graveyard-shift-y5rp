@@ -75,8 +75,11 @@ func _knockdown():
 	if not is_dead: # Check if they were headshot while down
 		anim.play(ANIM_RESURRECT)
 		
-func _die(_a, _b, impact_vector : Vector3):
+func _die(_amount, _zone, impact_vector : Vector3):
+	if is_dead: return
 	is_dead = true
+	
+	SignalBus.skeleton_killed.emit()
 	
 	if not is_downed:
 		anim.play(ANIM_DEATH)
@@ -109,7 +112,7 @@ func detach_and_fly(mesh_node, impact: Vector3):
 func sink_and_vanish():
 	var tween = create_tween()
 
-	tween.tween_property(self, "global_position:y", global_position.y - 2.0, 3.0)
+	tween.tween_property(self, "global_position:y", global_position.y - 2.0, 5.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	tween.finished.connect(func():
 		var parent = get_parent()
 		if parent is PathFollow3D:
