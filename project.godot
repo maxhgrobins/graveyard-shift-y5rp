@@ -19,6 +19,10 @@ run/main_scene="uid://crtgtdavn5aig"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://bs1l31t8v1gki"
+
 [autoload]
 
 XRToolsUserSettings="*uid://bqgb8i74tm0t"

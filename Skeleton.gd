@@ -2,9 +2,14 @@ extends Node3D
 
 @onready var anim : AnimationPlayer = $AnimationPlayer
 @onready var health : HealthComponent = $HealthComponent
+@onready var moan_timer: Timer = $MoanTimer
+
 @export var skull_gib : PackedScene
 @export var move_speed : float = 2.0
 @export var down_time : float = 3.0
+
+@export var min_moan_time: float = 5.0
+@export var max_moan_time: float = 15.0
 
 var target_player : Node3D = null
 var is_dead = false
@@ -21,6 +26,8 @@ func _ready() -> void:
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
 	anim.animation_finished.connect(_on_animation_finished)
+	moan_timer.timeout.connect(_on_moan_timer)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -40,6 +47,7 @@ func _process(delta: float) -> void:
 			
 	if anim.current_animation != ANIM_WALK and anim.current_animation != ANIM_RESURRECT:
 		anim.play(ANIM_WALK)
+
 
 func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 	if is_dead: return
@@ -61,25 +69,31 @@ func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == ANIM_SPAWN or anim_name == ANIM_RESURRECT:
 		is_downed = false
-			
+		$Walking.play()
 
-func _knockdown():
+
+func _knockdown() -> void:
 	if is_downed:
 		return
 		
 	is_downed = true
 	anim.play(ANIM_DEATH)
+	$Walking.stop()
 	
 	await get_tree().create_timer(down_time).timeout
 	
 	if not is_dead: # Check if they were headshot while down
 		anim.play(ANIM_RESURRECT)
-		
-func _die(_amount, _zone, impact_vector : Vector3):
+		$RiseSound.play()
+
+
+func _die(_amount, _zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
 	
 	SignalBus.skeleton_killed.emit()
+	$Walking.stop()
+	$DeathSound.play()
 	
 	if not is_downed:
 		anim.play(ANIM_DEATH)
@@ -91,8 +105,8 @@ func _die(_amount, _zone, impact_vector : Vector3):
 	await get_tree().create_timer(5.0).timeout
 	sink_and_vanish()
 
-	
-func detach_and_fly(mesh_node, impact: Vector3):
+
+func detach_and_fly(mesh_node, impact: Vector3) -> void:
 	$Rig_Medium/Skeleton3D/Skeleton_Minion_Head.visible = false
 	
 	var head_gib = mesh_node.instantiate()
@@ -108,8 +122,9 @@ func detach_and_fly(mesh_node, impact: Vector3):
 	
 	head_gib.linear_velocity = impact * 0.1 + Vector3.UP * 5.0
 	head_gib.angular_velocity = impact.normalized().cross(Vector3.UP) * 10.0
-	
-func sink_and_vanish():
+
+
+func sink_and_vanish() -> void:
 	var tween = create_tween()
 
 	tween.tween_property(self, "global_position:y", global_position.y - 2.0, 5.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
@@ -118,3 +133,15 @@ func sink_and_vanish():
 		if parent is PathFollow3D:
 			parent.queue_free()
 		queue_free())
+
+
+func _start_moan_timer() -> void:
+	var wait_time = randf_range(min_moan_time, max_moan_time)
+	moan_timer.start(wait_time)
+	
+
+func _on_moan_timer() -> void:
+	if not is_downed and not is_dead:
+		if not $Moans.playing:
+				$Moans.play()
+		_start_moan_timer()
