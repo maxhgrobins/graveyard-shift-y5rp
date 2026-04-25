@@ -64,7 +64,11 @@ func _apply_upgrade(type: String):
 			#player.health += 20
 	
 	await get_tree().create_timer(2.0).timeout
+	# Do some anim/vo here
+	
+	# maybe call this somewhere else
 	lift.raise_lift()
+	music.switch_to_clip_by_name("Music")
 	ambience.switch_to_clip_by_name("Woods")
 
 
@@ -72,13 +76,13 @@ func _on_platform_lift_arrived(location: String) -> void:
 	if location == "graveyard":
 		wave_manager.start_night(night)
 	else:
+		wave_manager.clean_up_paths()
 		shop_manager.generate_shop()
+		music.switch_to_clip_by_name("Shop")
 
 
 func _on_wave_complete() -> void:
 	ambience.switch_to_clip_by_name("Cave")
-	# currently night as as long as song and it auto advances
-	#music.switch_to_clip_by_name("Outro")
 	lift.lower_lift()
 	night += 1
 	

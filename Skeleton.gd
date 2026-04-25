@@ -1,37 +1,32 @@
 extends Node3D
 
-@onready var anim : AnimationPlayer = $AnimationPlayer
+@onready var anim_tree : AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 @onready var health : HealthComponent = $HealthComponent
-@onready var moan_timer: Timer = $MoanTimer
 
 @export var skull_gib : PackedScene
 @export var move_speed : float = 2.0
 @export var down_time : float = 3.0
 
-@export var min_moan_time: float = 5.0
-@export var max_moan_time: float = 15.0
-
 var target_player : Node3D = null
 var is_dead = false
-var is_downed = true
-
-const ANIM_WALK = "Rig_Medium_Special/Skeletons_Walking"
-const ANIM_SPAWN = "Rig_Medium_Special/Skeletons_Spawn_Ground"
-const ANIM_RESURRECT = "Rig_Medium_Special/Skeletons_Death_Resurrect"
-const ANIM_DEATH = "Rig_Medium_Special/Skeletons_Death"
+var is_downed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	anim.play(ANIM_SPAWN)
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
-	anim.animation_finished.connect(_on_animation_finished)
-	moan_timer.timeout.connect(_on_moan_timer)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if is_dead or is_downed: return
+	if is_dead or anim_tree.get_current_node() != "Walk":
+		$Walking.stop()
+		return
+	
+	if not $Walking.playing:
+		$Walking.play()
+	
+	is_downed = false
 	
 	var parent = get_parent()
 	if parent is PathFollow3D:
@@ -44,16 +39,13 @@ func _process(delta: float) -> void:
 		global_position += direction * move_speed * delta
 
 		look_at(Vector3(target_player.global_position.x, global_position.y, target_player.global_position.z), Vector3.UP)
-			
-	if anim.current_animation != ANIM_WALK and anim.current_animation != ANIM_RESURRECT:
-		anim.play(ANIM_WALK)
 
 
 func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 	if is_dead: return
 	match hit_zone:
 		HitData.Zone.BODY:
-			_knockdown()
+			_knockdown(down_time)
 		# TODO: handled by the health component????
 		#HitData.Zone.HEAD:
 			#_die(impact)
@@ -61,42 +53,35 @@ func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
 		#HitData.Zone.ARMOR:
 			#_handle_armor_hit(impact)
 
-##TEST
-#func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	#if anim_name == "Rig_Medium_Special/Skeletons_Death_Resurrect":
-		#is_downed = false
 
-func _on_animation_finished(anim_name: StringName) -> void:
-	if anim_name == ANIM_SPAWN or anim_name == ANIM_RESURRECT:
-		is_downed = false
-		$Walking.play()
-
-
-func _knockdown() -> void:
+func _knockdown(duration) -> void:
 	if is_downed:
 		return
 		
 	is_downed = true
-	anim.play(ANIM_DEATH)
+	anim_tree.travel("Death")
+	#anim.play(ANIM_DEATH)
+	$DeathSound.play()
 	$Walking.stop()
 	
-	await get_tree().create_timer(down_time).timeout
-	
-	if not is_dead: # Check if they were headshot while down
-		anim.play(ANIM_RESURRECT)
-		$RiseSound.play()
+	if duration > 0:
+		await get_tree().create_timer(duration).timeout
+		
+		if not is_dead: # Check if they were headshot while down
+			anim_tree.travel("Resurrect")
+			$RiseSound.play()
+			$Moans.play()
 
 
 func _die(_amount, _zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
-	
+
 	SignalBus.skeleton_killed.emit()
 	$Walking.stop()
 	$DeathSound.play()
 	
-	if not is_downed:
-		anim.play(ANIM_DEATH)
+	anim_tree.travel("Death")
 	
 	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes:
 		$Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes.queue_free()
@@ -108,6 +93,7 @@ func _die(_amount, _zone, impact_vector : Vector3) -> void:
 
 func detach_and_fly(mesh_node, impact: Vector3) -> void:
 	$Rig_Medium/Skeleton3D/Skeleton_Minion_Head.visible = false
+	$Rig_Medium/Skeleton3D/HeadAttach/HeadArea.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	var head_gib = mesh_node.instantiate()
 	get_tree().root.add_child(head_gib)
@@ -133,15 +119,3 @@ func sink_and_vanish() -> void:
 		if parent is PathFollow3D:
 			parent.queue_free()
 		queue_free())
-
-
-func _start_moan_timer() -> void:
-	var wait_time = randf_range(min_moan_time, max_moan_time)
-	moan_timer.start(wait_time)
-	
-
-func _on_moan_timer() -> void:
-	if not is_downed and not is_dead:
-		if not $Moans.playing:
-				$Moans.play()
-		_start_moan_timer()

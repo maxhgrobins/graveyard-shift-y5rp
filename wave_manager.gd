@@ -24,9 +24,17 @@ signal wave_complete()
 
 func _ready():
 	night_timer = $"../NightTimer"
+	night_timer.wait_time = night_duration
+	night_timer.timeout.connect(_on_night_end)
+
+
+func _on_night_end():
+	print("end of night")
+	wave_complete.emit()
+	clean_up_paths(true)
+
 
 func start_night(index: int):
-	_clean_up_paths()
 	if index >= nights.size():
 		push_warning("Night out of range! Trying to run night ",index," but it is not assigned in the inspector.")
 		return
@@ -57,24 +65,20 @@ func start_night(index: int):
 		await get_tree().create_timer(night.secs_between_waves).timeout
 		if night_timer.is_stopped(): break
 		_wave_idx += 1
-	
-	print("end of night")
-	wave_complete.emit()
-	_clean_up_paths(true)
 
 
-func _clean_up_paths(knockdown: bool = false):
+func clean_up_paths(knockdown: bool = false):
 	for node_path: NodePath in path_map.values():
 		for follower in get_node(node_path).get_children():
-			if follower is PathFollow3D:
+			if follower is PathFollow3D and follower.get_child_count() > 0:
 				var _enemy = follower.get_child(0)
 				
 				if _enemy:
-					if knockdown:
+					if knockdown and not _enemy.is_dead and not _enemy.is_downed:
 						## TODO: if doesnt have a knockdown, default to die?
-						## CHANGED TO DIE SO I DONT HAVE TO WORRY ABOUT THEM GETTING BACK UP
-						_enemy._die(0, 0, Vector3.ZERO)		# this is 100% borked. please fix when it isnt 3am
-						await get_tree().create_timer(0.1).timeout
+						## 0 is dont get up
+						_enemy._knockdown(0)
+						await get_tree().create_timer(0.5).timeout
 					else:
 						_enemy.queue_free()
 
@@ -95,6 +99,7 @@ func spawn_wave(wave: WaveData):
 		for i in range(_spawn_data.amount):
 			# check each path
 			for _path_name in _spawn_data.PATH_FLAGS.keys():
+				if night_timer.is_stopped(): break
 				# get the flag number
 				var _flag_value = SpawnData.PATH_FLAGS[_path_name]
 				# if the path is selected
