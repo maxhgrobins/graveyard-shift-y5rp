@@ -41,6 +41,7 @@
 [ext_resource type="Script" uid="uid://ch23kao7mms5n" path="res://Data/spawn_data.gd" id="37_e02u1"]
 [ext_resource type="Script" uid="uid://durp3w261sauq" path="res://game_manager.gd" id="40_l3lgf"]
 [ext_resource type="PackedScene" uid="uid://dbcpyhtuh70s1" path="res://prefabs/skeleton_minion.tscn" id="40_nvpg6"]
+[ext_resource type="PackedScene" uid="uid://fge1o7la0xqx" path="res://skeleton_axe.tscn" id="41_7yo80"]
 [ext_resource type="PackedScene" uid="uid://0l06sumt528f" path="res://TEST_UPGRADE.tscn" id="42_l3lgf"]
 [ext_resource type="Script" uid="uid://c7rvjx4t7x10a" path="res://shop_manager.gd" id="42_t7ufo"]
 [ext_resource type="AudioStream" uid="uid://o54tq4888fna" path="res://Music/intro.ogg" id="43_dxisk"]
@@ -349,6 +350,13 @@ size = Vector2(30, 30)
 script = ExtResource("37_e02u1")
 metadata/_custom_type_script = "uid://ch23kao7mms5n"
 
+[sub_resource type="Resource" id="Resource_6q1vr"]
+script = ExtResource("37_e02u1")
+enemy_type = "Axe"
+amount = 2
+spawn_delay = 0.0
+metadata/_custom_type_script = "uid://ch23kao7mms5n"
+
 [sub_resource type="Resource" id="Resource_20o3c"]
 script = ExtResource("37_e02u1")
 amount = 4
@@ -356,7 +364,7 @@ spawn_delay = 5.0
 
 [sub_resource type="Resource" id="Resource_22w0m"]
 script = ExtResource("36_r2sjb")
-spawn_list = Array[ExtResource("37_e02u1")]([SubResource("Resource_50mnp"), SubResource("Resource_20o3c")])
+spawn_list = Array[ExtResource("37_e02u1")]([SubResource("Resource_50mnp"), SubResource("Resource_6q1vr"), SubResource("Resource_20o3c")])
 metadata/_custom_type_script = "uid://dc8otmpjy8e52"
 
 [sub_resource type="Resource" id="Resource_l3lgf"]
@@ -1022,7 +1030,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89781666, -0.6121591)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6066331, 0.89781666, -0.5058552)
 
 [node name="start" type="Area3D" parent="Shop" unique_id=153861224]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.72645897, -0.5467313)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.6981899, -0.5467313)
 script = ExtResource("28_20o3c")
 button_name = "start_game"
 spin_speed = 0.0
@@ -1230,7 +1238,7 @@ visible = false
 mesh = SubResource("PlaneMesh_1hpar")
 skeleton = NodePath("../../floorquad")
 
-[node name="WaveManager" type="Node3D" parent="." unique_id=266440530]
+[node name="WaveManager" type="Node3D" parent="." unique_id=266440530 node_paths=PackedStringArray("projectile_markers")]
 script = ExtResource("34_1qokk")
 nights = Array[ExtResource("35_1t5pe")]([SubResource("Resource_dxisk"), SubResource("Resource_uwpek"), SubResource("Resource_blr10"), SubResource("Resource_3q86u"), SubResource("Resource_3felt")])
 path_map = Dictionary[String, NodePath]({
@@ -1241,8 +1249,9 @@ path_map = Dictionary[String, NodePath]({
 "West": NodePath("W1Path"),
 "West2": NodePath("W2Path")
 })
-night_duration = null
+projectile_markers = [NodePath("../ProjectileEnemySpawnPoints/Marker3D"), NodePath("../ProjectileEnemySpawnPoints/Marker3D3"), NodePath("../ProjectileEnemySpawnPoints/Marker3D4"), NodePath("../ProjectileEnemySpawnPoints/Marker3D5")]
 minion_scene = ExtResource("40_nvpg6")
+axe_skele_scene = ExtResource("41_7yo80")
 
 [node name="NorthPath" type="Path3D" parent="WaveManager" unique_id=963630143]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37836, 0, -24.77202)

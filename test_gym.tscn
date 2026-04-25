@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ba0qf4h8r4hq7" path="res://player_with_bow.tscn" id="4_du3nd"]
 [ext_resource type="PackedScene" uid="uid://dbcpyhtuh70s1" path="res://prefabs/skeleton_minion.tscn" id="5_jg1yd"]
 [ext_resource type="Script" uid="uid://bxrvhowpkwixv" path="res://TestMove.gd" id="6_cqpx3"]
+[ext_resource type="PackedScene" uid="uid://fge1o7la0xqx" path="res://skeleton_axe.tscn" id="7_wqptd"]
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 
@@ -145,3 +146,6 @@ material = SubResource("StandardMaterial3D_5vw27")
 script = ExtResource("6_cqpx3")
 start = NodePath("../Marker3D3")
 end = NodePath("../Marker3D6")
+
+[node name="Skeleton_Minion" parent="." unique_id=832630013 instance=ExtResource("7_wqptd")]
+transform = Transform3D(0.51786274, 0, 0.8554638, 0, 1, 0, -0.8554638, 0, 0.51786274, -6.137604, 0.070121646, -3.2284074)

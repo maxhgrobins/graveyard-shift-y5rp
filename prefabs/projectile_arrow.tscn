@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://ctrc00vjmqg8e"]
 
-[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://nocked_arrow.gd" id="2_6ga5o"]
+[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://projectile_arrow.gd" id="2_6ga5o"]
 [ext_resource type="Texture2D" uid="uid://b1nknljtq4460" path="res://Models/KayKit/Adventurers/Assets/ranger_texture.png" id="2_54s7l"]
 [ext_resource type="Texture2D" uid="uid://kvppl2kadlge" path="res://sparkle.png" id="3_54s7l"]
-[ext_resource type="Script" uid="uid://d1k5bxr48cvs5" path="res://prefabs/glint_effect.gd" id="4_10i4j"]
+[ext_resource type="Script" path="res://prefabs/glint_effect.gd" id="4_10i4j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4u27"]
 resource_name = "ranger"

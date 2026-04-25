@@ -10,7 +10,7 @@ extends Node3D
 	"West2": ""
 }
 @export var projectile_markers : Array[Marker3D]
-@export var night_duration = 180
+@export var night_duration : float = 180.0
 @export var minion_scene : PackedScene
 @export var axe_skele_scene : PackedScene
 @export var wizard_scene : PackedScene
@@ -114,7 +114,7 @@ func spawn_wave(wave: WaveData):
 				if _marker:
 					create_projectile_enemy(_marker, _enemy_scene)
 				else:
-					print("No free markers for projectile, skipping spawn.")
+					print("No free markers for enemy, skipping spawn.")
 			else:
 				for _path_name in _spawn_data.PATH_FLAGS.keys():
 					# get the flag number
@@ -145,7 +145,7 @@ func get_free_marker() -> Marker3D:
 	var _available = []
 	for _marker in projectile_markers:
 		var _occupied = false
-		if _marker.get_child_count() >= 0:
+		if _marker.get_child_count() > 0:
 				_occupied = true
 		else:
 			_available.append(_marker)

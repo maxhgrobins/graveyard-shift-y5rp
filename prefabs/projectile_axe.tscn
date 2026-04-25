@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bxtqeve1tlojo"]
+
+[ext_resource type="Script" uid="uid://8wgifwpk85g5" path="res://projectile_axe.gd" id="1_28cjv"]
+[ext_resource type="PackedScene" uid="uid://ceqflc775qtpg" path="res://Models/KayKit/Skeletons/Assets/Skeleton_Axe.gltf" id="2_ad708"]
+
+[node name="Axe" type="Node3D" unique_id=1001727064]
+script = ExtResource("1_28cjv")
+
+[node name="StickPoint" type="Marker3D" parent="." unique_id=2092319171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11145367, 0, 1.1544667)
+
+[node name="Skeleton_Axe2" parent="." unique_id=1140645027 instance=ExtResource("2_ad708")]
+transform = Transform3D(1.484403, 0.089062735, 0.19651146, 0.19970138, -0.050072193, -1.4858042, -0.08165999, 1.4965165, -0.061408907, 0.026109755, 0.026436716, -0.00016313791)
