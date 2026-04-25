@@ -13,8 +13,14 @@ var is_downed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.visible = false
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
+	anim_tree.start("Spawn")
+	
+	# trying to prevent 1 frame of wrong anim?
+	await get_tree().process_frame
+	self.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
