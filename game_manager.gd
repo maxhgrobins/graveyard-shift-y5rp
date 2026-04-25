@@ -76,7 +76,7 @@ func _on_platform_lift_arrived(location: String) -> void:
 	if location == "graveyard":
 		wave_manager.start_night(night)
 	else:
-		wave_manager.clean_up_paths()
+		wave_manager.clean_up_spawns()
 		shop_manager.generate_shop()
 		music.switch_to_clip_by_name("Shop")
 

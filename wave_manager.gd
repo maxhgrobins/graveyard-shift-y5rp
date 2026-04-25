@@ -9,7 +9,7 @@ extends Node3D
 	"West": "",
 	"West2": ""
 }
-
+@export var projectile_markers : Array[Marker3D]
 @export var night_duration = 180
 @export var minion_scene : PackedScene
 @export var axe_skele_scene : PackedScene
@@ -31,7 +31,7 @@ func _ready():
 func _on_night_end():
 	print("end of night")
 	wave_complete.emit()
-	clean_up_paths(true)
+	clean_up_spawns(true)
 
 
 func start_night(index: int):
@@ -67,20 +67,29 @@ func start_night(index: int):
 		_wave_idx += 1
 
 
-func clean_up_paths(knockdown: bool = false):
+func clean_up_spawns(knockdown: bool = false):
+	var _enemies = []
+	# projectile enemies
+	for _marker in projectile_markers:
+		if _marker.get_child_count() >= 0:
+				_enemies.append(_marker.get_child(0))
+
+	# path enemies
 	for node_path: NodePath in path_map.values():
 		for follower in get_node(node_path).get_children():
 			if follower is PathFollow3D and follower.get_child_count() > 0:
-				var _enemy = follower.get_child(0)
-				
-				if _enemy:
-					if knockdown and not _enemy.is_dead and not _enemy.is_downed:
-						## TODO: if doesnt have a knockdown, default to die?
-						## 0 is dont get up
-						_enemy._knockdown(0)
-						await get_tree().create_timer(0.5).timeout
-					else:
-						_enemy.queue_free()
+				_enemies.append(follower.get_child(0))
+	
+	# clear 'em
+	_enemies.shuffle()
+	for _enemy in _enemies:
+		if knockdown and not _enemy.is_dead and not _enemy.is_downed:
+			## TODO: if doesnt have a knockdown, default to die?
+			## 0 is dont get up
+			_enemy._knockdown(0)
+			await get_tree().create_timer(0.5).timeout
+		else:
+			_enemy.queue_free()
 
 
 func spawn_wave(wave: WaveData):
@@ -97,18 +106,26 @@ func spawn_wave(wave: WaveData):
 			"Wizard": _enemy_scene = wizard_scene
 
 		for i in range(_spawn_data.amount):
+			if night_timer.is_stopped(): break
 			# check each path
-			for _path_name in _spawn_data.PATH_FLAGS.keys():
-				if night_timer.is_stopped(): break
-				# get the flag number
-				var _flag_value = SpawnData.PATH_FLAGS[_path_name]
-				# if the path is selected
-				if _spawn_data.paths & _flag_value:
-					var _path_node_path = path_map.get(_path_name)
-					if _path_node_path:
-						var _path : Path3D = get_node(_path_node_path)
-						if _path:
-								create_enemy_on_path(_path, _enemy_scene)
+			
+			if _spawn_data.enemy_type == "Axe":
+				var _marker = get_free_marker()
+				if _marker:
+					create_projectile_enemy(_marker, _enemy_scene)
+				else:
+					print("No free markers for projectile, skipping spawn.")
+			else:
+				for _path_name in _spawn_data.PATH_FLAGS.keys():
+					# get the flag number
+					var _flag_value = SpawnData.PATH_FLAGS[_path_name]
+					# if the path is selected
+					if _spawn_data.paths & _flag_value:
+						var _path_node_path = path_map.get(_path_name)
+						if _path_node_path:
+							var _path : Path3D = get_node(_path_node_path)
+							if _path:
+									create_enemy_on_path(_path, _enemy_scene)
 			await get_tree().create_timer(_spawn_data.spawn_delay).timeout
 
 
@@ -122,3 +139,23 @@ func create_enemy_on_path(path: Path3D, enemy_type: PackedScene):
 	var enemy = enemy_type.instantiate()
 	enemy.target_player = player
 	follower.add_child(enemy)
+
+
+func get_free_marker() -> Marker3D:
+	var _available = []
+	for _marker in projectile_markers:
+		var _occupied = false
+		if _marker.get_child_count() >= 0:
+				_occupied = true
+		else:
+			_available.append(_marker)
+	
+	return _available.pick_random() if _available.size() > 0 else null
+	
+	
+func create_projectile_enemy(marker: Marker3D, enemy_type: PackedScene) -> void:
+	var _enemy = enemy_type.instantiate()
+	_enemy.target_player = player
+
+	marker.add_child(_enemy) 
+	_enemy.global_position = marker.global_position	
