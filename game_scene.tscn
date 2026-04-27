@@ -52,9 +52,11 @@
 [ext_resource type="AudioStream" uid="uid://cdg3683pu3yc1" path="res://Music/Ambience/cave.ogg" id="47_sxut1"]
 [ext_resource type="AudioStream" uid="uid://br61lawth2jev" path="res://Music/Ambience/woods.ogg" id="48_ku8ms"]
 [ext_resource type="AudioStream" uid="uid://cumjcj845chmn" path="res://Music/Music.ogg" id="49_h31d7"]
+[ext_resource type="Script" uid="uid://b0e1qhsl3tt1y" path="res://sky.gd" id="53_5yrq5"]
+[ext_resource type="Texture2D" uid="uid://cir2tatmn4bjs" path="res://Circle.png" id="53_c68bw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1qokk"]
-sky_top_color = Color(0.0058984174, 0.035523877, 0.10915547, 1)
+sky_top_color = Color(0.008629266, 0.039852146, 0.12242467, 1)
 sky_horizon_color = Color(0.059125945, 0.059125952, 0.059125915, 1)
 ground_bottom_color = Color(0.0957996, 0.08671231, 0.080653794, 1)
 ground_horizon_color = Color(0.059125945, 0.059125952, 0.059125915, 1)
@@ -1030,7 +1032,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89781666, -0.6121591)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6066331, 0.89781666, -0.5058552)
 
 [node name="start" type="Area3D" parent="Shop" unique_id=153861224]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.6981899, -0.5467313)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7186356, -0.5467313)
 script = ExtResource("28_20o3c")
 button_name = "start_game"
 spin_speed = 0.0
@@ -1319,6 +1321,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.863695, 0, 10.568431)
 
 [node name="Marker3D5" type="Marker3D" parent="ProjectileEnemySpawnPoints" unique_id=764490889]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.227749, 2.3841858e-07, 8.42187)
+
+[node name="Sky" type="Node3D" parent="." unique_id=231159794]
+script = ExtResource("53_5yrq5")
+morning_colour = Color(0, 0.09803922, 0.29411766, 1)
+_night_progress = 0.0
+
+[node name="Moon" type="Sprite3D" parent="Sky" unique_id=800501608]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 33.011806, 5.503442, 0)
+modulate = Color(0.8920336, 0.8920336, 0.89203364, 1)
+billboard = 1
+texture = ExtResource("53_c68bw")
+
+[node name="Moon2" type="Sprite3D" parent="Sky" unique_id=17956543]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -33.012, -5.503, 0)
+modulate = Color(0.96952635, 1, 0.62193245, 1)
+billboard = 1
+texture = ExtResource("53_c68bw")
 
 [connection signal="lift_arrived" from="Platform" to="GameManager" method="_on_platform_lift_arrived"]
 [connection signal="button_pressed" from="Shop/start" to="GameManager" method="_on_start_button_pressed"]

@@ -29,11 +29,11 @@ func _ready() -> void:
 	streak_timer.timeout.connect(_on_streak_lost)
 	
 	SignalBus.skeleton_killed.connect(_on_skeleton_killed)
-	
+
+
 func _process(delta: float) -> void:
 	if night == 5:
 		get_tree().reload_current_scene()
-
 
 func _on_button_pressed(button_name : String) -> void:
 	match button_name:

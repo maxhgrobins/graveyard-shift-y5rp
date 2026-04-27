@@ -8,7 +8,8 @@ class_name BaseSkeleton
 @export var move_speed : float = 2.0
 @export var down_time : float = 3.0
 
-var target_player : Node3D = null
+## Export for test_gym
+@export var target_player : Node3D = null
 var is_dead = false
 var is_downed = false
 

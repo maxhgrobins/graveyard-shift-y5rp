@@ -1,6 +1,6 @@
 extends ProjectileBase
 
-var spin_speed : float = 15.0
+var spin_speed : float = 10.0
 
 func _process_visuals(delta: float):
-	$AxeMesh.rotate_x(spin_speed * delta)
+	$MeshContainer.rotate_y(spin_speed * delta)

@@ -71,14 +71,17 @@ material = SubResource("StandardMaterial3D_5vw27")
 [node name="Player" parent="." unique_id=1709107786 instance=ExtResource("4_du3nd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.902578, 0.6871306)
 
-[node name="Skeleton_Minion6" parent="." unique_id=616224305 instance=ExtResource("5_jg1yd")]
+[node name="Skeleton_Minion6" parent="." unique_id=616224305 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(-0.4582617, 0, -0.8888173, 0, 1, 0, 0.8888173, 0, -0.4582617, -11.193387, -2.3841858e-07, -1.9298933)
+target_player = NodePath("../CSGBox3D")
 
-[node name="Skeleton_Minion11" parent="." unique_id=1850002419 instance=ExtResource("5_jg1yd")]
+[node name="Skeleton_Minion11" parent="." unique_id=1850002419 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(-0.13538685, 0, -0.9907929, 0, 1, 0, 0.9907929, 0, -0.13538685, -11.448941, 3.5762787e-07, -0.022606254)
+target_player = NodePath("../CSGBox3D")
 
-[node name="Skeleton_Minion12" parent="." unique_id=99742001 instance=ExtResource("5_jg1yd")]
+[node name="Skeleton_Minion12" parent="." unique_id=99742001 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(0.5473296, 0, -0.8369171, 0, 1, 0, 0.8369171, 0, 0.5473296, -11.604531, 3.5762787e-07, 1.7223811)
+target_player = NodePath("../CSGBox3D")
 
 [node name="TARGETS" type="Node" parent="." unique_id=71926498]
 
@@ -147,5 +150,6 @@ script = ExtResource("6_cqpx3")
 start = NodePath("../Marker3D3")
 end = NodePath("../Marker3D6")
 
-[node name="Skeleton_Minion" parent="." unique_id=832630013 instance=ExtResource("7_wqptd")]
+[node name="Skeleton_Minion" parent="." unique_id=832630013 node_paths=PackedStringArray("target_player") instance=ExtResource("7_wqptd")]
 transform = Transform3D(0.51786274, 0, 0.8554638, 0, 1, 0, -0.8554638, 0, 0.51786274, -6.137604, 0.070121646, -3.2284074)
+target_player = NodePath("../CSGBox3D")

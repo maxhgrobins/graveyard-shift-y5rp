@@ -3,6 +3,7 @@ class_name ProjectileBase
 
 var is_flying: bool = false
 var velocity: Vector3 = Vector3.ZERO
+var shooter_collider
 
 @onready var stick_point: Marker3D = $StickPoint
 
@@ -22,6 +23,8 @@ func _physics_process(delta: float) -> void:
 	# create ray
 	var _space_state = get_world_3d().direct_space_state
 	var _query = PhysicsRayQueryParameters3D.create(stick_point.global_position, _next_position)
+	if shooter_collider:
+		_query.exclude = [shooter_collider]
 	_query.collide_with_areas = true
 	
 	var _result = _space_state.intersect_ray(_query)
