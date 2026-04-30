@@ -1032,7 +1032,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89781666, -0.6121591)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6066331, 0.89781666, -0.5058552)
 
 [node name="start" type="Area3D" parent="Shop" unique_id=153861224]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7186356, -0.5467313)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7213798, -0.5467313)
 script = ExtResource("28_20o3c")
 button_name = "start_game"
 spin_speed = 0.0
@@ -1325,7 +1325,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.227749, 2.3841858e-07, 8.
 [node name="Sky" type="Node3D" parent="." unique_id=231159794]
 script = ExtResource("53_5yrq5")
 morning_colour = Color(0, 0.09803922, 0.29411766, 1)
-_night_progress = 0.0
 
 [node name="Moon" type="Sprite3D" parent="Sky" unique_id=800501608]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 33.011806, 5.503442, 0)
