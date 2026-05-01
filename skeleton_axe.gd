@@ -32,8 +32,9 @@ func _on_throw():
 	_axe.global_position = $ThrowPoint.global_position
 	
 	##TODO replace magic vector with dynamic height
-	# look_at since projectiles move forwards
-	_axe.look_at(target_player.global_position + Vector3(0, 1.2, 0), Vector3.UP)
+	# look_at since projectiles move forwards. temp height offset
+	var _height_offset : Vector3 = Vector3(0, 0, 0)
+	_axe.look_at(target_player.global_position + _height_offset, Vector3.UP)
 	
 	if _axe.has_method("launch"):
 		_axe.shooter_collider = $Rig_Medium/Skeleton3D/HeadAttach/HeadArea

@@ -70,13 +70,14 @@ func _apply_upgrade(type: String):
 	lift.raise_lift()
 	music.switch_to_clip_by_name("Music")
 	ambience.switch_to_clip_by_name("Woods")
+	# make sure all enemies cleared from previous night
+	wave_manager.clean_up_spawns()
 
 
 func _on_platform_lift_arrived(location: String) -> void:
 	if location == "graveyard":
 		wave_manager.start_night(night)
-	else:
-		wave_manager.clean_up_spawns()
+	else:	# shop
 		shop_manager.generate_shop()
 		music.switch_to_clip_by_name("Shop")
 

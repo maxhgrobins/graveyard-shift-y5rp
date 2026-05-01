@@ -17,6 +17,6 @@ func _process_movement(delta: float):
 
 
 func _after_impact(collider: Object):
-	$Sprite3D.visible = false
+	is_flying = false
 	reparent(collider, true)
 	set_physics_process(false)

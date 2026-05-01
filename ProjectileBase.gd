@@ -14,9 +14,9 @@ func launch(force: float):
 
 
 func _physics_process(delta: float) -> void:
-	if not is_flying: return
-	
 	_process_visuals(delta)
+	
+	if not is_flying: return
 	
 	var _next_position = stick_point.global_position + (velocity * delta)
 	
@@ -42,12 +42,11 @@ func _process_movement(delta):
 ## When hitting a collider - Default apply damage
 func _on_impact(result):
 	is_flying = false
-	set_process(false) # stop moving
 
 	# snap to contact point
 	global_position = global_position + (result.position - stick_point.global_position)
 	
-	# TODO spawn particles
+	# TODO spawn particles and audio
 	
 	if result.collider is Hurtbox:
 		_apply_damage(result.collider)

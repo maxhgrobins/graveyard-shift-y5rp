@@ -643,7 +643,7 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, -5.6, 0)
 [node name="wall_shelves2" parent="Shop/walls" unique_id=1182535460 instance=ExtResource("9_opqoc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/walls/wall_shelves2/wall_shelves" parent_id_path=PackedInt32Array(1182535460, 1777847301) index="0" unique_id=1613652288]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/walls/wall_shelves2/wall_shelves" parent_id_path=PackedInt32Array(1182535460, 1060348324) index="0" unique_id=1613652288]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/walls/wall_shelves2/wall_shelves/StaticBody3D" unique_id=858765196]
 shape = SubResource("ConvexPolygonShape3D_i1igs")
@@ -803,7 +803,7 @@ shape = SubResource("ConcavePolygonShape3D_kyyqo")
 [node name="bed_decorated2" parent="Shop/props" unique_id=942576309 instance=ExtResource("26_t7ufo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3000002, 0, -1.8)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/bed_decorated2/bed_decorated" parent_id_path=PackedInt32Array(942576309, 2027302430) index="0" unique_id=2032856903]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/bed_decorated2/bed_decorated" parent_id_path=PackedInt32Array(942576309, 1944954892) index="0" unique_id=2032856903]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/bed_decorated2/bed_decorated/StaticBody3D" unique_id=1032875768]
 shape = SubResource("ConvexPolygonShape3D_s3npr")
@@ -847,7 +847,7 @@ shape = SubResource("ConvexPolygonShape3D_uwpek")
 [node name="box_stacked2" parent="Shop/props" unique_id=722111248 instance=ExtResource("27_i1igs")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3, 0, 1.9)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/box_stacked2/box_stacked" parent_id_path=PackedInt32Array(722111248, 1346076302) index="0" unique_id=339289583]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/box_stacked2/box_stacked" parent_id_path=PackedInt32Array(722111248, 848353059) index="0" unique_id=339289583]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/box_stacked2/box_stacked/StaticBody3D" unique_id=2041381645]
 shape = SubResource("ConvexPolygonShape3D_blr10")
@@ -891,7 +891,7 @@ omni_range = 9.165
 [node name="crates_stacked2" parent="Shop/props" unique_id=1113530027 instance=ExtResource("29_dxisk")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3, 0, 2.2000003)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/crates_stacked2/crates_stacked" parent_id_path=PackedInt32Array(1113530027, 369501116) index="0" unique_id=251411234]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/crates_stacked2/crates_stacked" parent_id_path=PackedInt32Array(1113530027, 1856272861) index="0" unique_id=251411234]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/crates_stacked2/crates_stacked/StaticBody3D" unique_id=368336954]
 shape = SubResource("ConvexPolygonShape3D_j0r5k")
@@ -947,7 +947,7 @@ shape = SubResource("ConvexPolygonShape3D_hv0l8")
 [node name="table_long2" parent="Shop/props" unique_id=290146396 instance=ExtResource("30_s3npr")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -1.6)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/table_long2/table_long" parent_id_path=PackedInt32Array(290146396, 1541802015) index="0" unique_id=1508811606]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/table_long2/table_long" parent_id_path=PackedInt32Array(290146396, 1770781547) index="0" unique_id=1508811606]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/table_long2/table_long/StaticBody3D" unique_id=1960137892]
 shape = SubResource("ConvexPolygonShape3D_46nji")
@@ -1032,7 +1032,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89781666, -0.6121591)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6066331, 0.89781666, -0.5058552)
 
 [node name="start" type="Area3D" parent="Shop" unique_id=153861224]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7213798, -0.5467313)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.73854816, -0.5467313)
 script = ExtResource("28_20o3c")
 button_name = "start_game"
 spin_speed = 0.0

@@ -28,10 +28,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if is_dead or is_downed:
-		if has_node("Walking") : $Walking.stop()
+		# if has walking sound node (TODO make var that indicates it is sound)
+		if has_node("Walking"):
+			$Walking.stop()
 		return
-	else:
-		is_downed = false
 		
 	if has_node("Walking") and not $Walking.playing:
 		$Walking.play()
@@ -81,10 +81,12 @@ func _knockdown(duration) -> void:
 	if duration > 0:
 		await get_tree().create_timer(duration).timeout
 		
-		if not is_dead: # Check if they were headshot while down
-			anim_tree.travel("Resurrect")
-			$RiseSound.play()
-			$Moans.play()
+	# if killed while down
+	if not is_dead:
+		is_downed = false
+		anim_tree.travel("Resurrect")
+		$RiseSound.play()
+		$Moans.play()
 
 
 func _die(_amount, _zone, impact_vector : Vector3) -> void:

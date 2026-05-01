@@ -31,6 +31,8 @@ func _ready():
 func _on_night_end():
 	print("end of night")
 	wave_complete.emit()
+	
+	# kill remaining enemies as the lift goes down
 	clean_up_spawns(true)
 
 
@@ -70,26 +72,31 @@ func start_night(index: int):
 func clean_up_spawns(knockdown: bool = false):
 	var _enemies = []
 	# projectile enemies
-	for _marker in projectile_markers:
-		if _marker.get_child_count() >= 0:
-				_enemies.append(_marker.get_child(0))
+	for _marker : Marker3D in projectile_markers:
+		if _marker != null and _marker.get_child_count() > 0:
+			var _enemy : Node3D = _marker.get_child(0)
+			if _enemy != null:
+				_enemies.append(_enemy)
 
 	# path enemies
 	for node_path: NodePath in path_map.values():
-		for follower in get_node(node_path).get_children():
-			if follower is PathFollow3D and follower.get_child_count() > 0:
-				_enemies.append(follower.get_child(0))
+		for follower : PathFollow3D in get_node(node_path).get_children():
+			if follower != null and follower.get_child_count() > 0:
+				var _enemy : Node3D = follower.get_child(0)
+				if _enemy != null:
+					_enemies.append(_enemy)
 	
 	# clear 'em
 	_enemies.shuffle()
-	for _enemy in _enemies:
-		if knockdown and not _enemy.is_dead and not _enemy.is_downed:
-			## TODO: if doesnt have a knockdown, default to die?
-			## 0 is dont get up
-			_enemy._knockdown(0)
-			await get_tree().create_timer(0.5).timeout
-		else:
-			_enemy.queue_free()
+	for _enemy : Node3D in _enemies:
+		if _enemy != null:
+			if _enemy is BaseSkeleton and knockdown:
+				## TODO: if doesnt get knockdown, default to die?
+				## 0 is dont get up
+				_enemy._knockdown(0)
+			else:
+				_enemy.queue_free()
+			await get_tree().create_timer(0.3).timeout
 
 
 func spawn_wave(wave: WaveData):
