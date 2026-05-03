@@ -7,15 +7,16 @@ var shooter_collider
 
 @onready var stick_point: Marker3D = $StickPoint
 
-
 func launch(force: float):
 	is_flying = true
 	velocity = -global_transform.basis.z * force
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	_process_visuals(delta)
-	
+
+
+func _physics_process(delta: float) -> void:
 	if not is_flying: return
 	
 	var _next_position = stick_point.global_position + (velocity * delta)
@@ -64,9 +65,7 @@ func _after_impact(_collider: Object):
 
 
 func _apply_damage(hurtbox):
-	## TODO Decide on damage logic
-	var _final_damage = 0
+	var _damage = GameStats.get_damage()
 	if hurtbox.zone == HitData.Zone.HEAD:
-		_final_damage = 1
-	
-	hurtbox.health_component.take_damage(_final_damage, hurtbox.zone, velocity)
+		_damage = _damage * GameStats.crit_mult
+	hurtbox.health_component.take_damage(_damage, hurtbox.zone, velocity)

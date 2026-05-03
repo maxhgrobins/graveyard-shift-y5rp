@@ -10,7 +10,7 @@ extends Node3D
 
 @export var TEST_HAND : Node3D	#TODO replace with robust ambidextrous solution
  
-@export var force_multiplier : float = 25.0
+#@export var force_multiplier : float = 25.0
 
 var held_arrow : Node3D = null
 var arrow_hand : Node3D = null
@@ -131,7 +131,8 @@ func _bend_bow():
 
 func fire_arrow(arrow: Node3D):
 	var pull_dist = pullpoint.position.z - start_offset
-	var force = (pull_dist) * force_multiplier
+	#var force = (pull_dist) * force_multiplier
+	var force = (pull_dist) * GameStats.get_accuracy()
 	force = force if force > 0.0 else 0.0
 	
 	held_arrow.reparent(get_tree().root, true)	

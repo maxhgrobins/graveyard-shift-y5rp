@@ -96,7 +96,6 @@ target_player = NodePath("../CSGBox3D")
 [node name="Skeleton_Minion11" parent="." unique_id=1850002419 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(-0.13538685, 0, -0.9907929, 0, 1, 0, 0.9907929, 0, -0.13538685, -11.448941, 3.5762787e-07, -0.022606254)
 target_player = NodePath("../CSGBox3D")
-is_armoured = true
 
 [node name="Skeleton_Minion12" parent="." unique_id=99742001 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(0.5473296, 0, -0.8369171, 0, 1, 0, 0.8369171, 0, 0.5473296, -11.604531, 3.5762787e-07, 1.7223811)
@@ -172,10 +171,9 @@ end = NodePath("../Marker3D6")
 [node name="Skeleton_Minion" parent="." unique_id=832630013 node_paths=PackedStringArray("target_player") instance=ExtResource("7_wqptd")]
 transform = Transform3D(0.51786274, 0, 0.8554638, 0, 1, 0, -0.8554638, 0, 0.51786274, -6.137604, 0.070121646, -3.2284074)
 target_player = NodePath("../CSGBox3D")
-is_armoured = true
 
 [node name="start" type="Area3D" parent="." unique_id=344049877]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.078, 0.7348407, 0.024)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.078, 0.7373392, 0.024)
 script = ExtResource("8_du3nd")
 button_name = "start_game"
 spin_speed = 0.0

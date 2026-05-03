@@ -55,13 +55,13 @@ func _start_game():
 
 func _apply_upgrade(type: String):
 	# TODO IMPLEMENT STATS/UPGRADES
-	#match type:
-		#"damage":
-			#player.arrow_damage += 5
-		#"speed":
-			#player.arrow_speed += 10
-		#"health":
-			#player.health += 20
+	match type:
+		"damage":
+			GameStats.damage_level += 1
+		"accuracy":
+			GameStats.accuracy_level += 1
+		"defence":
+			GameStats.defence_level += 1
 	
 	await get_tree().create_timer(2.0).timeout
 	# Do some anim/vo here

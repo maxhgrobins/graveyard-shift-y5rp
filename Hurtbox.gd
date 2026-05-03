@@ -2,7 +2,7 @@ class_name Hurtbox extends Area3D
 
 # TODO do we still need actor?
 var actor: Node3D
-var health_component: HealthComponent
+var health_component: Sprite3D
 
 @export var zone: HitData.Zone
 
