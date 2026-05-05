@@ -1,7 +1,7 @@
 extends Node3D
 class_name BaseSkeleton
 
-@onready var anim_tree : AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
+var anim_tree : AnimationNodeStateMachinePlayback
 @onready var health : Sprite3D = $HealthComponent
 @onready var helmet : MeshInstance3D = $Rig_Medium/Skeleton3D/HeadAttach/Skeleton_Warrior_Helmet
 
@@ -18,10 +18,14 @@ var is_downed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# TODO hack for training dummy
+	if $AnimationTree:
+		anim_tree = $AnimationTree["parameters/playback"]
 	self.visible = false
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
-	anim_tree.start("Spawn")
+	if anim_tree:
+		anim_tree.start("Spawn")
 	# trying to prevent 1 frame of wrong anim?
 	#await get_tree().process_frame
 	self.visible = true
@@ -83,11 +87,12 @@ func _handle_armor_hit(vector: Vector3):
 ## TODO Do juice here
 func _critical_hit() -> void:
 	is_downed = true
-	anim_tree.travel("Crit")
+	if anim_tree:
+		anim_tree.travel("Crit")
 	$CritSound.play()
 	
 	# wait for anim
-	await get_tree().create_timer(2.2).timeout
+	await get_tree().create_timer(1.8).timeout
 	is_downed = false
 
 
@@ -99,7 +104,8 @@ func _knockdown(duration) -> void:
 		return
 		
 	is_downed = true
-	anim_tree.travel("Death")
+	if anim_tree:
+		anim_tree.travel("Death")
 	#anim.play(ANIM_DEATH)
 	$DeathSound.play()
 	$Walking.stop()
@@ -110,7 +116,8 @@ func _knockdown(duration) -> void:
 	# if killed while down
 	if not is_dead:
 		is_downed = false
-		anim_tree.travel("Resurrect")
+		if anim_tree:
+			anim_tree.travel("Resurrect")
 		$RiseSound.play()
 		$Moans.play()
 
@@ -120,10 +127,12 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	is_dead = true
 	
 	SignalBus.skeleton_killed.emit()
-	$Walking.stop()
+	if has_node("Walking"):
+		$Walking.stop()
 	$DeathSound.play()
 	
-	anim_tree.travel("Death")
+	if anim_tree:
+		anim_tree.travel("Death")
 	
 	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes:
 		$Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes.queue_free()

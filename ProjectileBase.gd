@@ -65,7 +65,4 @@ func _after_impact(_collider: Object):
 
 
 func _apply_damage(hurtbox):
-	var _damage = GameStats.get_damage()
-	if hurtbox.zone == HitData.Zone.HEAD:
-		_damage = _damage * GameStats.crit_mult
-	hurtbox.health_component.take_damage(_damage, hurtbox.zone, velocity)
+	pass

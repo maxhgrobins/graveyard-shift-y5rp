@@ -1,15 +1,15 @@
 [remap]
 
-importer="animation_library"
+importer="scene"
 importer_version=1
-type="AnimationLibrary"
-uid="uid://bx8w5ucod5rdy"
-path="res://.godot/imported/Rig_Medium_Simulation.glb-7c89644e67384d7b3920df4d9851eb5d.res"
+type="PackedScene"
+uid="uid://b8u771gmqlqfs"
+path="res://.godot/imported/Barbarian.glb-84bb95ea7dbfd700b0c4011041080367.scn"
 
 [deps]
 
-source_file="res://Models/KayKit/animations/Rig_Medium/Rig_Medium_Simulation.glb"
-dest_files=["res://.godot/imported/Rig_Medium_Simulation.glb-7c89644e67384d7b3920df4d9851eb5d.res"]
+source_file="res://Models/KayKit/Adventurers/Barbarian.glb"
+dest_files=["res://.godot/imported/Barbarian.glb-84bb95ea7dbfd700b0c4011041080367.scn"]
 
 [params]
 

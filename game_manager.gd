@@ -29,6 +29,7 @@ func _ready() -> void:
 	streak_timer.timeout.connect(_on_streak_lost)
 	
 	SignalBus.skeleton_killed.connect(_on_skeleton_killed)
+	SignalBus.dummy_killed.connect(_on_dummy_killed)
 
 
 func _process(delta: float) -> void:
@@ -39,14 +40,29 @@ func _on_button_pressed(button_name : String) -> void:
 	match button_name:
 		"start_game":
 			_start_game()
+			# TODO start tutorial
 		#"upgrade":
 			#lift.raise_lift()
 			#shop_manager.purchase_complete
 
 
-func _start_game():
-	music.switch_to_clip_by_name("Music")
+func _on_dummy_killed():
+	_start_night()
+
+
+func _start_night():
+	await get_tree().create_timer(2.0).timeout
+	# Do some anim/vo here
+	
+	# maybe call this somewhere else
 	lift.raise_lift()
+	music.switch_to_clip_by_name("Music")
+	ambience.switch_to_clip_by_name("Woods")
+	# make sure all enemies cleared from previous night
+	wave_manager.clean_up_spawns()
+
+
+func _start_game():
 	# TODO Ambidextrous
 	$"../Platform/Player/left hand controller/LeftHand".hide()
 	$"../Platform/Player/left hand controller/dyanmic_bow".show()
@@ -62,16 +78,6 @@ func _apply_upgrade(type: String):
 			GameStats.accuracy_level += 1
 		"defence":
 			GameStats.defence_level += 1
-	
-	await get_tree().create_timer(2.0).timeout
-	# Do some anim/vo here
-	
-	# maybe call this somewhere else
-	lift.raise_lift()
-	music.switch_to_clip_by_name("Music")
-	ambience.switch_to_clip_by_name("Woods")
-	# make sure all enemies cleared from previous night
-	wave_manager.clean_up_spawns()
 
 
 func _on_platform_lift_arrived(location: String) -> void:
@@ -83,6 +89,8 @@ func _on_platform_lift_arrived(location: String) -> void:
 
 
 func _on_wave_complete() -> void:
+	$"../Shop/dummyspawner".spawn_dummy()
+	
 	ambience.switch_to_clip_by_name("Cave")
 	lift.lower_lift()
 	night += 1

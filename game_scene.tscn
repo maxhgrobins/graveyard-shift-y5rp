@@ -29,24 +29,39 @@
 [ext_resource type="PackedScene" uid="uid://cv1vj5f5um6x5" path="res://Models/KayKit/Dungeon/candle_lit.gltf" id="28_22w0m"]
 [ext_resource type="PackedScene" uid="uid://hiwgdjmmtdx0" path="res://Models/KayKit/Dungeon/crates_stacked.gltf" id="29_dxisk"]
 [ext_resource type="PackedScene" uid="uid://bsex4tblmiqc1" path="res://Models/KayKit/Dungeon/table_long.gltf" id="30_s3npr"]
+[ext_resource type="PackedScene" uid="uid://dch12riifnyv3" path="res://Models/KayKit/Tools/map_rolled.gltf" id="30_wmp7x"]
+[ext_resource type="PackedScene" uid="uid://bbmn2tjubb82" path="res://Models/KayKit/Tools/map.gltf" id="31_cup8d"]
 [ext_resource type="MeshLibrary" uid="uid://be018tofu7m8t" path="res://graveyard_library.meshlib" id="31_kyyqo"]
 [ext_resource type="PackedScene" uid="uid://b7sqji28coovp" path="res://Models/KayKit/Dungeon/torch_mounted.gltf" id="31_sxut1"]
 [ext_resource type="Texture2D" uid="uid://dlv1jeewyxvv7" path="res://Models/KayKit/Graveyard/halloweenbits_texture.png" id="32_7nf4l"]
+[ext_resource type="PackedScene" uid="uid://c6mqrwyr0q8rd" path="res://Models/KayKit/Dungeon/bottle_A_brown.gltf" id="32_j0r5k"]
 [ext_resource type="PackedScene" uid="uid://crb4k6m4bdg76" path="res://Models/KayKit/Dungeon/torch_lit.gltf" id="32_ku8ms"]
 [ext_resource type="PackedScene" uid="uid://bi6w3wcycokij" path="res://lit_post.tscn" id="33_cxwtw"]
+[ext_resource type="PackedScene" uid="uid://csteq07kw42l5" path="res://Models/KayKit/Dungeon/bottle_A_green.gltf" id="33_nhxmt"]
 [ext_resource type="LightmapGIData" uid="uid://18av3eb76kjb" path="res://game_scene.lmbake" id="34_1hpar"]
 [ext_resource type="Script" uid="uid://mvv08cvhh054" path="res://wave_manager.gd" id="34_1qokk"]
+[ext_resource type="PackedScene" uid="uid://02iqaox1dc5h" path="res://Models/KayKit/Dungeon/bottle_A_labeled_brown.gltf" id="34_7esxl"]
 [ext_resource type="Script" uid="uid://budgdeiyy2mnk" path="res://Data/night_data.gd" id="35_1t5pe"]
+[ext_resource type="PackedScene" uid="uid://r2bqoiln5x8s" path="res://Models/KayKit/Dungeon/bottle_C_brown.gltf" id="35_jrf3e"]
+[ext_resource type="PackedScene" uid="uid://5eh7obng7j7p" path="res://Models/KayKit/Dungeon/bottle_C_green.gltf" id="36_33w7b"]
 [ext_resource type="Script" uid="uid://dc8otmpjy8e52" path="res://Data/wave_data.gd" id="36_r2sjb"]
+[ext_resource type="PackedScene" uid="uid://bt2to7uysn27" path="res://Models/KayKit/Dungeon/bottle_B_green.gltf" id="37_deso1"]
 [ext_resource type="Script" uid="uid://ch23kao7mms5n" path="res://Data/spawn_data.gd" id="37_e02u1"]
+[ext_resource type="PackedScene" uid="uid://drinyfjtfnbcg" path="res://Models/KayKit/Dungeon/chest.gltf" id="38_evvdi"]
+[ext_resource type="PackedScene" uid="uid://css1sag64711c" path="res://Models/KayKit/Tools/lantern.gltf" id="39_3cktb"]
+[ext_resource type="PackedScene" uid="uid://cmdewytulflol" path="res://Models/KayKit/Tools/pickaxe.gltf" id="40_c5snm"]
 [ext_resource type="Script" uid="uid://durp3w261sauq" path="res://game_manager.gd" id="40_l3lgf"]
 [ext_resource type="PackedScene" uid="uid://dbcpyhtuh70s1" path="res://prefabs/skeleton_minion.tscn" id="40_nvpg6"]
 [ext_resource type="PackedScene" uid="uid://fge1o7la0xqx" path="res://skeleton_axe.tscn" id="41_7yo80"]
+[ext_resource type="PackedScene" uid="uid://dqbnh5n7pghy4" path="res://Models/KayKit/Adventurers/Assets/arrow_bow.gltf" id="41_bdtju"]
 [ext_resource type="PackedScene" uid="uid://0l06sumt528f" path="res://upgrade_damage.tscn" id="42_l3lgf"]
 [ext_resource type="Script" uid="uid://c7rvjx4t7x10a" path="res://shop_manager.gd" id="42_t7ufo"]
 [ext_resource type="AudioStream" uid="uid://o54tq4888fna" path="res://Music/intro.ogg" id="43_dxisk"]
 [ext_resource type="AudioStream" uid="uid://ch4koxrfxl203" path="res://Music/shop.ogg" id="43_ku8ms"]
+[ext_resource type="PackedScene" uid="uid://cv35jr2un0yne" path="res://shopkeep.tscn" id="44_ohbuk"]
 [ext_resource type="AudioStream" uid="uid://xhipuksdmfem" path="res://Music/normal.ogg" id="44_s3npr"]
+[ext_resource type="PackedScene" uid="uid://cc6lwfsuxravb" path="res://training_dummy.tscn" id="45_0wvxs"]
+[ext_resource type="Script" uid="uid://b8ljlq3u0yblj" path="res://dummyspawner.gd" id="45_nhxmt"]
 [ext_resource type="AudioStream" uid="uid://c48wxu40oygxy" path="res://Music/on_fire.ogg" id="45_sxut1"]
 [ext_resource type="AudioStream" uid="uid://bwv873dpplpvx" path="res://Music/outro.ogg" id="46_ku8ms"]
 [ext_resource type="AudioStream" uid="uid://cdg3683pu3yc1" path="res://Music/Ambience/cave.ogg" id="47_sxut1"]
@@ -54,6 +69,8 @@
 [ext_resource type="AudioStream" uid="uid://cumjcj845chmn" path="res://Music/Music.ogg" id="49_h31d7"]
 [ext_resource type="Script" uid="uid://b0e1qhsl3tt1y" path="res://sky.gd" id="53_5yrq5"]
 [ext_resource type="Texture2D" uid="uid://cir2tatmn4bjs" path="res://Circle.png" id="53_c68bw"]
+[ext_resource type="PackedScene" uid="uid://b4kwb1k3ou41y" path="res://upgrade_accuracy.tscn" id="59_j0r5k"]
+[ext_resource type="PackedScene" uid="uid://ct32u6an1brbo" path="res://upgrade_defence.tscn" id="60_nhxmt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1qokk"]
 sky_top_color = Color(0.008629266, 0.039852146, 0.12242467, 1)
@@ -643,7 +660,7 @@ transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, -5.6, 0)
 [node name="wall_shelves2" parent="Shop/walls" unique_id=1182535460 instance=ExtResource("9_opqoc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/walls/wall_shelves2/wall_shelves" parent_id_path=PackedInt32Array(1182535460, 1777847301) index="0" unique_id=1613652288]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/walls/wall_shelves2/wall_shelves" parent_id_path=PackedInt32Array(1182535460, 1060348324) index="0" unique_id=1613652288]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/walls/wall_shelves2/wall_shelves/StaticBody3D" unique_id=858765196]
 shape = SubResource("ConvexPolygonShape3D_i1igs")
@@ -803,7 +820,7 @@ shape = SubResource("ConcavePolygonShape3D_kyyqo")
 [node name="bed_decorated2" parent="Shop/props" unique_id=942576309 instance=ExtResource("26_t7ufo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3000002, 0, -1.8)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/bed_decorated2/bed_decorated" parent_id_path=PackedInt32Array(942576309, 2027302430) index="0" unique_id=2032856903]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/bed_decorated2/bed_decorated" parent_id_path=PackedInt32Array(942576309, 1944954892) index="0" unique_id=2032856903]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/bed_decorated2/bed_decorated/StaticBody3D" unique_id=1032875768]
 shape = SubResource("ConvexPolygonShape3D_s3npr")
@@ -847,7 +864,7 @@ shape = SubResource("ConvexPolygonShape3D_uwpek")
 [node name="box_stacked2" parent="Shop/props" unique_id=722111248 instance=ExtResource("27_i1igs")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.3, 0, 1.9)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/box_stacked2/box_stacked" parent_id_path=PackedInt32Array(722111248, 1346076302) index="0" unique_id=339289583]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/box_stacked2/box_stacked" parent_id_path=PackedInt32Array(722111248, 848353059) index="0" unique_id=339289583]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/box_stacked2/box_stacked/StaticBody3D" unique_id=2041381645]
 shape = SubResource("ConvexPolygonShape3D_blr10")
@@ -880,7 +897,7 @@ shape = SubResource("ConvexPolygonShape3D_wmp7x")
 shape = SubResource("ConvexPolygonShape3D_cup8d")
 
 [node name="candle_lit2" parent="Shop/props" unique_id=1470648788 instance=ExtResource("28_22w0m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19999996, 0.5, -1.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19999996, 0.49999976, -1.739049)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Shop/props/candle_lit2" unique_id=2002933832]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4000001, 0)
@@ -891,7 +908,7 @@ omni_range = 9.165
 [node name="crates_stacked2" parent="Shop/props" unique_id=1113530027 instance=ExtResource("29_dxisk")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.3, 0, 2.2000003)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/crates_stacked2/crates_stacked" parent_id_path=PackedInt32Array(1113530027, 369501116) index="0" unique_id=251411234]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/crates_stacked2/crates_stacked" parent_id_path=PackedInt32Array(1113530027, 1856272861) index="0" unique_id=251411234]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/crates_stacked2/crates_stacked/StaticBody3D" unique_id=368336954]
 shape = SubResource("ConvexPolygonShape3D_j0r5k")
@@ -947,7 +964,7 @@ shape = SubResource("ConvexPolygonShape3D_hv0l8")
 [node name="table_long2" parent="Shop/props" unique_id=290146396 instance=ExtResource("30_s3npr")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -1.6)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/table_long2/table_long" parent_id_path=PackedInt32Array(290146396, 1541802015) index="0" unique_id=1508811606]
+[node name="StaticBody3D" type="StaticBody3D" parent="Shop/props/table_long2/table_long" parent_id_path=PackedInt32Array(290146396, 1770781547) index="0" unique_id=1508811606]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/props/table_long2/table_long/StaticBody3D" unique_id=1960137892]
 shape = SubResource("ConvexPolygonShape3D_46nji")
@@ -1003,6 +1020,48 @@ light_color = Color(0.7607843, 0.5686275, 0.4392157, 1)
 light_bake_mode = 1
 omni_range = 9.165
 
+[node name="map_rolled2" parent="Shop/props" unique_id=2137396556 instance=ExtResource("30_wmp7x")]
+transform = Transform3D(-0.34132057, 0, -0.6274587, 0, 0.71428573, 0, 0.6274587, 0, -0.34132057, 0.61346066, 0.5668061, -1.7557961)
+
+[node name="map2" parent="Shop/props" unique_id=1760005087 instance=ExtResource("31_cup8d")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 0.5872691, 0.52505636, -1.34525)
+
+[node name="bottle_A_brown2" parent="Shop/props" unique_id=1798041239 instance=ExtResource("32_j0r5k")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.0278801, 0.5237851, -1.7443691)
+
+[node name="bottle_A_green2" parent="Shop/props" unique_id=1206691430 instance=ExtResource("33_nhxmt")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.1169218, 0.5237851, -1.552462)
+
+[node name="bottle_A_labeled_brown2" parent="Shop/props" unique_id=1561223305 instance=ExtResource("34_7esxl")]
+transform = Transform3D(-0.04752651, -0.6207786, -0.3501132, 0.71220154, -0.054525804, 0, -0.026726289, -0.34909168, 0.6225953, 1.3181212, 0.5585351, -1.3142126)
+
+[node name="bottle_C_brown2" parent="Shop/props" unique_id=1748174361 instance=ExtResource("35_jrf3e")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.3346138, 0.5237851, -1.651819)
+
+[node name="bottle_C_green2" parent="Shop/props" unique_id=1998545030 instance=ExtResource("36_33w7b")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.6466999, 0.5237851, -1.6054732)
+
+[node name="bottle_B_green2" parent="Shop/props" unique_id=1040524282 instance=ExtResource("37_deso1")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.4154857, 0.5237851, -1.4657831)
+
+[node name="chest2" parent="Shop/props" unique_id=312301824 instance=ExtResource("38_evvdi")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 2.1794467, 0.02613306, -2.4098117)
+
+[node name="lantern2" parent="Shop/props" unique_id=239363086 instance=ExtResource("39_3cktb")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.71428573, 0, 0, 0, 0.71428573, 1.726361, 0.5237851, -1.2664545)
+
+[node name="pickaxe2" parent="Shop/props" unique_id=1003596801 instance=ExtResource("40_c5snm")]
+transform = Transform3D(0.5047059, 0.50544333, 0.001746719, 0, -0.002468425, 0.7142815, 0.5054464, -0.50470287, -0.0017441602, 0.8910175, 0.04018402, 2.4913046)
+
+[node name="arrow_bow2" parent="Shop/props" unique_id=2051787114 instance=ExtResource("41_bdtju")]
+transform = Transform3D(0.6929899, 0, -0.17311583, 0, 0.71428573, 0, 0.17311583, 0, 0.6929899, 0.57828766, 1.0555649, 2.6534014)
+
+[node name="arrow_bow3" parent="Shop/props" unique_id=1645938695 instance=ExtResource("41_bdtju")]
+transform = Transform3D(0.71428573, 0, 0, 0, 0.6924977, -0.17507453, 0, 0.17507453, 0.6924977, -0.07131812, 1.2931778, 2.6534014)
+
+[node name="arrow_bow4" parent="Shop/props" unique_id=1920178775 instance=ExtResource("41_bdtju")]
+transform = Transform3D(-0.46017414, 0, 0.54630023, 0, 0.7142858, 0, -0.5463001, 0, -0.46017414, -0.722452, 0.09030008, 2.157013)
+
 [node name="liftcable1" type="MeshInstance3D" parent="Shop" unique_id=473960539]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.97460866, 1.8650491, -0.9708913)
 mesh = SubResource("CylinderMesh_1t5pe")
@@ -1032,7 +1091,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89781666, -0.6121591)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6066331, 0.89781666, -0.5058552)
 
 [node name="start" type="Area3D" parent="Shop" unique_id=153861224]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7178184, -0.5467313)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.38078353, 0.7463205, -0.5467313)
 script = ExtResource("28_20o3c")
 button_name = "start_game"
 spin_speed = 0.0
@@ -1076,7 +1135,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95000005, 3.0273192)
 shape = SubResource("BoxShape3D_mg7rc")
 
 [node name="floor" type="StaticBody3D" parent="Shop/colliders" unique_id=769060364]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, 0, 0)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, -0.14083767, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/colliders/floor" unique_id=1111526992]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04791924, 0.03311944, -0.01096392)
@@ -1109,6 +1168,17 @@ transform = Transform3D(-1, 0, -8.7422784e-08, 0, 1, 0, 8.7422784e-08, 0, -1, 0,
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shop/colliders/roof4" unique_id=147626876]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.047919236, 2.975994, -1.8970478)
 shape = SubResource("BoxShape3D_jwb3b")
+
+[node name="shopkeep" parent="Shop" unique_id=763039315 instance=ExtResource("44_ohbuk")]
+transform = Transform3D(0.5695862, 0, 0.1886043, 0, 0.6, 0, -0.1886043, 0, 0.5695862, -0.70661706, 0.01969266, -1.4653888)
+
+[node name="dummyspawner" type="Marker3D" parent="Shop" unique_id=343763871]
+transform = Transform3D(0.69958204, 0, 0.024185473, 0, 0.7, 0, -0.024185473, 0, 0.69958204, -0.07171427, -0.023801327, 2.3998969)
+script = ExtResource("45_nhxmt")
+dummy = ExtResource("45_0wvxs")
+
+[node name="dummy" parent="Shop/dummyspawner" unique_id=99742001 instance=ExtResource("45_0wvxs")]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="propMap" type="GridMap" parent="." unique_id=1617602133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, -1.4)
@@ -1181,7 +1251,7 @@ multimesh = SubResource("MultiMesh_dtvpm")
 [node name="floorquad" type="Node3D" parent="." unique_id=723616842]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="floorquad" unique_id=1292151071]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.56, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.498, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floorquad/StaticBody3D" unique_id=956192581]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.65, 0, -15.5)
@@ -1196,7 +1266,7 @@ mesh = SubResource("PlaneMesh_1hpar")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 0)
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="floorquad2" unique_id=1898960848]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -28, -0.56, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -28, -0.498, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floorquad2/StaticBody3D2" unique_id=1758426908]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.65, 0, -15.5)
@@ -1212,7 +1282,7 @@ skeleton = NodePath("../../floorquad")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0, 28)
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="floorquad3" unique_id=2012852766]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -28, -0.56, -28)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -28, -0.49768186, -28)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floorquad3/StaticBody3D3" unique_id=262625920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.65, 0, -15.5)
@@ -1228,7 +1298,7 @@ skeleton = NodePath("../../floorquad")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28)
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="floorquad4" unique_id=569633619]
-transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, -0.56, -28)
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 0, -0.498, -28)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floorquad4/StaticBody3D4" unique_id=1000161759]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.65, 0, -15.5)
@@ -1295,6 +1365,7 @@ ambience_player = NodePath("../Ambience")
 [node name="ShopManager" type="Node" parent="." unique_id=909731905 node_paths=PackedStringArray("spawn_point_container")]
 script = ExtResource("42_t7ufo")
 button_scene = ExtResource("42_l3lgf")
+upgrade_scenes = Array[PackedScene]([ExtResource("42_l3lgf"), ExtResource("59_j0r5k"), ExtResource("60_nhxmt")])
 spawn_point_container = NodePath("../Shop/UPGRADE_SHOP")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1237995445]
