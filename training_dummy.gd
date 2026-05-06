@@ -1,10 +1,16 @@
 extends BaseSkeleton
 
+func _ready() -> void:
+	health.health_depleted.connect(_die)
+	health.damaged.connect(_on_damaged)
+
+	if is_armoured:
+		helmet.show()
+		$Rig_Medium/Skeleton3D/HeadAttach/HelmetArea.process_mode = Node.PROCESS_MODE_INHERIT
+
 func _die(_amount, zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
-	
-	SignalBus.skeleton_killed.emit()
 
 	$DeathSound.play()
 	

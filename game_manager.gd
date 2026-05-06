@@ -58,8 +58,6 @@ func _start_night():
 	lift.raise_lift()
 	music.switch_to_clip_by_name("Music")
 	ambience.switch_to_clip_by_name("Woods")
-	# make sure all enemies cleared from previous night
-	wave_manager.clean_up_spawns()
 
 
 func _start_game():
@@ -86,6 +84,9 @@ func _on_platform_lift_arrived(location: String) -> void:
 	else:	# shop
 		shop_manager.generate_shop()
 		music.switch_to_clip_by_name("Shop")
+		$"../Sky"._reset_sky()
+		wave_manager.clean_up_spawns()
+		SignalBus.emit_signal("in_shop")
 
 
 func _on_wave_complete() -> void:

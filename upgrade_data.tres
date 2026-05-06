@@ -4,5 +4,7 @@
 
 [resource]
 script = ExtResource("1_eihai")
-accuracy_levels = Array[float]([20.0, 25.0, 30.0, 45.0])
+damage_levels = Array[float]([10.0, 20.0, 30.0, 50.0])
+accuracy_levels = Array[float]([35.0, 40.0, 45.0, 60.0])
+defence_levels = Array[float]([1.0, 2.0, 3.0, 5.0])
 metadata/_custom_type_script = "uid://4cqxm3tpolma"

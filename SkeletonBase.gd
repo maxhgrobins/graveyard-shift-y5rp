@@ -18,16 +18,13 @@ var is_downed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# TODO hack for training dummy
-	if $AnimationTree:
-		anim_tree = $AnimationTree["parameters/playback"]
+	anim_tree = $AnimationTree["parameters/playback"]
 	self.visible = false
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
 	if anim_tree:
 		anim_tree.start("Spawn")
-	# trying to prevent 1 frame of wrong anim?
-	#await get_tree().process_frame
+
 	self.visible = true
 	if is_armoured:
 		helmet.show()
