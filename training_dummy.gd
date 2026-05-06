@@ -22,3 +22,6 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	detach_and_fly(skull_gib, $Rig_Medium/Skeleton3D/HeadAttach/HeadArea, impact_vector)
 	
 	SignalBus.dummy_killed.emit()
+	
+	await get_tree().create_timer(6.0).timeout
+	queue_free()

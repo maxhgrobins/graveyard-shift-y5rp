@@ -20,7 +20,6 @@ extends Node3D
 var night_timer: Timer
 var current_night_index: int = 0
 
-signal wave_complete()
 
 func _ready():
 	night_timer = $"../NightTimer"
@@ -30,8 +29,7 @@ func _ready():
 
 func _on_night_end():
 	print("end of night")
-	wave_complete.emit()
-	
+	SignalBus.night_finished.emit()
 	# kill remaining enemies as the lift goes down
 	clean_up_spawns(true)
 

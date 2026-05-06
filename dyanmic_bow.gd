@@ -11,6 +11,7 @@ extends Node3D
 @export var TEST_HAND : Node3D	#TODO replace with robust ambidextrous solution
  
 #@export var force_multiplier : float = 25.0
+var first_shot_fired : bool = false		# for tutorial
 
 var held_arrow : Node3D = null
 var arrow_hand : Node3D = null
@@ -130,6 +131,8 @@ func _bend_bow():
 
 
 func fire_arrow(arrow: Node3D):
+	if not first_shot_fired: SignalBus.shot_first_arrow.emit() 	# tutorial
+		
 	var pull_dist = pullpoint.position.z - start_offset
 	#var force = (pull_dist) * force_multiplier
 	var force = (pull_dist) * GameStats.get_accuracy()

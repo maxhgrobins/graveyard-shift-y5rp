@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://du4li8i4jm50m" path="res://Models/KayKit/Adventurers/Ranger.glb" id="1_jux14"]
 [ext_resource type="Texture2D" uid="uid://cjulmirv6cb34" path="res://Models/KayKit/Adventurers/Barbarian_barbarian_texture.png" id="2_ddujy"]
+[ext_resource type="Script" uid="uid://b2l326sbyp6h6" path="res://shopkeep.gd" id="2_o4mlk"]
 [ext_resource type="Animation" uid="uid://bm0fo4dl87nbm" path="res://Models/KayKit/animations/Rig_Medium/Death_A.res" id="3_wq4xq"]
 [ext_resource type="Animation" uid="uid://btmm1cc5h5t6i" path="res://Models/KayKit/animations/Rig_Medium/Death_A_Pose.res" id="4_wunam"]
 [ext_resource type="Animation" uid="uid://ddsydacfkesdd" path="res://Models/KayKit/animations/Rig_Medium/Death_B.res" id="5_5rl6j"]
@@ -18,6 +19,15 @@
 [ext_resource type="Animation" uid="uid://bpg4w22wtsx6e" path="res://Models/KayKit/animations/Rig_Medium/Throw.res" id="16_m122q"]
 [ext_resource type="Animation" uid="uid://deq5m113lkdy8" path="res://Models/KayKit/animations/Rig_Medium/Use_Item.res" id="17_ij30t"]
 [ext_resource type="AnimationLibrary" uid="uid://bx8w5ucod5rdy" path="res://Models/KayKit/animations/Rig_Medium/Rig_Medium_Simulation.glb" id="18_0ukbw"]
+[ext_resource type="AudioStream" uid="uid://byry3ukxtieeg" path="res://SFX/shopkeep/Intro.wav" id="20_k0aqx"]
+[ext_resource type="AudioStream" uid="uid://cjll241l33pb6" path="res://SFX/shopkeep/Tutorial.wav" id="21_fdla1"]
+[ext_resource type="AudioStream" uid="uid://c88gsmtsja87i" path="res://SFX/shopkeep/cutoff.wav" id="22_vkcnv"]
+[ext_resource type="AudioStream" uid="uid://bk8dhm6tdcv3f" path="res://SFX/shopkeep/shoot_skull.wav" id="23_rjs8i"]
+[ext_resource type="AudioStream" uid="uid://doih2ydhkegja" path="res://SFX/shopkeep/nice shot.wav" id="24_m122q"]
+[ext_resource type="AudioStream" uid="uid://cn0ten67wxblq" path="res://SFX/shopkeep/midnight.wav" id="25_ij30t"]
+[ext_resource type="AudioStream" uid="uid://s5eucbd0rbsm" path="res://SFX/shopkeep/goodluck.wav" id="26_0ukbw"]
+[ext_resource type="AudioStream" uid="uid://buuwvifqop4ge" path="res://SFX/shopkeep/bringing_you_down.wav" id="27_pl6py"]
+[ext_resource type="AudioStream" uid="uid://cb5g5g41ro480" path="res://SFX/shopkeep/take_one.wav" id="28_pe3vs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itynh"]
 resource_name = "barbarian"
@@ -176,73 +186,133 @@ states/wave/node = SubResource("AnimationNodeAnimation_q871e")
 states/wave/position = Vector2(535, 177)
 transitions = ["Start", "Idle_A", SubResource("AnimationNodeStateMachineTransition_lpgin"), "Idle_A", "cheer", SubResource("AnimationNodeStateMachineTransition_qapu8"), "Idle_A", "wave", SubResource("AnimationNodeStateMachineTransition_rc6yd"), "cheer", "Idle_A", SubResource("AnimationNodeStateMachineTransition_2k47j"), "wave", "Idle_A", SubResource("AnimationNodeStateMachineTransition_7vlml")]
 
-[node name="Ranger" unique_id=763039315 instance=ExtResource("1_jux14")]
+[node name="shopkeep" unique_id=763039315 node_paths=PackedStringArray("intro", "tutorial", "shoot_skull", "nice_shot", "cutoff", "midnight", "goodluck", "bringing_you_down", "take_one") instance=ExtResource("1_jux14")]
+script = ExtResource("2_o4mlk")
+intro = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/intro")
+tutorial = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/tutorial")
+shoot_skull = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/shoot_skull")
+nice_shot = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/nice_shot")
+cutoff = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/cutoff")
+midnight = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/midnight")
+goodluck = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/goodluck")
+bringing_you_down = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/bringing_you_down")
+take_one = NodePath("Rig_Medium/Skeleton3D/BoneAttachment3D/take_one")
 
-[node name="Skeleton3D" parent="Rig_Medium" parent_id_path=PackedInt32Array(1548148641) index="0" unique_id=1234832790]
-bones/1/position = Vector3(0, 0.38491467, 0)
-bones/1/rotation = Quaternion(0.0039817304, 0.043157402, 0.00017200626, 0.9990604)
+[node name="Skeleton3D" parent="Rig_Medium" parent_id_path=PackedInt32Array(1873185675) index="0" unique_id=95735988]
+bones/1/position = Vector3(0, 0.38691738, 0)
+bones/1/rotation = Quaternion(0.0029631099, 0.04315756, 0.00012800368, 0.99906397)
 bones/1/scale = Vector3(0.99999994, 1, 0.99999994)
 bones/2/position = Vector3(0.17094508, 0.1135872, 1.5994095e-08)
-bones/2/rotation = Quaternion(0.98954195, 0.057636786, 0.07135169, 0.111327186)
+bones/2/rotation = Quaternion(0.9904125, 0.057743665, 0.07110946, 0.10340372)
 bones/2/scale = Vector3(0.9999999, 0.9999997, 1.0000008)
-bones/3/rotation = Quaternion(0.3271435, 6.4480666e-08, -2.268718e-07, 0.9449747)
+bones/3/rotation = Quaternion(0.30931377, 6.5921874e-08, -2.0692029e-07, 0.9509601)
 bones/3/scale = Vector3(1.0000004, 0.99999994, 1.0000001)
-bones/4/rotation = Quaternion(-0.56555396, -0.11235949, 0.04795292, 0.81561315)
+bones/4/rotation = Quaternion(-0.55569243, -0.11296133, 0.04620025, 0.8223815)
 bones/4/scale = Vector3(1.0000004, 1.0000007, 0.9999993)
-bones/5/rotation = Quaternion(-9.788403e-07, 0.9202346, -0.39136732, 2.831435e-07)
+bones/5/rotation = Quaternion(-9.691978e-07, 0.9202346, -0.39136732, 2.870848e-07)
 bones/5/scale = Vector3(1.0000001, 0.9999975, 1.0000027)
 bones/6/position = Vector3(-0.17094508, 0.11358732, 1.557549e-08)
-bones/6/rotation = Quaternion(0.99527186, -0.03100525, 0.031022243, 0.08666285)
+bones/6/rotation = Quaternion(0.995925, -0.030554933, 0.031162279, 0.07892256)
 bones/6/scale = Vector3(0.9999999, 0.99999976, 1.0000008)
-bones/7/rotation = Quaternion(0.33766577, -6.693624e-08, 2.3614727e-07, 0.9412661)
+bones/7/rotation = Quaternion(0.3199408, -6.3403775e-08, 2.215833e-07, 0.9474376)
 bones/7/scale = Vector3(0.99999994, 0.99999976, 0.99999994)
-bones/8/rotation = Quaternion(-0.5940184, 0.113969125, -0.014165764, 0.7962115)
+bones/8/rotation = Quaternion(-0.58423924, 0.11415123, -0.01258891, 0.80341494)
 bones/8/scale = Vector3(0.99999976, 1.0000006, 0.9999992)
 bones/9/rotation = Quaternion(-8.934892e-05, 0.9202217, -0.3913977, 2.0290998e-05)
 bones/9/scale = Vector3(1.0000002, 0.9999979, 1.0000024)
-bones/10/rotation = Quaternion(0.011397698, 3.4497627e-09, 0.0009865591, 0.99993455)
+bones/10/rotation = Quaternion(0.008294125, 2.4935194e-09, 0.00071792107, 0.9999654)
 bones/10/scale = Vector3(1.0000001, 1, 1.0000001)
-bones/11/rotation = Quaternion(-0.005078996, 5.356123e-09, -0.0004396265, 0.99998707)
+bones/11/rotation = Quaternion(-0.0023318038, 1.9628872e-09, -0.00020183572, 0.9999973)
 bones/11/scale = Vector3(1, 0.9999999, 1)
-bones/12/rotation = Quaternion(-0.011631261, -0.031339634, -0.0006403171, 0.9994409)
+bones/12/rotation = Quaternion(-0.008617856, -0.031340584, -0.00047442524, 0.99947155)
 bones/12/scale = Vector3(0.99999994, 1, 1)
 bones/13/position = Vector3(-0.21200736, 0.13413227, 8.62731e-08)
-bones/13/rotation = Quaternion(-0.56559235, 0.033462204, 0.72818226, 0.38566342)
+bones/13/rotation = Quaternion(-0.56414086, 0.03748907, 0.7308313, 0.38239437)
 bones/13/scale = Vector3(0.9999992, 0.9999988, 0.9999998)
-bones/14/rotation = Quaternion(-4.101536e-09, 5.5250567e-08, 0.39037344, 0.9206567)
+bones/14/rotation = Quaternion(-2.0841877e-09, 6.866071e-08, 0.3862599, 0.92239)
 bones/14/scale = Vector3(1.0000004, 0.99999976, 1.0000001)
 bones/15/rotation = Quaternion(2.249753e-10, 6.8246844e-09, -0.026658092, 0.99964464)
 bones/15/scale = Vector3(0.99999994, 0.99999994, 1)
-bones/16/rotation = Quaternion(-0.21082763, 0.37997144, -0.13225514, 0.89088845)
+bones/16/rotation = Quaternion(-0.2112255, 0.38111344, -0.13452987, 0.8899652)
 bones/16/scale = Vector3(0.9999995, 0.99999994, 1.0000005)
 bones/17/position = Vector3(-1.5415026e-08, 0.096125185, -0.057500005)
-bones/17/rotation = Quaternion(0.0022524225, -0.0022524397, 0.6987875, 0.7153223)
+bones/17/rotation = Quaternion(0.0016237246, -0.0016237344, 0.7011201, 0.7130396)
 bones/17/scale = Vector3(1, 1.0000001, 1.0000001)
 bones/18/position = Vector3(0.21200737, 0.13413215, 8.216504e-08)
-bones/18/rotation = Quaternion(-0.5391341, -0.103278644, -0.7635453, 0.34009805)
+bones/18/rotation = Quaternion(-0.53752697, -0.107315585, -0.76602226, 0.33579478)
 bones/18/scale = Vector3(0.9999993, 0.99999905, 0.9999998)
-bones/19/rotation = Quaternion(2.858469e-08, -4.6860574e-08, -0.37746444, 0.9260242)
+bones/19/rotation = Quaternion(1.3165822e-08, -6.407942e-08, -0.37195858, 0.9282494)
 bones/19/scale = Vector3(1.0000004, 0.9999998, 1)
 bones/20/rotation = Quaternion(1.514567e-08, -7.3584383e-09, 0.0266581, 0.99964464)
 bones/20/scale = Vector3(1.0000001, 1, 1)
-bones/21/rotation = Quaternion(-0.22041246, -0.34348598, 0.17878245, 0.8952501)
+bones/21/rotation = Quaternion(-0.22085148, -0.3441571, 0.18052262, 0.89453465)
 bones/21/scale = Vector3(0.99999976, 1.0000001, 1.0000004)
 bones/22/position = Vector3(5.138494e-10, 0.096125126, -0.057500005)
-bones/22/rotation = Quaternion(0.0022524265, 0.0022524346, -0.6987875, 0.7153223)
+bones/22/rotation = Quaternion(0.0016237213, 0.001623738, -0.7011201, 0.7130396)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="Ranger_Cape" parent="Rig_Medium/Skeleton3D" index="3" unique_id=1570493179]
+[node name="Ranger_Cape" parent="Rig_Medium/Skeleton3D" index="3" unique_id=1552953410]
 visible = false
 
-[node name="Ranger_Head" parent="Rig_Medium/Skeleton3D" index="4" unique_id=204804223]
+[node name="Ranger_Head" parent="Rig_Medium/Skeleton3D" index="4" unique_id=1516471028]
 visible = false
 
-[node name="Ranger_Quiver" parent="Rig_Medium/Skeleton3D" index="7" unique_id=1440226994]
+[node name="Ranger_Quiver" parent="Rig_Medium/Skeleton3D" index="7" unique_id=523548804]
 visible = false
 
 [node name="Barbarian_Head" type="MeshInstance3D" parent="Rig_Medium/Skeleton3D" index="8" unique_id=1012320297]
 mesh = SubResource("ArrayMesh_0tlhb")
 skin = SubResource("Skin_krhxa")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Rig_Medium/Skeleton3D" index="9" unique_id=239711332]
+transform = Transform3D(0.9997204, -1.3969839e-09, 0.023646582, 1.5115598e-05, 0.9999996, -0.00063897856, -0.023646567, 0.00063914433, 0.99972034, -4.71731e-09, 1.2225373, 0.014417615)
+bone_name = "head"
+bone_idx = 12
+
+[node name="intro" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="0" unique_id=824691775]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("20_k0aqx")
+bus = &"Voice"
+
+[node name="tutorial" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="1" unique_id=2041515660]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("21_fdla1")
+bus = &"Voice"
+
+[node name="shoot_skull" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="2" unique_id=1477667368]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("23_rjs8i")
+bus = &"Voice"
+
+[node name="nice_shot" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="3" unique_id=1500089370]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("24_m122q")
+bus = &"Voice"
+
+[node name="cutoff" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="4" unique_id=758848203]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("22_vkcnv")
+bus = &"Voice"
+
+[node name="midnight" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="5" unique_id=616731053]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("25_ij30t")
+bus = &"Voice"
+
+[node name="goodluck" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="6" unique_id=36264836]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("26_0ukbw")
+bus = &"Voice"
+
+[node name="bringing_you_down" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="7" unique_id=2146693832]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("27_pl6py")
+bus = &"Voice"
+
+[node name="take_one" type="AudioStreamPlayer3D" parent="Rig_Medium/Skeleton3D/BoneAttachment3D" index="8" unique_id=1189838256]
+transform = Transform3D(0.9997204, 6.795112e-05, -0.02364649, -1.2732926e-09, 0.99999595, 0.0028735565, 0.023646597, -0.0028727495, 0.9997162, -0.010286038, 0.13838947, 0.43486887)
+stream = ExtResource("28_pe3vs")
+bus = &"Voice"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1" unique_id=1431645445]
 libraries/ = SubResource("AnimationLibrary_pl6py")

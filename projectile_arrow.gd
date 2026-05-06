@@ -1,7 +1,7 @@
 extends ProjectileBase
 
 func _ready():
-	SignalBus.in_shop.connect(_clear())
+	SignalBus.in_shop.connect(_clear)
 
 func _clear():
 	queue_free()

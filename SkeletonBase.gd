@@ -123,7 +123,7 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
 	
-	SignalBus.skeleton_killed.emit()
+	SignalBus.skeleton_killed.emit(zone, global_position.distance_to(target_player.global_position))
 	if has_node("Walking"):
 		$Walking.stop()
 	$DeathSound.play()
