@@ -18,8 +18,7 @@ func _process_behavior(delta: float):
 	look_at(target_player.global_position, Vector3.UP)
 	
 	if target_player.global_position.distance_to(global_position) < 1.0:
-		SignalBus.change_health.emit(-1)
-		queue_free()
+		SignalBus.change_health.emit(-1, self)
 
 func _knockdown(duration):
 	## TODO Decide how to pass this info around properly

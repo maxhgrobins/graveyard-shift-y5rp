@@ -131,6 +131,12 @@ pose = &"aim"
 [node name="RightHand" parent="right hand controller" unique_id=823422716 instance=ExtResource("5_c2te6")]
 hand_material_override = SubResource("ORMMaterial3D_5ihqb")
 
+[node name="health_label" type="Label3D" parent="right hand controller/RightHand" unique_id=872660845]
+transform = Transform3D(1.4576481e-09, -0.033347104, 0.9994438, -1, -4.371139e-08, 0, 4.3687077e-08, -0.9994438, -0.033347104, 0.0545066, -0.045357764, 0.11288431)
+pixel_size = 0.001
+text = "1"
+font_size = 64
+
 [node name="RightHandArea" type="Area3D" parent="right hand controller" unique_id=442000693]
 collision_layer = 16
 collision_mask = 16

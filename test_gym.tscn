@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bx1r1sc4ikx2u" path="res://button.gd" id="8_du3nd"]
 [ext_resource type="PackedScene" uid="uid://cl7xl3ejiy2rc" path="res://Models/KayKit/Adventurers/Assets/bow_withString.gltf" id="9_jg1yd"]
 [ext_resource type="PackedScene" uid="uid://ckojs3y6sfuhu" path="res://skeleton_floating_head.tscn" id="10_jg1yd"]
+[ext_resource type="PackedScene" uid="uid://c24ay6pa3cdkd" path="res://dyanmic_bow.tscn" id="11_cqpx3"]
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 
@@ -192,9 +193,11 @@ transform = Transform3D(1.0000001, -2.9802322e-08, -3.7252903e-09, 0, 1, 0, -7.4
 
 [node name="Skeleton_Minion2" parent="." unique_id=1699985026 node_paths=PackedStringArray("target_player") instance=ExtResource("10_jg1yd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6472564, 0.23013163, -0.9845288)
-amplitude = 4.0
-frequency = 1.0
-move_speed = 0.5
 target_player = NodePath("../Player/XRCamera3D")
+
+[node name="dyanmic_bow" parent="." unique_id=1984749848 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("11_cqpx3")]
+transform = Transform3D(1, 0, 0, 0, 0.6639262, 0.7477981, 0, -0.7477981, 0.6639262, -1.8941836, 1.1522162, 0.029664159)
+nock_lerp_speed = 25.0
+TEST_HAND = NodePath("../Player/right hand controller")
 
 [editable path="Player"]

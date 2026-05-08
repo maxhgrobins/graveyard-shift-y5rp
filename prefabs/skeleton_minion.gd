@@ -22,6 +22,7 @@ func _attack():
 	anim_tree.travel("Attack")
 	await get_tree().create_timer(1.0).timeout
 	
+	is_attacking = false
 	_deal_damage()
 	
 func _deal_damage():

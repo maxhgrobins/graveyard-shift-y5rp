@@ -37,7 +37,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	#stick to hand
-	global_position = get_parent().global_position
+	if get_parent() is Node3D:
+		global_position = get_parent().global_position
 	_bend_bow()
 	
 	match current_state:

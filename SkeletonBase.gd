@@ -20,9 +20,10 @@ var crit_queue : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.visible = false	# TODO hack to stop 1 frame of wrong anim. seems to only be fixed by changing anim in editor
+	
 	move_speed = move_speed * GameStats.get_speed_multiplier()
 	anim_tree = $AnimationTree["parameters/playback"]
-	self.visible = false
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
 	if anim_tree:
@@ -30,9 +31,16 @@ func _ready() -> void:
 		$GPUParticles3D.emitting = true
 
 	self.visible = true
-	if is_armoured:
+
+
+func set_armoured(armoured : bool):
+	if armoured:
 		helmet.show()
 		$Rig_Medium/Skeleton3D/HeadAttach/HelmetArea.process_mode = Node.PROCESS_MODE_INHERIT
+	else:
+		helmet.hide()
+		$Rig_Medium/Skeleton3D/HeadAttach/HelmetArea.process_mode = Node.PROCESS_MODE_DISABLED
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -94,8 +102,10 @@ func _critical_hit() -> void:
 		anim_tree.travel("Crit")
 	$CritSound.play()
 	
+	if anim_tree:
+		anim_tree.travel("Walk")
 	# wait for anim
-	await get_tree().create_timer(1.8).timeout
+	await get_tree().create_timer(1.5).timeout
 	crit_queue -= 1
 	
 	# crit queue means if you hit skele multiple times, they remain stunned.

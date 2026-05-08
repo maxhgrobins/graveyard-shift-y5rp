@@ -39,7 +39,7 @@ func _on_throw():
 	_axe.look_at(target_player.global_position + _height_offset, Vector3.UP)
 	
 	if randf() < 0.5: 
-		_axe.rotate_object_local(Vector3.FORWARD, deg_to_rad(90))
+		_axe.rotate_object_local(Vector3.FORWARD, deg_to_rad(-90))
 	
 	if _axe.has_method("launch"):
 		_axe.shooter_collider = $Rig_Medium/Skeleton3D/HeadAttach/HeadArea

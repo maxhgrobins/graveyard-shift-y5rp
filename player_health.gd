@@ -2,23 +2,21 @@ extends Node
 
 @onready var camera = $"../XRCamera3D"
 @onready var fade_sphere = $"../XRCamera3D/GameOverSphere"
+@onready var health_label = $"../right hand controller/RightHand/health_label"
 
 var health : int = 1
 var is_alive : bool = true
 
 var last_damage_source : Node3D
 var damage_tween: Tween
+var label_tween: Tween
 
 func _ready() -> void:
 	SignalBus.change_health.connect(change_health)
 	SignalBus.game_win.connect(game_over)
 	fade_sphere.get_active_material(0).albedo_color.a = 0.0
+	update_health_visual()
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if health <= 0 and is_alive:
-		_die()
-
 
 func _die():
 	is_alive = false
@@ -34,29 +32,52 @@ func _on_head_hitbox_area_entered(area: Area3D) -> void:
 	else:
 		area.get_parent().process_mode = Node.PROCESS_MODE_DISABLED
 	
+	
 func change_health(change : int, source : Node3D):
 	if change < 0:
 		$"../hit_sfx".play()
 	health += change
 	last_damage_source = source
-	if health < 0: health = 0
+	if health <= 0:
+		health = 0
+		_die()
+	else:	# if head or axe and didnt kill, destroy
+		if source and source.is_in_group("enemy_projectiles"):
+			source.queue_free()
 	update_health_visual(change)
 
-func update_health_visual(change : int):
+func update_health_visual(change : int = 0):
+	health_label.text = str(health)
+	var label_colour = Color(0.051, 0.76, 0.0, 1.0)
+	
 	if change < 0:
-		var mat = fade_sphere.get_active_material(0)
+		if is_alive:
+			# screen flash
+			var mat = fade_sphere.get_active_material(0)
 
-		if damage_tween and damage_tween.is_running():
-			damage_tween.kill()
+			if damage_tween and damage_tween.is_running():
+				damage_tween.kill()
+				
+			damage_tween = get_tree().create_tween()
+			mat.albedo_color = Color(1.0, 0.0, 0.0, 0.0)
 			
-		damage_tween = get_tree().create_tween()
-		mat.albedo_color = Color(1.0, 0.0, 0.0, 0.0)
+			damage_tween.tween_property(mat, "albedo_color:a", 0.4, 0.1)
+			damage_tween.tween_property(mat, "albedo_color:a", 0.0, 0.4)
+			
+			damage_tween.tween_callback(func(): mat.albedo_color = Color(0.0, 0.0, 0.0, 0.0))
+
+		label_colour = Color(1.0, 0.0, 0.0, 1.0)
 		
-		damage_tween.tween_property(mat, "albedo_color:a", 0.4, 0.1)
-		damage_tween.tween_property(mat, "albedo_color:a", 0.0, 0.4)
+	# label flash		
+	if label_tween and label_tween.is_running():
+		label_tween.kill()
 		
-		damage_tween.tween_callback(func(): mat.albedo_color = Color(0.0, 0.0, 0.0, 0.0))
-		
+	label_tween = get_tree().create_tween()
+
+	health_label.modulate = label_colour
+
+	label_tween.tween_property(health_label, "modulate", Color(1, 1, 1), 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	
 	print("health: ",health)
 
 func game_over():
@@ -66,6 +87,8 @@ func game_over():
 	
 	var sphere_mat = fade_sphere.get_active_material(0)
 	sphere_mat.albedo_color = Color(0.0, 0.0, 0.0, 0.0)
+	if damage_tween and damage_tween.is_running():
+		damage_tween.kill()
 	tween.tween_property(sphere_mat, "albedo_color:a", 1.0, 3.0)
 	
 	if health <= 0:

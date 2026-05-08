@@ -169,7 +169,7 @@ func spawn_wave(wave: WaveData):
 								if night_timer.is_stopped(): break
 								_spawned = create_enemy_on_path(_path, _enemy_scene)
 			if is_instance_valid(_spawned) and _spawned is BaseSkeleton:
-				_spawned.is_armoured = _spawn_data.is_armoured
+				_spawned.set_armoured(_spawn_data.is_armoured)
 				
 			await get_tree().create_timer(_spawn_data.spawn_delay).timeout
 
