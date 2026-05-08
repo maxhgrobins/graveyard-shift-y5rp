@@ -19,7 +19,7 @@ func _on_quiver_area_area_entered(area):
 			HapticManager.play(HapticManager.Vibration.UI_CLICK, hand_side)
 
 
-func _on_quiver_area_area_exited(area) -> void:
+func _on_quiver_area_area_exited(_area) -> void:
 	in_quiver = false
 		
 

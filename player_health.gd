@@ -7,13 +7,15 @@ var health : int = 1
 var is_alive : bool = true
 
 var last_damage_source : Node3D
+var damage_tween: Tween
 
 func _ready() -> void:
-	GameStats.increase_health.connect(_increase_health)
+	SignalBus.change_health.connect(change_health)
+	SignalBus.game_win.connect(game_over)
 	fade_sphere.get_active_material(0).albedo_color.a = 0.0
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if health <= 0 and is_alive:
 		_die()
 
@@ -26,26 +28,36 @@ func _die():
 
 
 func _on_head_hitbox_area_entered(area: Area3D) -> void:
-	last_damage_source = area.get_parent()
-	
+	change_health(-1, area.owner)
 	if health > 0:
 		area.get_parent().queue_free()	#TODO this is a hack
 	else:
 		area.get_parent().process_mode = Node.PROCESS_MODE_DISABLED
 	
-# TODO FINISH THIS
-func _increase_health():
-	health += 1
-	update_health_visual()
+func change_health(change : int, source : Node3D):
+	if change < 0:
+		$"../hit_sfx".play()
+	health += change
+	last_damage_source = source
+	if health < 0: health = 0
+	update_health_visual(change)
 
-# UNFINISHED
-func take_damage(amount : int):
-	health -= 1
-	update_health_visual()
+func update_health_visual(change : int):
+	if change < 0:
+		var mat = fade_sphere.get_active_material(0)
 
-func update_health_visual():
+		if damage_tween and damage_tween.is_running():
+			damage_tween.kill()
+			
+		damage_tween = get_tree().create_tween()
+		mat.albedo_color = Color(1.0, 0.0, 0.0, 0.0)
+		
+		damage_tween.tween_property(mat, "albedo_color:a", 0.4, 0.1)
+		damage_tween.tween_property(mat, "albedo_color:a", 0.0, 0.4)
+		
+		damage_tween.tween_callback(func(): mat.albedo_color = Color(0.0, 0.0, 0.0, 0.0))
+		
 	print("health: ",health)
-	pass
 
 func game_over():
 	get_tree().paused = true
@@ -53,11 +65,14 @@ func game_over():
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	
 	var sphere_mat = fade_sphere.get_active_material(0)
+	sphere_mat.albedo_color = Color(0.0, 0.0, 0.0, 0.0)
 	tween.tween_property(sphere_mat, "albedo_color:a", 1.0, 3.0)
 	
-	highlight_killer(last_damage_source)
-	
-	spawn_game_over_text(tween)
+	if health <= 0:
+		highlight_killer(last_damage_source)
+		spawn_game_over_text(tween, false)
+	else:
+		spawn_game_over_text(tween, true)
 
 
 func highlight_killer(enemy: Node3D):	
@@ -67,12 +82,13 @@ func highlight_killer(enemy: Node3D):
 	overlay_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED 
 	overlay_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	overlay_mat.render_priority = 100
+	overlay_mat.albedo_color = Color(1.0, 0.0, 0.0, 0.8)
 	
 	for child in enemy.find_children("*", "MeshInstance3D"):
 		child.material_overlay = overlay_mat
 		
 		
-func spawn_game_over_text(tween: Tween):
+func spawn_game_over_text(tween: Tween, is_win : bool):
 	var title = Label3D.new()
 	title.text = "GAME OVER"
 	title.font_size = 64
@@ -82,11 +98,14 @@ func spawn_game_over_text(tween: Tween):
 	
 	var subtitle = Label3D.new()
 	subtitle.text = "Nights Survived: " + str(GameStats.get_current_night())
-	subtitle.font_size = 32 # Smaller font for a cleaner look
+	subtitle.font_size = 32
 	subtitle.no_depth_test = true 
 	subtitle.render_priority = 100 
 	subtitle.modulate = Color(1, 1, 1, 0) 
 	
+	if is_win:
+		title.text = "YOU SURVIVED!"
+		subtitle.text = "You defended the graveyard from "+ str(GameStats.skeletons_killed) +" skeletons"
 	add_child(subtitle)
 	add_child(title)
 	

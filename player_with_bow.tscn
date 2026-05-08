@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://ctrc00vjmqg8e" path="res://prefabs/projectile_arrow.tscn" id="9_h06vi"]
 [ext_resource type="Script" uid="uid://dk4o0ih7fnxwd" path="res://arrow_grab.gd" id="11_pjw0h"]
 [ext_resource type="Script" uid="uid://5khchojep356" path="res://player_health.gd" id="13_pjw0h"]
+[ext_resource type="AudioStream" uid="uid://bl3ahforo62r3" path="res://SFX/damage/ES_Fight, Impact, Punch, Body - Epidemic Sound - 0000-0393.wav" id="14_n7rbe"]
+[ext_resource type="AudioStream" uid="uid://5diimbth3x4u" path="res://SFX/damage/ES_Fight, Impact, Punch, Body - Epidemic Sound - 0913-1469.wav" id="15_jp075"]
+[ext_resource type="AudioStream" uid="uid://bsqegv81a3ji3" path="res://SFX/damage/ES_Fight, Impact, Punch, Body - Epidemic Sound - 1773-2452.wav" id="16_3unro"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ihqb"]
 size = Vector3(0.30862427, 0.595224, 0.26234376)
@@ -28,8 +31,8 @@ stream_2/stream = ExtResource("3_4hq8o")
 size = Vector3(0.12011719, 0.18, 0.07752075)
 
 [sub_resource type="SphereMesh" id="SphereMesh_pjw0h"]
-radius = 0.1
-height = 0.2
+radius = 0.2
+height = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4u0xe"]
 render_priority = 1
@@ -50,6 +53,13 @@ size = Vector3(0.08703613, 0.12298584, 0.18756104)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wbtds"]
 size = Vector3(0.08703613, 0.12298584, 0.18756104)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0xa8b"]
+random_pitch = 1.122462
+streams_count = 3
+stream_0/stream = ExtResource("14_n7rbe")
+stream_1/stream = ExtResource("15_jp075")
+stream_2/stream = ExtResource("16_3unro")
 
 [node name="XROrigin3D" type="XROrigin3D" unique_id=1709107786]
 
@@ -133,12 +143,16 @@ shape = SubResource("BoxShape3D_wbtds")
 debug_color = Color(0.97230154, 0, 0.44529122, 0.41960785)
 
 [node name="PlayerBody" parent="." unique_id=354562524 instance=ExtResource("5_h06vi")]
-player_calibrate_height = false
 push_rigid_bodies = false
 
 [node name="PlayerHealth" type="Node" parent="." unique_id=1379550490]
 process_mode = 3
 script = ExtResource("13_pjw0h")
+
+[node name="hit_sfx" type="AudioStreamPlayer3D" parent="." unique_id=461252786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9046814, 0.22399536)
+stream = SubResource("AudioStreamRandomizer_0xa8b")
+panning_strength = 2.0
 
 [connection signal="area_entered" from="XRCamera3D/QuiverArea" to="left hand controller/dyanmic_bow" method="_on_quiver_area_area_entered"]
 [connection signal="area_entered" from="XRCamera3D/QuiverArea" to="right hand controller/RightHandArea" method="_on_quiver_area_area_entered"]

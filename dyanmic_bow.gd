@@ -143,7 +143,7 @@ func _bend_bow():
 	stretch_bow_arm($top_arm, $shaft/shaft_top.global_position, $toptip.global_position)
 	stretch_bow_arm($bottom_arm, $shaft/shaft_bottom.global_position, $bottomtip.global_position)
 
-func fire_arrow(arrow: Node3D):
+func fire_arrow(_arrow: Node3D):
 	if not first_shot_fired: SignalBus.shot_first_arrow.emit() 	# tutorial
 	
 	# sfx
@@ -190,7 +190,7 @@ func _on_hand_area_arrow_spawned(arrow_node: Node3D, hand_area: Node3D) -> void:
 	arrow_hand = hand_area
 
 
-func _on_hand_area_arrow_despawned(arrow_node: Node3D, hand_area: Node3D) -> void:
+func _on_hand_area_arrow_despawned(_arrow_node: Node3D, _hand_area: Node3D) -> void:
 	held_arrow = null
 
 

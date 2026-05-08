@@ -65,7 +65,7 @@ func _on_button_area_entered(area):
 		hovering_hand = _controller
 
 
-func _on_button_area_exited(area) -> void:
+func _on_button_area_exited(_area) -> void:
 	hovering_hand = null
 
 

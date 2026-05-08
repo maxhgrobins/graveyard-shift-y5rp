@@ -20,12 +20,14 @@ var crit_queue : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	move_speed = move_speed * GameStats.get_speed_multiplier()
 	anim_tree = $AnimationTree["parameters/playback"]
 	self.visible = false
 	health.health_depleted.connect(_die)
 	health.damaged.connect(_on_damaged)
 	if anim_tree:
 		anim_tree.start("Spawn")
+		$GPUParticles3D.emitting = true
 
 	self.visible = true
 	if is_armoured:
@@ -63,7 +65,7 @@ func look_at_player():
 		look_at(Vector3(_target_pos.x, global_position.y, _target_pos.z), Vector3.UP)
 
 
-func _on_damaged(amount: int, hit_zone: HitData.Zone, vector: Vector3):
+func _on_damaged(_amount: int, hit_zone: HitData.Zone, vector: Vector3):
 	if is_dead: return
 	
 	match hit_zone:
@@ -132,6 +134,8 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	is_dead = true
 	
 	SignalBus.skeleton_killed.emit()
+	GameStats.skeletons_killed += 1
+	
 	if has_node("Walking"):
 		$Walking.stop()
 	$DeathSound.play()
@@ -173,7 +177,6 @@ func detach_and_fly(mesh_node : PackedScene, hurtbox: Hurtbox, impact: Vector3) 
 
 func sink_and_vanish() -> void:
 	var _tween = create_tween()
-
 	_tween.tween_property(self, "global_position:y", global_position.y - 2.0, 5.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	_tween.finished.connect(func():
 		var _parent = get_parent()

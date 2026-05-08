@@ -9,7 +9,7 @@ signal upgrade_selected(type: String)
 func generate_shop() -> void:
 	# no point shuffling theres only 3 upgrades
 	#upgrade_scenes.shuffle()
-	
+	print("Spawning shop")
 	var _spawn_points = spawn_point_container.get_children()
 	
 	for i in range(3):

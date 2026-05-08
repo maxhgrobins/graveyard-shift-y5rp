@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://fge1o7la0xqx" path="res://skeleton_axe.tscn" id="7_wqptd"]
 [ext_resource type="Script" uid="uid://bx1r1sc4ikx2u" path="res://button.gd" id="8_du3nd"]
 [ext_resource type="PackedScene" uid="uid://cl7xl3ejiy2rc" path="res://Models/KayKit/Adventurers/Assets/bow_withString.gltf" id="9_jg1yd"]
+[ext_resource type="PackedScene" uid="uid://ckojs3y6sfuhu" path="res://skeleton_floating_head.tscn" id="10_jg1yd"]
 
 [sub_resource type="Environment" id="Environment_1bvp3"]
 
@@ -175,7 +176,7 @@ target_player = NodePath("../CSGBox3D")
 is_armoured = true
 
 [node name="start" type="Area3D" parent="." unique_id=344049877]
-transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.078, 0.7348407, 0.024)
+transform = Transform3D(0.32433838, 0.81700665, 0.19314408, 0.07768115, 0.1769626, -0.879005, -0.83592486, 0.33344302, -0.0067447335, -0.078, 0.7368242, 0.024)
 script = ExtResource("8_du3nd")
 button_name = "start_game"
 spin_speed = 0.0
@@ -188,5 +189,12 @@ shape = SubResource("ConvexPolygonShape3D_cqpx3")
 
 [node name="bow model" parent="start" unique_id=1175443132 instance=ExtResource("9_jg1yd")]
 transform = Transform3D(1.0000001, -2.9802322e-08, -3.7252903e-09, 0, 1, 0, -7.450581e-09, 2.9802322e-08, 0.99999994, 0, 0, 0)
+
+[node name="Skeleton_Minion2" parent="." unique_id=1699985026 node_paths=PackedStringArray("target_player") instance=ExtResource("10_jg1yd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6472564, 0.23013163, -0.9845288)
+amplitude = 4.0
+frequency = 1.0
+move_speed = 0.5
+target_player = NodePath("../Player/XRCamera3D")
 
 [editable path="Player"]

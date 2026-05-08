@@ -12,14 +12,16 @@ extends Node3D
 @export var projectile_markers : Array[Marker3D]
 @export var night_duration : float = 180.0
 @export var minion_scene : PackedScene
+@export var flying_head_scene : PackedScene
 @export var axe_skele_scene : PackedScene
 @export var wizard_scene : PackedScene
+@export var radial_spawn_distance : float = 12.0
+@export var radial_spawn_height : float = 1.5
 
 @onready var player : Node3D = $"../Platform/Player/XRCamera3D"
 
 var night_timer: Timer
-var current_night_index: int = 0
-
+var _cockerel : bool = false
 
 func _ready():
 	night_timer = $"../NightTimer"
@@ -35,12 +37,16 @@ func _on_night_end():
 	SignalBus.night_finished.emit()
 	# kill remaining enemies as the lift goes down
 	clean_up_spawns(true)
+	await get_tree().create_timer(5.0).timeout 
+	clear_all_projectiles()
 
-func _process(delta: float) -> void:
-	if night_timer.time_left <= 5.0 and night_timer.time_left > 1.0:	# dont call on 0
+func _process(_delta: float) -> void:
+	if night_timer.time_left <= 5.0 and night_timer.time_left > 1.0 and not _cockerel:	# dont call on 0
+		_cockerel = true
 		$"../Cockerel".play()
 
 func start_night(index: int):
+	_cockerel = false
 	if index >= nights.size():
 		push_warning("Night out of range! Trying to run night ",index," but it is not assigned in the inspector.")
 		return
@@ -75,6 +81,11 @@ func start_night(index: int):
 
 func clean_up_spawns(knockdown: bool = false):
 	var _enemies = []
+	# radial enemies
+	for _child in get_children():
+		if _child is BaseSkeleton:
+			_enemies.append(_child)
+			
 	# projectile enemies
 	for _marker : Marker3D in projectile_markers:
 		if _marker.get_child_count() > 0:
@@ -129,13 +140,16 @@ func spawn_wave(wave: WaveData):
 		match _spawn_data.enemy_type:
 			"Minion": _enemy_scene = minion_scene
 			"Axe": _enemy_scene = axe_skele_scene
+			"Flying Head": _enemy_scene = flying_head_scene
 			"Wizard": _enemy_scene = wizard_scene
 		
 		for i in range(_spawn_data.amount):
 			# check each path
 			var _spawned
-			
-			if _spawn_data.enemy_type == "Axe":
+			if _spawn_data.enemy_type == "Flying Head":
+				_spawned = create_radial_enemy(_enemy_scene)
+
+			elif _spawn_data.enemy_type == "Axe":
 				var _marker = get_free_marker()
 				if _marker:
 					if night_timer.is_stopped(): break
@@ -159,6 +173,24 @@ func spawn_wave(wave: WaveData):
 				
 			await get_tree().create_timer(_spawn_data.spawn_delay).timeout
 
+
+func create_radial_enemy(enemy_type: PackedScene):
+	var _enemy = enemy_type.instantiate()
+	_enemy.target_player = player
+	
+	add_child(_enemy)
+	var _random_angle = randf_range(0, 2*PI)
+	
+	var _offset = Vector3(
+		cos(_random_angle) * radial_spawn_distance,
+		radial_spawn_height,
+		sin(_random_angle) * radial_spawn_distance
+	)
+	
+	_enemy.global_position = player.global_position + _offset
+	_enemy.look_at(Vector3(player.global_position.x, _enemy.global_position.y, player.global_position.z), Vector3.UP)
+	
+	return _enemy
 
 func create_enemy_on_path(path: Path3D, enemy_type: PackedScene) -> Node3D:
 	var _follower = PathFollow3D.new()

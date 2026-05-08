@@ -1,7 +1,7 @@
 extends Sprite3D
 
 @export var max_health: int = 50
-@onready var current_health: int = max_health
+var current_health: int
 @onready var health_bar = $SubViewport/Panel/ProgressBar
 @onready var ghost_bar = $SubViewport/Panel/ghost
 
@@ -9,6 +9,9 @@ signal damaged(amount: int, hit_zone: HitData.Zone, impact: Vector3)
 signal health_depleted(amount: int, hit_zone: HitData.Zone, impact: Vector3)
 
 func _ready() -> void:
+	max_health = max_health * GameStats.get_health_multiplier()
+	
+	current_health = max_health
 	health_bar.max_value = max_health
 	health_bar.value = current_health
 	

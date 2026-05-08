@@ -55,7 +55,7 @@ func _on_impact(result):
 	_after_impact(result.collider)
 
 
-func _process_visuals(delta):
+func _process_visuals(_delta):
 	pass
 
 
@@ -64,5 +64,5 @@ func _after_impact(_collider: Object):
 	queue_free() 
 
 
-func _apply_damage(hurtbox):
+func _apply_damage(_hurtbox):
 	pass

@@ -10,7 +10,7 @@ enum PATH_FLAGS {
 	West2 = 32
 }
 
-@export_enum("Minion", "Axe", "Wizard") var enemy_type: String = "Minion"
+@export_enum("Minion", "Axe", "Wizard", "Flying Head") var enemy_type: String = "Minion"
 @export var is_armoured : bool = false
 @export var amount: int = 1
 @export_flags("North", "East", "South", "South2", "West", "West2") var paths = 1

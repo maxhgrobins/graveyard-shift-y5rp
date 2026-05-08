@@ -39,7 +39,6 @@ func _after_impact(_collider: Object):
 	is_flying = false
 	$Sprite3D.hide()
 	set_physics_process(false)
-	
 
 func _apply_damage(hurtbox):
 	var _damage = GameStats.get_damage()

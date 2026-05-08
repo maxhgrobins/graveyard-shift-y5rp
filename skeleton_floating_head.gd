@@ -6,6 +6,7 @@ extends BaseSkeleton
 var time_alive : float = 0.0
 
 func _process_behavior(delta: float):
+	time_alive += delta
 	if not target_player: return
 
 	var _forward_dir = global_position.direction_to(target_player.global_position).normalized()
@@ -15,7 +16,10 @@ func _process_behavior(delta: float):
 	global_position += (_forward_dir * move_speed * delta) + _weave_offset
 	
 	look_at(target_player.global_position, Vector3.UP)
-
+	
+	if target_player.global_position.distance_to(global_position) < 1.0:
+		SignalBus.change_health.emit(-1)
+		queue_free()
 
 func _knockdown(duration):
 	## TODO Decide how to pass this info around properly

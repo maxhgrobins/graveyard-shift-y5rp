@@ -3,6 +3,7 @@ extends BaseSkeleton
 @export var axe_projectile_scene : PackedScene
 @export var throw_interval : float = 4.0
 @export var throw_force : float = 5.0
+@export var vertical_chance : float = 0.5
 
 func _ready() -> void:
 	add_to_group("enemy_projectiles")
@@ -37,6 +38,11 @@ func _on_throw():
 	var _height_offset : Vector3 = Vector3(0, 0, 0)
 	_axe.look_at(target_player.global_position + _height_offset, Vector3.UP)
 	
+	if randf() < 0.5: 
+		_axe.rotate_object_local(Vector3.FORWARD, deg_to_rad(90))
+	
 	if _axe.has_method("launch"):
 		_axe.shooter_collider = $Rig_Medium/Skeleton3D/HeadAttach/HeadArea
 		_axe.launch(throw_force)
+		
+	_axe.add_to_group("enemy_projectiles")

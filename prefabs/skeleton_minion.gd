@@ -25,6 +25,5 @@ func _attack():
 	_deal_damage()
 	
 func _deal_damage():
-	if target_player:
-		target_player.$PlayerHealth.take_damage(1)
+	SignalBus.change_health.emit(-1, self)
 	

@@ -21,6 +21,7 @@ var ready_to_start : bool = true
 var _dummy_instance : Node3D
 
 func _ready() -> void:
+	GameStats.reset_stats()
 	# REPLACE WITH MENU OR WHATEVER. ONLY NEEDS TO KNOW ABOUT MENU BUTTONS, NOT UPGRADES
 	for node in $"../Shop".get_children():
 		if node is FloatingButton:
@@ -39,9 +40,9 @@ func _ready() -> void:
 	
 	_dummy_instance = $"../Shop/dummyspawner/dummy"
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if night == 5:
-		get_tree().reload_current_scene()
+		SignalBus.game_win.emit()
 
 func _on_button_pressed(button_name : String) -> void:
 	match button_name:
@@ -92,6 +93,7 @@ func _apply_upgrade(type: String):
 			GameStats.accuracy_level += 1
 		"defence":
 			GameStats.defence_level += 1
+			SignalBus.change_health.emit(1, null)
 		_:
 			push_error("invalid upgrade")
 			return
