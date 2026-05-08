@@ -25,7 +25,10 @@ func _ready():
 	night_timer = $"../NightTimer"
 	night_timer.wait_time = night_duration
 	night_timer.timeout.connect(_on_night_end)
-
+	
+	# clear anything left from restart
+	clear_all_projectiles()		
+	clean_up_spawns()
 
 func _on_night_end():
 	print("end of night")
@@ -33,6 +36,9 @@ func _on_night_end():
 	# kill remaining enemies as the lift goes down
 	clean_up_spawns(true)
 
+func _process(delta: float) -> void:
+	if night_timer.time_left <= 5.0 and night_timer.time_left > 1.0:	# dont call on 0
+		$"../Cockerel".play()
 
 func start_night(index: int):
 	if index >= nights.size():
@@ -72,29 +78,42 @@ func clean_up_spawns(knockdown: bool = false):
 	# projectile enemies
 	for _marker : Marker3D in projectile_markers:
 		if _marker.get_child_count() > 0:
-			var _enemy : Node3D = _marker.get_child(0)
+			var _enemy = _marker.get_child(0)
 			if is_instance_valid(_enemy):
 				_enemies.append(_enemy)
 
 	# path enemies
 	for node_path: NodePath in path_map.values():
-		for follower : PathFollow3D in get_node(node_path).get_children():
-			if is_instance_valid(follower) and follower.get_child_count() > 0:
-				var _enemy : Node3D = follower.get_child(0)
-				if is_instance_valid(_enemy):
-					_enemies.append(_enemy)
+		var path_node = get_node_or_null(node_path)
+		if path_node:
+			for follower : PathFollow3D in path_node.get_children():
+				if is_instance_valid(follower) and follower.get_child_count() > 0:
+					var _enemy = follower.get_child(0)
+					if is_instance_valid(_enemy):
+						_enemies.append(_enemy)
 	
 	# clear 'em
 	_enemies.shuffle()
 	for _enemy : Node3D in _enemies:
-		if is_instance_valid(_enemy):
-			if _enemy is BaseSkeleton and knockdown:
-				## TODO: if doesnt get knockdown, default to die?
-				## 0 is dont get up
-				_enemy._knockdown(0)
-			else:
-				_enemy.queue_free()
-			await get_tree().create_timer(0.3).timeout
+		if not is_instance_valid(_enemy):
+			continue
+			
+		if _enemy is BaseSkeleton and knockdown:
+			## TODO: if doesnt get knockdown, default to die?
+			## 0 is dont get up
+			_enemy._die(100, HitData.Zone.BODY, Vector3.ZERO)
+		else:
+			if is_instance_valid(_enemy): _enemy.queue_free()
+			
+		await get_tree().create_timer(0.3).timeout
+
+
+func clear_all_projectiles():
+	var all_projectiles = get_tree().get_nodes_in_group("projectiles")
+	
+	for projectile in all_projectiles:
+		if is_instance_valid(projectile):
+			projectile.queue_free()
 
 
 func spawn_wave(wave: WaveData):

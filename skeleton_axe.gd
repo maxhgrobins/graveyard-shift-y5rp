@@ -5,6 +5,7 @@ extends BaseSkeleton
 @export var throw_force : float = 5.0
 
 func _ready() -> void:
+	add_to_group("enemy_projectiles")
 	super()
 	var _throw_timer = Timer.new()
 	_throw_timer = Timer.new()

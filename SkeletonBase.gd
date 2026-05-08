@@ -16,6 +16,8 @@ var is_dead = false
 var is_downed = false
 @export var is_armoured = false
 
+var crit_queue : int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	anim_tree = $AnimationTree["parameters/playback"]
@@ -84,13 +86,19 @@ func _handle_armor_hit(vector: Vector3):
 ## TODO Do juice here
 func _critical_hit() -> void:
 	is_downed = true
+	crit_queue += 1
+	
 	if anim_tree:
 		anim_tree.travel("Crit")
 	$CritSound.play()
 	
 	# wait for anim
 	await get_tree().create_timer(1.8).timeout
-	is_downed = false
+	crit_queue -= 1
+	
+	# crit queue means if you hit skele multiple times, they remain stunned.
+	# TODO this is a little jank. could be cleaner using a timer node...
+	if crit_queue == 0: is_downed = false
 
 
 
@@ -123,7 +131,7 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
 	
-	SignalBus.skeleton_killed.emit(zone, global_position.distance_to(target_player.global_position))
+	SignalBus.skeleton_killed.emit()
 	if has_node("Walking"):
 		$Walking.stop()
 	$DeathSound.play()
@@ -133,6 +141,8 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	
 	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes:
 		$Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes.queue_free()
+	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Jaw:
+		$Rig_Medium/Skeleton3D/Skeleton_Minion_Jaw.queue_free()
 	
 	health.hide()
 	

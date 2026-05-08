@@ -31,7 +31,15 @@ func _move_lift(target: float, destination: String):
 	else:
 		tween.tween_property(lid, "global_position:x", 0.0, move_duration)
 		
+	$"../Shop/hole/lid/lid_sfx".play()
+	$platform_sfx.play()
+	$winch_sfx.play()
 	
 	await tween.finished
 	
+	$"../Shop/hole/lid/lid_sfx".stop()
+	$platform_sfx.stop()
+	$winch_sfx.stop()
+	
+	$lift_stop_sfx.play()
 	lift_arrived.emit(destination)

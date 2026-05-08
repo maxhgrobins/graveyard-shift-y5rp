@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://blqj022d3mt8e"
+path="res://.godot/imported/ES_Objects, Office, Office Supplies, Clip File, Unclip - Epidemic Sound - 0071-0242.wav-7944f85ce1e8806b5178469e440bf9eb.sample"
+
+[deps]
+
+source_file="res://SFX/bow/ES_Objects, Office, Office Supplies, Clip File, Unclip - Epidemic Sound - 0071-0242.wav"
+dest_files=["res://.godot/imported/ES_Objects, Office, Office Supplies, Clip File, Unclip - Epidemic Sound - 0071-0242.wav-7944f85ce1e8806b5178469e440bf9eb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

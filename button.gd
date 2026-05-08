@@ -1,4 +1,3 @@
-@tool
 extends Area3D
 class_name FloatingButton
 
@@ -14,6 +13,8 @@ signal button_pressed(button_name: String)
 @export var shrink_and_grow : bool = true
 
 @onready var start_y : float = position.y
+
+@export var pickup_sound : AudioStreamPlayer3D
 
 var time : float = 0.0
 var hovering_hand: Node3D = null
@@ -83,6 +84,9 @@ func _trigger_action() -> void:
 		HapticManager.play(HapticManager.Vibration.UI_CLICK, _hand_side)
 
 	hovering_hand = null
+	
+	if pickup_sound:
+		pickup_sound.play()	#TODO wont work with queue free
 	
 	if shrink_and_grow:
 		shrink_and_clear()

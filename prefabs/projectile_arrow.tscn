@@ -1,9 +1,19 @@
 [gd_scene format=4 uid="uid://ctrc00vjmqg8e"]
 
-[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://projectile_arrow.gd" id="2_6ga5o"]
+[ext_resource type="Script" uid="uid://c4ebolvnxx3oq" path="res://prefabs/projectile_arrow.gd" id="2_6ga5o"]
 [ext_resource type="Texture2D" uid="uid://b1nknljtq4460" path="res://Models/KayKit/Adventurers/Assets/ranger_texture.png" id="2_54s7l"]
 [ext_resource type="Texture2D" uid="uid://kvppl2kadlge" path="res://sparkle.png" id="3_54s7l"]
 [ext_resource type="Script" path="res://prefabs/glint_effect.gd" id="4_10i4j"]
+[ext_resource type="AudioStream" uid="uid://b74buf52omgue" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 0032-0435.wav" id="5_i4dfo"]
+[ext_resource type="AudioStream" uid="uid://2d118pbpsrv" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 0776-1250.wav" id="6_u6qit"]
+[ext_resource type="AudioStream" uid="uid://7nwwlsehtkh1" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 1688-2119.wav" id="7_x0y0o"]
+[ext_resource type="AudioStream" uid="uid://cslddx5rdrv4n" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 2632-3213.wav" id="8_mduf8"]
+[ext_resource type="AudioStream" uid="uid://ceywx2ynhdpf0" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 4444-4993.wav" id="9_8xira"]
+[ext_resource type="AudioStream" uid="uid://bv7g6cmfmaxtr" path="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 5313-5920.wav" id="10_y75e0"]
+[ext_resource type="AudioStream" uid="uid://x6vf2lessfab" path="res://SFX/bow/arrow hits/ArrowMisfire_[cut_0sec].wav" id="11_8xira"]
+[ext_resource type="AudioStream" uid="uid://3d45liivtvmf" path="res://SFX/bow/arrow hits/AltArrowHit_[cut_0sec].wav" id="12_y75e0"]
+[ext_resource type="AudioStream" uid="uid://uh13h1c8r4ar" path="res://SFX/bow/arrow hits/AltArrowHit2_[cut_0sec].wav" id="13_0kxfi"]
+[ext_resource type="AudioStream" uid="uid://dle46kiqa43qf" path="res://SFX/bow/arrow hits/AltArrowHit3_[cut_0sec].wav" id="14_dq25d"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o4u27"]
 resource_name = "ranger"
@@ -45,6 +55,27 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6t2y7")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_0kxfi"]
+streams_count = 6
+stream_0/stream = ExtResource("5_i4dfo")
+stream_1/stream = ExtResource("6_u6qit")
+stream_2/stream = ExtResource("7_x0y0o")
+stream_3/stream = ExtResource("8_mduf8")
+stream_4/stream = ExtResource("9_8xira")
+stream_5/stream = ExtResource("10_y75e0")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y75e0"]
+random_pitch = 1.122462
+streams_count = 1
+stream_0/stream = ExtResource("11_8xira")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dq25d"]
+random_pitch = 1.122462
+streams_count = 3
+stream_0/stream = ExtResource("12_y75e0")
+stream_1/stream = ExtResource("13_0kxfi")
+stream_2/stream = ExtResource("14_dq25d")
+
 [node name="Arrow" type="Node3D" unique_id=1001727064]
 script = ExtResource("2_6ga5o")
 
@@ -67,3 +98,22 @@ texture = ExtResource("3_54s7l")
 script = ExtResource("4_10i4j")
 scale_factor = 0.1
 pulse_speed = 5.0
+
+[node name="whoosh_sfx" type="AudioStreamPlayer3D" parent="." unique_id=694495673]
+stream = SubResource("AudioStreamRandomizer_0kxfi")
+panning_strength = 2.0
+bus = &"SFX"
+
+[node name="world_hit_sfx" type="AudioStreamPlayer3D" parent="." unique_id=1142164423]
+stream = SubResource("AudioStreamRandomizer_y75e0")
+max_db = 6.0
+panning_strength = 2.0
+bus = &"SFX"
+
+[node name="enemy_hit_sfx" type="AudioStreamPlayer3D" parent="." unique_id=1794916292]
+stream = SubResource("AudioStreamRandomizer_dq25d")
+attenuation_model = 3
+volume_db = 30.0
+max_db = 6.0
+panning_strength = 2.0
+bus = &"SFX"

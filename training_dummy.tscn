@@ -247,7 +247,7 @@ streams_count = 2
 stream_0/stream = ExtResource("7_2kxek")
 stream_1/stream = ExtResource("8_y2y5m")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uhwh4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ncqmy"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ncqmy"]
@@ -538,7 +538,7 @@ bus = &"SFX"
 [node name="HealthComponent" parent="." unique_id=1225771909 instance=ExtResource("9_r7gu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -0.31715584)
 visible = false
-texture = SubResource("ViewportTexture_uhwh4")
+texture = SubResource("ViewportTexture_ncqmy")
 max_health = 1
 
 [node name="CritSound" type="AudioStreamPlayer3D" parent="." unique_id=1533836008]

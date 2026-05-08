@@ -274,6 +274,8 @@ xfade_time = 2.0
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_re0py"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xofid"]
 states/Crit/node = SubResource("AnimationNodeAnimation_penaf")
 states/Crit/position = Vector2(610.3333, 158.66666)
@@ -289,55 +291,55 @@ states/Spawn/position = Vector2(400.55557, 100.33059)
 states/Start/position = Vector2(166.00002, 99.50617)
 states/Throw/node = SubResource("AnimationNodeAnimation_xns8g")
 states/Throw/position = Vector2(290.97522, 389.24387)
-transitions = ["Start", "Spawn", SubResource("AnimationNodeStateMachineTransition_2oug0"), "Spawn", "Idle", SubResource("AnimationNodeStateMachineTransition_bkjtv"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_ye5q0"), "Resurrect", "Idle", SubResource("AnimationNodeStateMachineTransition_asjw1"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_s128h"), "Resurrect", "Death", SubResource("AnimationNodeStateMachineTransition_2d20g"), "Death", "Resurrect", SubResource("AnimationNodeStateMachineTransition_penaf"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_ifprw"), "Idle", "Crit", SubResource("AnimationNodeStateMachineTransition_n6u5c"), "Crit", "Idle", SubResource("AnimationNodeStateMachineTransition_j3a6c")]
-graph_offset = Vector2(47, 134)
+transitions = ["Start", "Spawn", SubResource("AnimationNodeStateMachineTransition_2oug0"), "Spawn", "Idle", SubResource("AnimationNodeStateMachineTransition_bkjtv"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_ye5q0"), "Resurrect", "Idle", SubResource("AnimationNodeStateMachineTransition_asjw1"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_s128h"), "Resurrect", "Death", SubResource("AnimationNodeStateMachineTransition_2d20g"), "Death", "Resurrect", SubResource("AnimationNodeStateMachineTransition_penaf"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_ifprw"), "Idle", "Crit", SubResource("AnimationNodeStateMachineTransition_n6u5c"), "Crit", "Idle", SubResource("AnimationNodeStateMachineTransition_j3a6c"), "Throw", "Death", SubResource("AnimationNodeStateMachineTransition_re0py")]
+graph_offset = Vector2(76, 139)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_asjw1"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_xkdst"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Skeleton_Minion" unique_id=99742001 instance=ExtResource("1_7fov0")]
 script = ExtResource("2_xns8g")
 axe_projectile_scene = ExtResource("3_bkjtv")
-throw_interval = 4.0
+throw_interval = 7.0
 throw_force = 3.0
 
 [node name="Skeleton3D" parent="Rig_Medium" parent_id_path=PackedInt32Array(1893493612) index="0" unique_id=1573038237]
-bones/1/position = Vector3(7.167187e-09, 0.25951296, -0.030061364)
+bones/1/position = Vector3(7.167187e-09, 0.265922, -0.030061364)
 bones/1/rotation = Quaternion(2.255949e-10, 0.17319314, 2.5649072e-09, 0.9848879)
 bones/2/position = Vector3(-0.1776051, 0.1135872, 0.07694323)
-bones/2/rotation = Quaternion(0.9066257, -0.27446017, 0.274342, 0.16564435)
+bones/2/rotation = Quaternion(0.908526, -0.26807418, 0.2758605, 0.16314915)
 bones/2/scale = Vector3(0.9999998, 0.9999999, 1.0000013)
-bones/3/rotation = Quaternion(0.7617233, -3.2042173e-08, 5.556578e-07, 0.6479025)
-bones/4/rotation = Quaternion(-0.7980097, 0.07095314, -0.22765712, 0.55346054)
+bones/3/rotation = Quaternion(0.7472165, -3.1901433e-08, 5.338322e-07, 0.6645807)
+bones/4/rotation = Quaternion(-0.7895872, 0.07755048, -0.22176333, 0.56688535)
 bones/5/rotation = Quaternion(0.00029589876, 0.9201205, -0.39163563, -6.2588464e-05)
 bones/6/position = Vector3(0.17094505, 0.11358723, 1.12356435e-08)
-bones/6/rotation = Quaternion(0.9012767, 0.15813375, 0.22679515, 0.33355388)
+bones/6/rotation = Quaternion(0.9045864, 0.15418078, 0.22566718, 0.3271485)
 bones/6/scale = Vector3(1, 0.9999998, 1.0000012)
-bones/7/rotation = Quaternion(0.75622624, 4.3363073e-08, -5.223435e-07, 0.6543102)
-bones/8/rotation = Quaternion(-0.6706314, -0.32963872, 0.26291797, 0.61029994)
+bones/7/rotation = Quaternion(0.7416164, 3.770271e-08, -5.284484e-07, 0.67082417)
+bones/8/rotation = Quaternion(-0.66276085, -0.33607754, 0.25318885, 0.6194315)
 bones/9/rotation = Quaternion(-0.00023576771, 0.9200985, -0.391687, 5.0715622e-05)
 bones/10/rotation = Quaternion(0.11676573, -0.12958969, 0.025773186, 0.98433125)
 bones/10/scale = Vector3(1, 1, 1.0000001)
-bones/11/rotation = Quaternion(0.29072213, -0.019862099, -0.008626563, 0.95656246)
+bones/11/rotation = Quaternion(0.29193106, -0.030083608, -0.025911467, 0.9556149)
 bones/11/scale = Vector3(1, 0.99999994, 1)
-bones/12/rotation = Quaternion(-0.27847055, 0.039248288, 0.13598105, 0.94995946)
+bones/12/rotation = Quaternion(-0.27903765, 0.0004131478, 0.07259498, 0.9575322)
 bones/12/scale = Vector3(1, 1, 0.9999999)
 bones/13/position = Vector3(0.21200736, 0.13413227, 8.487841e-08)
-bones/13/rotation = Quaternion(-0.78003734, -0.121031195, -0.42493916, 0.44308007)
+bones/13/rotation = Quaternion(-0.7869623, -0.12240143, -0.40035373, 0.45323846)
 bones/13/scale = Vector3(0.99999934, 0.99999934, 0.99999976)
-bones/14/rotation = Quaternion(2.952804e-08, -4.7313794e-08, -0.66051596, 0.7508121)
+bones/14/rotation = Quaternion(3.7596287e-08, -6.340105e-08, -0.6749078, 0.737902)
 bones/14/scale = Vector3(1.0000002, 0.9999999, 0.99999994)
 bones/15/rotation = Quaternion(7.797047e-09, -1.1281024e-08, 0.026658095, 0.99964464)
-bones/16/rotation = Quaternion(-0.16200346, -0.5932312, 0.03589025, 0.78774595)
+bones/16/rotation = Quaternion(-0.15778211, -0.6000802, 0.03949485, 0.7832297)
 bones/17/position = Vector3(5.1384585e-10, 0.09612511, -0.057500005)
 bones/17/rotation = Quaternion(-0.025259204, -0.00061355764, -0.5007622, 0.86521614)
 bones/18/position = Vector3(-0.21200739, 0.13413239, 2.3664171e-08)
-bones/18/rotation = Quaternion(-0.81485254, 0.07024316, 0.37072173, 0.440053)
+bones/18/rotation = Quaternion(-0.80761844, 0.110100046, 0.41527116, 0.40395594)
 bones/18/scale = Vector3(0.9999993, 0.9999993, 0.99999976)
-bones/19/rotation = Quaternion(9.591114e-09, 5.528164e-08, 0.65776217, 0.75322574)
+bones/19/rotation = Quaternion(5.8054262e-08, 7.100094e-08, 0.602459, 0.7981498)
 bones/19/scale = Vector3(1.0000002, 0.9999999, 0.99999994)
 bones/20/rotation = Quaternion(-7.297441e-09, 4.2303276e-09, -0.026658092, 0.99964464)
-bones/21/rotation = Quaternion(-0.36185688, 0.3928721, -0.12496161, 0.83611953)
+bones/21/rotation = Quaternion(-0.3627539, 0.41901362, -0.15461218, 0.81788284)
 bones/22/position = Vector3(-5.138423e-10, 0.096125096, -0.057500005)
 bones/22/rotation = Quaternion(-6.7158483e-09, -4.808679e-09, 0.7071068, 0.7071067)
 
@@ -366,43 +368,43 @@ mesh = SubResource("ArrayMesh_1s5ip")
 skin = SubResource("Skin_e50j0")
 
 [node name="HeadAttach" parent="Rig_Medium/Skeleton3D" index="9" unique_id=904153075]
-transform = Transform3D(0.96639323, -0.25183702, 0.051596116, 0.25654593, 0.9320172, -0.2559845, 0.016377851, 0.26061845, 0.96530294, 0.014227156, 0.99732876, 0.25666144)
+transform = Transform3D(0.99743664, -0.07151424, 0.0023847872, 0.06965442, 0.9627894, -0.2611216, 0.016377853, 0.2606184, 0.96530294, 0.021527432, 1.0030175, 0.25666147)
 
 [node name="BodyAttach" parent="Rig_Medium/Skeleton3D" index="10" unique_id=1295966979]
-transform = Transform3D(0.99627477, -7.450581e-09, 0.086235315, 0.02047544, 0.971403, -0.23655222, -0.08376925, 0.23743671, 0.9677845, -9.549246e-10, 0.45149046, -0.030061364)
+transform = Transform3D(0.99627477, -7.450581e-09, 0.086235315, 0.02047544, 0.971403, -0.23655222, -0.08376925, 0.23743671, 0.9677845, -9.549246e-10, 0.4578995, -0.030061364)
 
 [node name="L_UAAttach" parent="Rig_Medium/Skeleton3D" index="11" unique_id=1362065863]
-transform = Transform3D(0.62064433, 0.51685125, 0.5896308, -0.70351183, 0.03501883, 0.7098194, 0.34622332, -0.85535777, 0.38534555, 0.218722, 0.90326756, 0.14523458)
+transform = Transform3D(0.63302463, 0.5095923, 0.58274734, -0.69687986, 0.047320604, 0.7156245, 0.33710083, -0.85911334, 0.38508004, 0.22206864, 0.9007979, 0.14523458)
 
 [node name="R_UAAttach" parent="Rig_Medium/Skeleton3D" index="12" unique_id=1882823390]
-transform = Transform3D(0.7060362, -0.49096885, -0.5103541, 0.623604, 0.089511454, 0.77659845, -0.33560318, -0.8665659, 0.3693689, -0.20452303, 0.9094567, 0.17001028)
+transform = Transform3D(0.64219564, -0.56315273, -0.52004075, 0.6320141, 0.0051091313, 0.7749392, -0.4337526, -0.82633615, 0.35920203, -0.20058383, 0.92402565, 0.1700103)
 
 [node name="L_LAAttach" parent="Rig_Medium/Skeleton3D" index="13" unique_id=945993554]
-transform = Transform3D(-0.43354377, 0.6814501, 0.58963066, -0.12438712, -0.6933129, 0.7098194, 0.89250565, 0.23439573, 0.38534546, 0.34374684, 0.91173846, -0.061674193)
+transform = Transform3D(-0.4512317, 0.6758657, 0.5827472, -0.10915433, -0.6899027, 0.7156246, 0.8857059, 0.25930303, 0.38507995, 0.34533757, 0.91224456, -0.06258266)
 
 [node name="R_LAAttach" parent="Rig_Medium/Skeleton3D" index="14" unique_id=1915166686]
-transform = Transform3D(-0.39139298, -0.7657343, -0.510354, 0.17269385, -0.60586375, 0.77659845, -0.90387386, 0.2158201, 0.3693688, -0.323287, 0.93110913, -0.03960973)
+transform = Transform3D(-0.36556992, -0.7719553, -0.5200406, 0.1781399, -0.6064106, 0.77493924, -0.91357756, 0.19065471, 0.35920194, -0.33680892, 0.92526144, -0.029878259)
 
 [node name="Skeleton_Axe2" parent="Rig_Medium/Skeleton3D/R_LAAttach" index="1" unique_id=1140645027 instance=ExtResource("3_xofid")]
 transform = Transform3D(0.5636761, 0.18393728, -1.3778383, -1.3857305, -0.042918682, -0.57263434, -0.109642535, 1.488061, 0.15379676, 0.026109755, 0.40377548, -0.00016313791)
 
 [node name="R_ULAttach" parent="Rig_Medium/Skeleton3D" index="15" unique_id=970571609]
-transform = Transform3D(0.8576185, -0.5021514, 0.11105919, -0.40677878, -0.794467, -0.45094728, 0.3146762, 0.34156385, -0.8856155, -0.14070094, 0.37310016, 0.10285622)
+transform = Transform3D(0.8626802, -0.4918177, 0.11788949, -0.39709193, -0.80303717, -0.44435328, 0.31321, 0.3365214, -0.8880625, -0.14070094, 0.3795092, 0.10285622)
 
 [node name="L_ULAttach" parent="Rig_Medium/Skeleton3D" index="16" unique_id=1143541433]
-transform = Transform3D(0.899773, 0.355311, 0.2533039, 0.4363412, -0.7274709, -0.5295212, -0.0038735569, 0.58697504, -0.8095966, 0.16068976, 0.3731002, -0.08837958)
+transform = Transform3D(0.9044429, 0.34906685, 0.24522555, 0.426593, -0.7384043, -0.52228165, -0.0012356341, 0.57698476, -0.81675506, 0.16068976, 0.37950924, -0.08837958)
 
 [node name="L_LLAttach" parent="Rig_Medium/Skeleton3D" index="17" unique_id=1929483443]
-transform = Transform3D(0.8997725, 0.19959542, -0.38803515, 0.4363421, -0.4194425, 0.7960365, -0.0038732341, -0.8855692, -0.46449366, 0.24137288, 0.20790793, 0.044909254)
+transform = Transform3D(0.9044425, 0.20909423, -0.37183824, 0.42659393, -0.44583115, 0.7869264, -0.0012353294, -0.8703549, -0.49242598, 0.23995498, 0.21183425, 0.042640686)
 
 [node name="R_LLAttach" parent="Rig_Medium/Skeleton3D" index="18" unique_id=1527701344]
-transform = Transform3D(0.8576183, 0.1901874, 0.47782785, -0.4067797, -0.31763697, 0.85652643, 0.31467566, -0.92894506, -0.19504626, -0.25472823, 0.19269459, 0.18041769)
+transform = Transform3D(0.86268, 0.17446181, 0.47470638, -0.39709285, -0.3476325, 0.8493938, 0.31320947, -0.9212591, -0.23061737, -0.25238168, 0.19715753, 0.17927265)
 
 [node name="R_FootAttach" parent="Rig_Medium/Skeleton3D" index="19" unique_id=2015113059]
-transform = Transform3D(0.8267102, -0.39027542, 0.40525925, -0.00056146085, -0.72087055, -0.6930694, 0.562628, 0.5727411, -0.5961708, -0.22630718, 0.14522786, 0.0415989)
+transform = Transform3D(0.82672715, -0.3902703, 0.4052298, -0.00050370395, -0.72079146, -0.6931522, 0.56260324, 0.57284456, -0.596095, -0.22631063, 0.14520836, 0.041602433)
 
 [node name="R_FootAttach2" parent="Rig_Medium/Skeleton3D" index="20" unique_id=410556168]
-transform = Transform3D(0.712846, 0.48642763, -0.5052116, 0.0007090643, -0.72087336, -0.6930668, -0.70132166, 0.49369165, -0.51421636, 0.27119982, 0.1452277, -0.08742757)
+transform = Transform3D(0.7128825, 0.48639834, -0.50518835, 0.00062624365, -0.72081995, -0.6931225, -0.70128465, 0.49379867, -0.5141643, 0.2712014, 0.14521056, -0.087422565)
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=144891826]
 libraries/Throw = SubResource("AnimationLibrary_bkjtv")
@@ -412,7 +414,7 @@ libraries/hits = SubResource("AnimationLibrary_2d20g")
 tree_root = SubResource("AnimationNodeStateMachine_xofid")
 
 [node name="HealthComponent" parent="." index="8" unique_id=1225771909]
-texture = SubResource("ViewportTexture_asjw1")
+texture = SubResource("ViewportTexture_xkdst")
 
 [node name="ThrowPoint" type="Marker3D" parent="." index="9" unique_id=6873332]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4110626, 0.91864884, -0.79460824)

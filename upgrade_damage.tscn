@@ -2,6 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bx1r1sc4ikx2u" path="res://button.gd" id="1_2oeyj"]
 [ext_resource type="PackedScene" uid="uid://bt2to7uysn27" path="res://Models/KayKit/Dungeon/bottle_B_green.gltf" id="2_78fmf"]
+[ext_resource type="AudioStream" uid="uid://da01ldvd0bntl" path="res://SFX/potions/ES_Magic, Misc, Potion Action, Pick Up, Use, Grab, Equip 08 - Epidemic Sound - 0000-1105.wav" id="3_cobb5"]
+[ext_resource type="AudioStream" uid="uid://c8afynmldtqxs" path="res://SFX/potions/ES_Magic, Misc, Potion Action, Pick Up, Use, Grab, Equip 08 - Epidemic Sound - 1105-2235.wav" id="4_24u1p"]
+[ext_resource type="AudioStream" uid="uid://cuorsvsdqpqn4" path="res://SFX/potions/ES_Magic, Misc, Potion Action, Pick Up, Use, Grab, Equip 08 - Epidemic Sound - 2235-3390.wav" id="5_ku6ox"]
+[ext_resource type="AudioStream" uid="uid://bdrk7j8kd465h" path="res://SFX/potions/ES_Magic, Misc, Potion Action, Pick Up, Use, Grab, Equip 08 - Epidemic Sound - 3390-4603.wav" id="6_jly4m"]
+[ext_resource type="AudioStream" uid="uid://kpawrj2gfqm4" path="res://SFX/potions/ES_Magic, Misc, Potion Action, Pick Up, Use, Grab, Equip 08 - Epidemic Sound - 4604-5105.wav" id="7_rejxe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqmay"]
 albedo_color = Color(1, 0.24000001, 0.24000001, 1)
@@ -9,8 +14,18 @@ albedo_color = Color(1, 0.24000001, 0.24000001, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tuxt0"]
 points = PackedVector3Array(-0.13818869, 0.09974745, 0.02656655, -0.09844727, 0.1505962, -0.09844712, -0.102153584, 0.10000755, -0.102153435, -0.09893423, 6.817281e-07, 0.023536578, -0.102153584, 0.10000755, 0.10212666, -0.1331838, 0.1511164, 0.026431292, -0.026458226, 0.1511164, -0.13318366, -0.047424592, 0.4195787, -0.015339136, -0.03914626, 0.4428573, -0.012660846, -0.012660995, 0.4428573, -0.03914611, -0.015339285, 0.4195787, -0.047424443, -0.026593491, 0.09974745, -0.13818854, -0.023563512, 6.817281e-07, -0.098934084, -0.07193496, 6.817281e-07, -0.07193481, -0.07193496, 6.817281e-07, 0.07190803, 0.023536429, 6.817281e-07, 0.09890729, 0.026566401, 0.09974745, 0.13818881, -0.09844727, 0.1505962, 0.09842034, -0.047424592, 0.4195787, 0.015312344, 0.09842019, 0.1505962, -0.09844712, 0.015312195, 0.4195787, -0.047424443, -0.03914626, 0.4428573, 0.012634069, 0.01263392, 0.4428573, -0.03914611, 0.10212651, 0.10000755, -0.102153435, 0.07190788, 6.817281e-07, -0.07193481, 0.07190788, 6.817281e-07, 0.07190803, 0.10212651, 0.10000755, 0.10212666, 0.026431143, 0.1511164, 0.13315687, -0.015339285, 0.4195787, 0.04739766, -0.012660995, 0.4428573, 0.039119318, 0.13315672, 0.1511164, -0.026458077, 0.03911917, 0.4428573, -0.012660846, 0.04739751, 0.4195787, -0.015339136, 0.13818866, 0.09974745, -0.026593342, 0.09890714, 6.817281e-07, -0.023563363, 0.09842019, 0.1505962, 0.09842034, 0.015312195, 0.4195787, 0.04739766, 0.01263392, 0.4428573, 0.039119318, 0.04739751, 0.4195787, 0.015312344, 0.03911917, 0.4428573, 0.012634069)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7vk6y"]
+streams_count = 5
+stream_0/stream = ExtResource("3_cobb5")
+stream_1/stream = ExtResource("4_24u1p")
+stream_2/stream = ExtResource("5_ku6ox")
+stream_3/stream = ExtResource("6_jly4m")
+stream_4/stream = ExtResource("7_rejxe")
+
 [node name="FloatingButton" type="Area3D" unique_id=1951947928]
-transform = Transform3D(-0.81934255, 0, 0.5733541, 0, 1, 0, -0.5733541, 0, -0.81934255, 0, 8.6777894e-05, 0)
+transform = Transform3D(0.093529716, 0, -0.99562246, 0, 1, 0, 0.99562246, 0, 0.093529716, 0, -0.01616238, 0)
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_2oeyj")
 button_name = "damage"
 metadata/_custom_type_script = "uid://bx1r1sc4ikx2u"
@@ -24,5 +39,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dqmay")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1981366153]
 transform = Transform3D(0.49240386, -0.08682409, 0, 0.08682409, 0.49240386, 0, 0, 0, 0.5, 0.02, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_tuxt0")
+
+[node name="pickup_sfx" type="AudioStreamPlayer3D" parent="." unique_id=750279080]
+stream = SubResource("AudioStreamRandomizer_7vk6y")
+bus = &"SFX"
 
 [editable path="bottle_B_green2"]

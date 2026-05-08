@@ -43,6 +43,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addon
 [global_group]
 
 arrows=""
+enemy_projectiles=""
 
 [godot_xr_tools]
 

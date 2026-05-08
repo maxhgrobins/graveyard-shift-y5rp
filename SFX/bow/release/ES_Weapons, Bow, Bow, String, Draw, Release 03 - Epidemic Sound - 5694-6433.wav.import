@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://toy877xreeix"
+path="res://.godot/imported/ES_Weapons, Bow, Bow, String, Draw, Release 03 - Epidemic Sound - 5694-6433.wav-80621d5ba77096768ce701fe12a63375.sample"
+
+[deps]
+
+source_file="res://SFX/bow/release/ES_Weapons, Bow, Bow, String, Draw, Release 03 - Epidemic Sound - 5694-6433.wav"
+dest_files=["res://.godot/imported/ES_Weapons, Bow, Bow, String, Draw, Release 03 - Epidemic Sound - 5694-6433.wav-80621d5ba77096768ce701fe12a63375.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

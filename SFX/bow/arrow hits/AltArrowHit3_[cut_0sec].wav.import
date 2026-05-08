@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dle46kiqa43qf"
+path="res://.godot/imported/AltArrowHit3_[cut_0sec].wav-60eaa212cd00686f293f4b663a95cf21.sample"
+
+[deps]
+
+source_file="res://SFX/bow/arrow hits/AltArrowHit3_[cut_0sec].wav"
+dest_files=["res://.godot/imported/AltArrowHit3_[cut_0sec].wav-60eaa212cd00686f293f4b663a95cf21.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

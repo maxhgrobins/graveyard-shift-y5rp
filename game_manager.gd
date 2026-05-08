@@ -12,9 +12,13 @@ extends Node
 @onready var music : AudioStreamPlaybackInteractive = music_player.get_stream_playback()
 @onready var ambience : AudioStreamPlaybackInteractive = ambience_player.get_stream_playback()
 @onready var streak_timer : Timer = $"../StreakTimer"
+@onready var dummy_spawner : Marker3D =  $"../Shop/dummyspawner"
 
+var tutorial_complete : bool = false
 var night : int = 0
-var ready_to_start : bool = false
+var ready_to_start : bool = true
+
+var _dummy_instance : Node3D
 
 func _ready() -> void:
 	# REPLACE WITH MENU OR WHATEVER. ONLY NEEDS TO KNOW ABOUT MENU BUTTONS, NOT UPGRADES
@@ -30,8 +34,10 @@ func _ready() -> void:
 	SignalBus.skeleton_killed.connect(_on_skeleton_killed)
 	SignalBus.dummy_killed.connect(_on_dummy_killed)
 	SignalBus.night_finished.connect(_on_night_complete)
-	SignalBus.tutorial_finished.connect(_tutorial_finished)
-
+	SignalBus.start_night.connect(_start_night)
+	SignalBus.tutorial_over.connect(func(): ready_to_start = true)	# dont think this is necessary any more as the dummy shouldnt respawn during tutorial anyway
+	
+	_dummy_instance = $"../Shop/dummyspawner/dummy"
 
 func _process(delta: float) -> void:
 	if night == 5:
@@ -46,20 +52,20 @@ func _on_button_pressed(button_name : String) -> void:
 			#lift.raise_lift()
 			#shop_manager.purchase_complete
 
-func _tutorial_finished():
-	ready_to_start = true
-	_start_night()
 
 func _on_dummy_killed():
 	# respawn dummy if not ready (hasnt picked up upgrade or is in tutorial)
-	if ready_to_start:
-		_start_night()
-		ready_to_start = false
+	if ready_to_start : return	# leave dead dummy
 	else:
 		await get_tree().create_timer(5.0).timeout 
-		$"../Shop/dummyspawner".spawn_dummy()
+		if ready_to_start : return	# leave dead dummy
+		_dummy_instance.queue_free()
+		_dummy_instance = dummy_spawner.spawn_dummy()
+		
 
 func _start_night():
+	ready_to_start = true
+	
 	await get_tree().create_timer(2.0).timeout
 	# Do some anim/vo here
 	
@@ -106,11 +112,13 @@ func _on_platform_lift_arrived(location: String) -> void:
 
 
 func _on_night_complete() -> void:
-	$"../Shop/dummyspawner".spawn_dummy()
-	
+	if is_instance_valid(_dummy_instance):
+		_dummy_instance.queue_free()
+	_dummy_instance = dummy_spawner.spawn_dummy()
 	ambience.switch_to_clip_by_name("Cave")
 	lift.lower_lift()
 	night += 1
+	GameStats.current_night = night
 	
 ## TODO do streak stuff?
 func _on_skeleton_killed():

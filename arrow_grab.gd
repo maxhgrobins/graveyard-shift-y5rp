@@ -16,7 +16,7 @@ func _on_quiver_area_area_entered(area):
 		var hand_side = "left_hand" if "left" in controller.name.to_lower() else "right_hand"
 		
 		if held_arrow == null:
-			HapticManager.play(HapticManager.Vibration.QUIVER_HOVER, hand_side)
+			HapticManager.play(HapticManager.Vibration.UI_CLICK, hand_side)
 
 
 func _on_quiver_area_area_exited(area) -> void:
@@ -26,6 +26,7 @@ func _on_quiver_area_area_exited(area) -> void:
 func _on_right_hand_controller_button_pressed(button_name: String) -> void:
 	if button_name == "trigger_click":
 		if in_quiver and held_arrow == null:
+			$"../../XRCamera3D/QuiverArea/quiver_sfx".play()
 			spawn_arrow()
 			#TODO both hands support
 			$"../RightHand".visible = false
@@ -45,7 +46,6 @@ func _on_right_hand_controller_button_released(button_name: String) -> void:
 		else:
 			print("ARROW RELEASED")
 			held_arrow = null
-			
 		
 		
 func spawn_arrow() -> void:

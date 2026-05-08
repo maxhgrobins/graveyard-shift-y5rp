@@ -26,6 +26,8 @@ var last_pull_dist: float = 0.0
 const BOW_RESET_SPEED = 20.0
 var bow_rot_t = 0.0
 
+var _draw_sfx_played : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	start_offset = pullpoint.position.z
@@ -88,6 +90,14 @@ func _process(_delta: float) -> void:
 			if abs(current_pull - last_pull_dist) > 0.02:
 				HapticManager.play(HapticManager.Vibration.BOW_TENSION, "right_hand")
 				last_pull_dist = current_pull
+			
+			if abs(current_pull - start_offset) > 0.04:
+				if not _draw_sfx_played:
+					$shaft/draw_sfx.play()
+					_draw_sfx_played = true
+			else:
+				_draw_sfx_played = false
+				
 
 
 func _nocking():
@@ -119,6 +129,7 @@ func _nocking():
 				
 				current_state = BowState.NOCKED
 				HapticManager.play(HapticManager.Vibration.NOCK_SNAP, "right_hand")
+				$shaft/nock_sfx.play()
 			
 
 func _bend_bow():
@@ -126,13 +137,20 @@ func _bend_bow():
 	var pull_delta = pullpoint.position.z - start_offset
 	toptip.position.z = start_offset + (pull_delta / 7)
 	bottomtip.position.z = start_offset + (pull_delta / 7)
-	toptip.position.y = 0.3 - (pull_delta / 20)
-	bottomtip.position.y = -0.3 + (pull_delta / 20)
+	toptip.position.y = 0.5 - (pull_delta / 10)
+	bottomtip.position.y = -0.5 + (pull_delta / 10)
 
+	stretch_bow_arm($top_arm, $shaft/shaft_top.global_position, $toptip.global_position)
+	stretch_bow_arm($bottom_arm, $shaft/shaft_bottom.global_position, $bottomtip.global_position)
 
 func fire_arrow(arrow: Node3D):
 	if not first_shot_fired: SignalBus.shot_first_arrow.emit() 	# tutorial
-		
+	
+	# sfx
+	_draw_sfx_played = false
+	$shaft/draw_sfx.stop()
+	$shaft/release_sfx.play()
+	
 	var pull_dist = pullpoint.position.z - start_offset
 	#var force = (pull_dist) * force_multiplier
 	var force = (pull_dist) * GameStats.get_accuracy()
@@ -174,3 +192,13 @@ func _on_hand_area_arrow_spawned(arrow_node: Node3D, hand_area: Node3D) -> void:
 
 func _on_hand_area_arrow_despawned(arrow_node: Node3D, hand_area: Node3D) -> void:
 	held_arrow = null
+
+
+func stretch_bow_arm(pivot: Node3D, start_point: Vector3, end_point: Vector3):
+	pivot.global_position = start_point
+	var dist = start_point.distance_to(end_point)
+
+	var bow_up = global_transform.basis.y 
+	pivot.look_at(end_point, bow_up)
+	
+	pivot.scale = Vector3(1.0, 1.0, dist)

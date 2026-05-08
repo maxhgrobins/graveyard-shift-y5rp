@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://enplscd13m5p"
+path="res://.godot/imported/ES_Weapons, Arrow, Quiver, Take x3 - Epidemic Sound - 1328-1793.wav-946e3f8fc41c74107fa3fff2f91908a5.sample"
+
+[deps]
+
+source_file="res://SFX/bow/arrow grab/ES_Weapons, Arrow, Quiver, Take x3 - Epidemic Sound - 1328-1793.wav"
+dest_files=["res://.godot/imported/ES_Weapons, Arrow, Quiver, Take x3 - Epidemic Sound - 1328-1793.wav-946e3f8fc41c74107fa3fff2f91908a5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

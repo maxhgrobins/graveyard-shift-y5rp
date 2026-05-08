@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://7nwwlsehtkh1"
+path="res://.godot/imported/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 1688-2119.wav-6c28d79ceee2a77e67afab4a99d023d4.sample"
+
+[deps]
+
+source_file="res://SFX/bow/arrow whoosh/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 1688-2119.wav"
+dest_files=["res://.godot/imported/ES_Swooshes, Swish, Small Projectile, Fly By, Fast - Epidemic Sound - 1688-2119.wav-6c28d79ceee2a77e67afab4a99d023d4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

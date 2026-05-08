@@ -1,8 +1,10 @@
 extends Node3D
 
+# TODO bool spaghetti - clean up this logic
 var skip_tutorial : bool = false
 var skip_to_shoot_skull : bool = false
 var has_tutorial_started : bool = false
+var is_tutorial : bool = true
 
 @export var intro : AudioStreamPlayer3D
 @export var tutorial : AudioStreamPlayer3D
@@ -27,22 +29,31 @@ func _ready() -> void:
 	
 	
 func _dummy_killed():
-	skip_tutorial = true
-	if intro.playing or tutorial.playing:
-		intro.stop()
-		tutorial.stop()
-		cutoff.play()
-		
-		await cutoff.finished
-	else:
-		nice_shot.play()
-		
-		await nice_shot.finished
-		
-	midnight.play()
-	await midnight.finished
+	if is_tutorial:
+		SignalBus.tutorial_over.emit()
+		skip_tutorial = true
+		if intro.playing or tutorial.playing:
+			intro.stop()
+			tutorial.stop()
+			cutoff.play()
+			await cutoff.finished
+		else:
+			nice_shot.play()
+			await nice_shot.finished
 	
-	SignalBus.tutorial_finished.emit()
+	await get_tree().create_timer(1.0).timeout
+	
+	$"../../LoopingBell".play()
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	if is_tutorial:
+		midnight.play()
+		await midnight.finished
+		await get_tree().create_timer(1.5).timeout
+		is_tutorial = false
+		
+	SignalBus.start_night.emit()
 	
 	goodluck.play()
 	
@@ -65,18 +76,21 @@ func _game_start():
 	
 	if skip_tutorial: return
 	
-	await get_tree().create_timer(3.0).timeout
-	
-	if skip_tutorial: return
-	
 	if not skip_to_shoot_skull:
+		await get_tree().create_timer(6.0).timeout
 		has_tutorial_started = true
 		tutorial.play()
 		await tutorial.finished
-		
-	if skip_tutorial: return
+	else:
+		await get_tree().create_timer(1.0).timeout
+		shoot_skull.play()
 
-	shoot_skull.play()
+	# repeat until skull shot
+	await get_tree().create_timer(10.0).timeout
+	while not skip_tutorial:
+		shoot_skull.play()
+		await get_tree().create_timer(20.0).timeout
+	
 	
 func _shot_first_arrow():
 	if not has_tutorial_started:

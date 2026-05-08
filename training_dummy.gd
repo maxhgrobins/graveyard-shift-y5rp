@@ -16,6 +16,8 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	
 	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes:
 		$Rig_Medium/Skeleton3D/Skeleton_Minion_Eyes.queue_free()
+	if $Rig_Medium/Skeleton3D/Skeleton_Minion_Jaw:
+		$Rig_Medium/Skeleton3D/Skeleton_Minion_Jaw.queue_free()
 
 	$Rig_Medium/Skeleton3D/Skeleton_Minion_Head.visible = false
 	$Rig_Medium/Skeleton3D/HeadAttach/HeadArea.process_mode = Node.PROCESS_MODE_DISABLED
@@ -23,5 +25,4 @@ func _die(_amount, zone, impact_vector : Vector3) -> void:
 	
 	SignalBus.dummy_killed.emit()
 	
-	await get_tree().create_timer(6.0).timeout
-	queue_free()
+	
