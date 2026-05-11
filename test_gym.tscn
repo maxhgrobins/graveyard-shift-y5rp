@@ -78,13 +78,19 @@ material = SubResource("StandardMaterial3D_5vw27")
 [node name="Player" parent="." unique_id=1709107786 instance=ExtResource("4_du3nd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.902578, 0.6871306)
 
+[node name="DangerIndicator" parent="Player/XRCamera3D" parent_id_path=PackedInt32Array(1709107786, 4591853) index="3" unique_id=1370126165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ArrowLabel" parent="Player/XRCamera3D/DangerIndicator" index="0" unique_id=1851524225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1)
+
 [node name="LeftHand" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="0" unique_id=1677605874]
 visible = false
 
-[node name="dyanmic_bow" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="2" unique_id=1492525915]
+[node name="dyanmic_bow" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="1" unique_id=1492525915]
 visible = true
 
-[node name="LeftHandArea" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="3" unique_id=584047538]
+[node name="LeftHandArea" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="2" unique_id=584047538]
 visible = false
 collision_layer = 0
 collision_mask = 0

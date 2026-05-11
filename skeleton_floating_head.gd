@@ -9,15 +9,18 @@ func _process_behavior(delta: float):
 	time_alive += delta
 	if not target_player: return
 
-	var _forward_dir = global_position.direction_to(target_player.global_position).normalized()
+	# move down to offset the fac that the head is just a skeleton with body hidden
+	var _player_pos = target_player.global_position - Vector3(0,1.35,0)
+	
+	var _forward_dir = global_position.direction_to(_player_pos).normalized()
 	var _right_dir = _forward_dir.cross(Vector3.UP).normalized()
 	var _weave_offset = _right_dir * sin(time_alive * frequency) * amplitude * delta
 	
 	global_position += (_forward_dir * move_speed * delta) + _weave_offset
 	
-	look_at(target_player.global_position, Vector3.UP)
+	look_at(_player_pos , Vector3.UP)
 	
-	if target_player.global_position.distance_to(global_position) < 1.0:
+	if _player_pos.distance_to(global_position) < 1.0:
 		SignalBus.change_health.emit(-1, self)
 
 func _knockdown(duration):

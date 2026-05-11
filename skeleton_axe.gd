@@ -6,7 +6,6 @@ extends BaseSkeleton
 @export var vertical_chance : float = 0.5
 
 func _ready() -> void:
-	add_to_group("enemy_projectiles")
 	super()
 	var _throw_timer = Timer.new()
 	_throw_timer = Timer.new()
@@ -45,4 +44,5 @@ func _on_throw():
 		_axe.shooter_collider = $Rig_Medium/Skeleton3D/HeadAttach/HeadArea
 		_axe.launch(throw_force)
 		
-	_axe.add_to_group("enemy_projectiles")
+	_axe.add_to_group("enemy_projectiles")	# for clearing
+	_axe.add_to_group("enemy")	# for danger indicator

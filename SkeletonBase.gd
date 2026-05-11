@@ -102,8 +102,6 @@ func _critical_hit() -> void:
 		anim_tree.travel("Crit")
 	$CritSound.play()
 	
-	if anim_tree:
-		anim_tree.travel("Walk")
 	# wait for anim
 	await get_tree().create_timer(1.5).timeout
 	crit_queue -= 1
@@ -142,6 +140,8 @@ func _knockdown(duration) -> void:
 func _die(_amount, zone, impact_vector : Vector3) -> void:
 	if is_dead: return
 	is_dead = true
+	
+	remove_from_group("enemy")	# stop tracking in damage indicator
 	
 	SignalBus.skeleton_killed.emit()
 	GameStats.skeletons_killed += 1

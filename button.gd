@@ -36,7 +36,10 @@ func grow() -> void:
 	_tween.tween_property(self, "scale", Vector3.ONE, 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	_tween.tween_property(self, "spin_speed", _original_spin_speed, 0.2)
 
-func shrink_and_clear() -> void:
+func shrink_and_clear(delay : float = 0.0) -> void:
+	await get_tree().create_timer(delay).timeout 
+	set_deferred("monitoring", false)
+	$CollisionShape3D.disabled = true
 	var _tween = create_tween().set_parallel(true)
 	_tween.tween_property(self, "scale", Vector3(0.001, 0.001, 0.001), 0.2).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	_tween.tween_property(self, "spin_speed", spin_speed * 10.0, 0.2)
@@ -78,6 +81,7 @@ func _check_for_input() -> void:
 func _trigger_action() -> void:
 	button_pressed.emit(button_name)
 	set_deferred("monitoring", false)
+	$CollisionShape3D.disabled = true
 	
 	if hovering_hand is XRController3D:
 		var _hand_side = "left_hand" if "left" in hovering_hand.name.to_lower() else "right_hand"

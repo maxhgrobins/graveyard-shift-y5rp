@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_a0yk4"]
 size = Vector3(0.7919922, 0.044921875, 1.0854492)
 
-[node name="ProjectileAxe" type="Node3D" unique_id=2045307393]
+[node name="ProjectileAxe" type="Node3D" unique_id=2045307393 groups=["enemy", "enemy_projectiles"]]
 script = ExtResource("1_a0yk4")
 
 [node name="StickPoint" type="Marker3D" parent="." unique_id=1961490396]
@@ -28,7 +28,7 @@ shape = SubResource("BoxShape3D_a0yk4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=984598391]
 stream = ExtResource("3_dusnk")
-volume_db = 30.0
+volume_db = 60.0
 max_db = 6.0
 autoplay = true
-bus = &"SFX"
+bus = &"enemy sounds"

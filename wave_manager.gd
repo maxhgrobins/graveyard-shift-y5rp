@@ -106,17 +106,15 @@ func clean_up_spawns(knockdown: bool = false):
 	# clear 'em
 	_enemies.shuffle()
 	for _enemy : Node3D in _enemies:
+		await get_tree().create_timer(0.3).timeout
+		
 		if not is_instance_valid(_enemy):
 			continue
 			
 		if _enemy is BaseSkeleton and knockdown:
-			## TODO: if doesnt get knockdown, default to die?
-			## 0 is dont get up
 			_enemy._die(100, HitData.Zone.BODY, Vector3.ZERO)
 		else:
 			if is_instance_valid(_enemy): _enemy.queue_free()
-			
-		await get_tree().create_timer(0.3).timeout
 
 
 func clear_all_projectiles():

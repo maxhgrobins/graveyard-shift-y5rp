@@ -24,10 +24,8 @@ func generate_shop() -> void:
 func _on_upgrade_selected(type: String):
 	upgrade_selected.emit(type)
 	
-	await get_tree().create_timer(2.0).timeout 
-	
 	for child in spawn_point_container.get_children():
 		if child.get_child_count() > 0:
 			var _button = child.get_child(0)
 			if _button is FloatingButton:
-				_button.shrink_and_clear()
+				_button.shrink_and_clear(2.0)
