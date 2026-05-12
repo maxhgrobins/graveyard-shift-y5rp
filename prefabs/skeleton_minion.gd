@@ -5,7 +5,7 @@ var is_attacking: bool = false
 func _process_behavior(delta: float):
 	if is_attacking:
 		return
-	if anim_tree and anim_tree.get_current_node() != "Walk":
+	if anim_tree and (anim_tree.get_current_node() != "Walk" and anim_tree.get_current_node() != "Idle"):
 		return
 
 	var _parent = get_parent()
@@ -27,4 +27,5 @@ func _attack():
 	
 func _deal_damage():
 	SignalBus.change_health.emit(-1, self)
+	await get_tree().create_timer(3.0).timeout
 	

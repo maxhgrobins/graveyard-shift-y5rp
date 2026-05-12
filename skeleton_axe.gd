@@ -46,3 +46,5 @@ func _on_throw():
 		
 	_axe.add_to_group("enemy_projectiles")	# for clearing
 	_axe.add_to_group("enemy")	# for danger indicator
+	
+	_axe.target_player = target_player

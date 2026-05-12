@@ -5,6 +5,8 @@ extends BaseSkeleton
 
 var time_alive : float = 0.0
 
+var dealt_damage : bool = false
+
 func _process_behavior(delta: float):
 	time_alive += delta
 	if not target_player: return
@@ -20,8 +22,9 @@ func _process_behavior(delta: float):
 	
 	look_at(_player_pos , Vector3.UP)
 	
-	if _player_pos.distance_to(global_position) < 1.0:
+	if _player_pos.distance_to(global_position) < 1.0 and not dealt_damage:
 		SignalBus.change_health.emit(-1, self)
+		dealt_damage = true
 
 func _knockdown(duration):
 	## TODO Decide how to pass this info around properly
