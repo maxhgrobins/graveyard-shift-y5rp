@@ -75,41 +75,6 @@ use_collision = true
 size = Vector3(0.4, 0.7, 0.4)
 material = SubResource("StandardMaterial3D_5vw27")
 
-[node name="Player" parent="." unique_id=1709107786 instance=ExtResource("4_du3nd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.37215546, 0.902578, 0.6871306)
-
-[node name="XRCamera3D" parent="Player" index="0" unique_id=4591853]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4212961, 1.8000001, 0.23727798)
-
-[node name="DangerIndicator" parent="Player/XRCamera3D" index="3" unique_id=1370126165]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="ArrowLabel" parent="Player/XRCamera3D/DangerIndicator" index="0" unique_id=1851524225]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -1)
-
-[node name="LeftHand" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="0" unique_id=1677605874]
-visible = false
-
-[node name="dyanmic_bow" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="1" unique_id=1492525915]
-transform = Transform3D(1, 0, 0, 0, 0.6639262, 0.7477981, 0, -0.7477981, 0.6639262, 3.4212961, -0.013282657, 0.26694214)
-visible = true
-
-[node name="LeftHandArea" parent="Player/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="2" unique_id=584047538]
-visible = false
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-monitorable = false
-
-[node name="RightHand" parent="Player/right hand controller" parent_id_path=PackedInt32Array(1709107786, 1507010973) index="0" unique_id=823422716]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.421296, 0, 0.23727798)
-
-[node name="CollisionShape3D" parent="Player/right hand controller/RightHandArea" parent_id_path=PackedInt32Array(1709107786, 442000693) index="0" unique_id=1558289753]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4413764, -0.032318115, 0.3086586)
-
-[node name="hit_sfx" parent="Player" index="5" unique_id=461252786]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.4212961, 1.9046816, 0.4612733)
-
 [node name="Skeleton_Minion6" parent="." unique_id=616224305 node_paths=PackedStringArray("target_player") instance=ExtResource("5_jg1yd")]
 transform = Transform3D(-0.4582617, 0, -0.8888173, 0, 1, 0, 0.8888173, 0, -0.4582617, -7.772091, -2.3841858e-07, -1.6926153)
 target_player = NodePath("../CSGBox3D")
@@ -212,11 +177,32 @@ transform = Transform3D(1.0000001, 0, -4.656613e-10, -2.9802322e-08, 1, -1.88592
 
 [node name="Skeleton_Minion2" parent="." unique_id=1699985026 node_paths=PackedStringArray("target_player") instance=ExtResource("10_jg1yd")]
 transform = Transform3D(-0.8071974, 0, -0.5902816, 0, 1, 0, 0.5902816, 0, -0.8071974, -5.2354364, 0.23013163, -3.442733)
-target_player = NodePath("../Player/XRCamera3D")
+target_player = NodePath("")
 
 [node name="dyanmic_bow" parent="." unique_id=1984749848 node_paths=PackedStringArray("TEST_HAND") instance=ExtResource("11_cqpx3")]
 transform = Transform3D(1, 0, 0, 0, 0.6639262, 0.7477981, 0, -0.7477981, 0.6639262, 1.5271125, 1.1522162, 0.26694214)
 nock_lerp_speed = 25.0
-TEST_HAND = NodePath("../Player/right hand controller")
+TEST_HAND = NodePath("")
 
-[editable path="Player"]
+[node name="XROrigin3D" parent="." unique_id=1709107786 instance=ExtResource("4_du3nd")]
+
+[node name="LeftHand" parent="XROrigin3D/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="0" unique_id=1677605874]
+visible = false
+
+[node name="dyanmic_bow" parent="XROrigin3D/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="1" unique_id=1492525915]
+visible = true
+
+[node name="LeftHandArea" parent="XROrigin3D/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="2" unique_id=584047538]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" parent="XROrigin3D/left hand controller/LeftHandArea" index="0" unique_id=1074535983]
+visible = false
+disabled = true
+
+[node name="MovementDirect" parent="XROrigin3D/left hand controller" parent_id_path=PackedInt32Array(1709107786, 1213029828) index="3" unique_id=682386538]
+strafe = true
+enabled = true
+
+[editable path="XROrigin3D"]

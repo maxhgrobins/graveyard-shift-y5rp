@@ -36,6 +36,10 @@ GameStats="*uid://crpyjr0683m0j"
 settings/addon_root_folder="res://addons/debug_draw_3d"
 settings/3d/volumetric_defaults/thickness=0.0
 
+[display]
+
+window/size/mode=3
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg", "res://addons/gridmap-converter/plugin.cfg")
