@@ -24,12 +24,13 @@ func _physics_process(delta: float) -> void:
 	# create ray
 	var _space_state = get_world_3d().direct_space_state
 	var _query = PhysicsRayQueryParameters3D.create(stick_point.global_position, _next_position)
+	
+	# do not collide with the shooter (e.g. bow, axe skeleton)
 	if shooter_collider:
 		_query.exclude = [shooter_collider]
 	_query.collide_with_areas = true
 	
 	var _result = _space_state.intersect_ray(_query)
-
 	if _result :
 		_on_impact(_result)
 	else:

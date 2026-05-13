@@ -21,10 +21,12 @@ func _process(_delta):
 	var _to_target = (_closest_target.global_position - camera.global_position).normalized()
 	var _dot = -camera.global_transform.basis.z.dot(_to_target)
 
+	# if danger is outside of playter FOV
 	if _dot < 0.7:
 		visible = true
 		
-		var _local_target = camera.global_transform.affine_inverse() * _closest_target.global_position
+		# where is enemy relative to camera
+		var _local_target = camera.to_local(_closest_target.global_position)
 		var _direction = Vector2(_local_target.x, _local_target.y).normalized()
 		
 		var _radius = 0.5

@@ -99,16 +99,16 @@ func game_over():
 
 
 func highlight_killer(enemy: Node3D):	
-	var overlay_mat = StandardMaterial3D.new()
-	overlay_mat.no_depth_test = true 
+	var _overlay_mat = StandardMaterial3D.new()
+	_overlay_mat.no_depth_test = true 
 	
-	overlay_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED 
-	overlay_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	overlay_mat.render_priority = 100
-	overlay_mat.albedo_color = Color(1.0, 0.0, 0.0, 0.8)
+	_overlay_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED 
+	_overlay_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_overlay_mat.render_priority = 100
+	_overlay_mat.albedo_color = Color(1.0, 0.0, 0.0, 0.8)
 	
-	for child in enemy.find_children("*", "MeshInstance3D"):
-		child.material_overlay = overlay_mat
+	for _child in enemy.find_children("*", "MeshInstance3D"):
+		_child.material_overlay = _overlay_mat
 		
 		
 func spawn_game_over_text(tween: Tween, is_win : bool):
